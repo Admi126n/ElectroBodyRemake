@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     float jumpSpeed = 5f;
 
     Vector2 moveInput;
+    float jumpInput;
     Vector2 playerVelocity;
     Rigidbody2D myRigidbody;
     Animator bodyAnimator;
@@ -19,7 +20,6 @@ public class Player : MonoBehaviour
     BoxCollider2D bodyCollider;
 
     bool hasGun = false;
-    bool shouldStopAfterLanding = false;
 
     void Start()
     {
@@ -33,55 +33,39 @@ public class Player : MonoBehaviour
     void Update()
     {
         Move();
+        Jump();
         SetJumpAnim();
         FlipSprite();
     }
 
     void OnMove(InputValue value)
     {
-        if (feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
-        {
-            moveInput = value.Get<Vector2>();
-        } else if (value.Get<Vector2>().x == 0)
-        {
-            shouldStopAfterLanding = true;
-        } else
-        {
-            shouldStopAfterLanding = false;
-        }
+        moveInput = value.Get<Vector2>();
     }
 
     /*
      * FIXME:
-     * - when you jump left and during flight press right arrow player should immediately go right
+     * - when you jump left and during flight press right arrow player should immediately go right  DONE
      * - when you are pressing left/right arrow and up arrow you should continuously jump and jump
      * - when you jump left and during flight press right and up arrows player should immediately jump right
      */
 
     private void Move()
     {
-        if (feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) && bodyAnimator.GetBool("Jump") && shouldStopAfterLanding)
+        if (feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
-            moveInput = new(0f, 0f);
-            shouldStopAfterLanding = false;
-        } else
-        {
-            if (hasGun)
-            {
-                playerVelocity = new(moveInput.x * walkSpeed, myRigidbody.velocity.y);
-            }
-            else
-            {
-                playerVelocity = new(moveInput.x * runSpeed, myRigidbody.velocity.y);
-            }
-
+            playerVelocity = new(moveInput.x * walkSpeed, myRigidbody.velocity.y);
             myRigidbody.velocity = playerVelocity;
 
-            // bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
             bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > 0.01f;
-            // Debug.Log(IsMoving());
             bodyAnimator.SetBool("Walk", playerHasHorizontalSpeed);
             armsAnimator.SetBool("Walk", playerHasHorizontalSpeed);
+        }
+        else
+        {
+            myRigidbody.velocity = new(playerVelocity.x, myRigidbody.velocity.y);
+            bodyAnimator.SetBool("Walk", false);
+            armsAnimator.SetBool("Walk", false);
         }
     }
 
@@ -97,6 +81,10 @@ public class Player : MonoBehaviour
         // speed -1.754443E-15 in opposite direction so player sprite is flipping and flipping.
         // Comparing to 0.01 works fine.
         // bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
+
+        // block moving
+        // play flip anim
+        // unblock moving
 
         bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > 0.01f;
 
@@ -123,10 +111,14 @@ public class Player : MonoBehaviour
 
     void OnJump(InputValue value)
     {
-        if (!feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) return;
-        if (value.isPressed)
+        jumpInput = jumpSpeed * value.Get<Vector2>().y;
+    }
+
+    private void Jump()
+    {
+        if (feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
-            myRigidbody.velocity += new Vector2(0f, jumpSpeed);
+            myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, jumpInput);
         }
     }
 
