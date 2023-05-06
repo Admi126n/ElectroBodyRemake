@@ -7,8 +7,8 @@ public class Player : MonoBehaviour
 {
     [Header("Move speed")]
     float walkSpeed = 3f;
-    float runSpeed = 4f;
-    float jumpSpeed = 5f;
+    // float runSpeed = 4f;
+    [SerializeField] float jumpSpeed = 6.25f;
 
     Vector2 moveInput;
     float jumpInput;
@@ -17,15 +17,15 @@ public class Player : MonoBehaviour
     Animator bodyAnimator;
     Animator armsAnimator;
     CapsuleCollider2D feetCollider;
-    BoxCollider2D bodyCollider;
+    // BoxCollider2D bodyCollider;
 
-    bool hasGun = false;
+    // bool hasGun = false;
 
     void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         bodyAnimator = GetComponent<Animator>();
-        bodyCollider = GetComponent<BoxCollider2D>();
+        // bodyCollider = GetComponent<BoxCollider2D>();
         feetCollider = GetComponent<CapsuleCollider2D>();
         armsAnimator = gameObject.transform.GetChild(0).GetComponent<Animator>();
     }
@@ -41,14 +41,12 @@ public class Player : MonoBehaviour
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
-    }
 
-    /*
-     * FIXME:
-     * - when you jump left and during flight press right arrow player should immediately go right  DONE
-     * - when you are pressing left/right arrow and up arrow you should continuously jump and jump
-     * - when you jump left and during flight press right and up arrows player should immediately jump right
-     */
+        if (moveInput.x != 0 && Mathf.Sign(moveInput.x) == Mathf.Sign(transform.localScale.x))
+        {
+            bodyAnimator.SetTrigger("Flip");
+        }
+    }
 
     private void Move()
     {
@@ -74,7 +72,6 @@ public class Player : MonoBehaviour
         return true;
     }
 
-
     private void FlipSprite()
     {
         // I don't know why but when I start using tilemaps after stop moving player has
@@ -83,12 +80,22 @@ public class Player : MonoBehaviour
         // bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
 
         // block moving
-        // play flip anim
+        // play flip anim - DONE
         // unblock moving
+
+        if (feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        {
+            // moveinput.x > 0 -> move right
+            // moveInput.x < 0 -> move left
+            // transform.localScale.x > 0 -> facing left
+            // transform.localScale.x < 0 -> facing right
+        }
+
+
 
         bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > 0.01f;
 
-        if (playerHasHorizontalSpeed)
+        if (playerHasHorizontalSpeed && feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
             transform.localScale = new Vector2(-Mathf.Sign(myRigidbody.velocity.x), 1f);
         }
