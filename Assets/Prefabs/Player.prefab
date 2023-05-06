@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 7293255137352423862}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.5310795, y: 0.4713763, z: 0.07808394}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7293255137369337015}
@@ -217,6 +217,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 971b7851773cc2e41aa616104d63e3d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  walkSpeed: 3.05
+  jumpSpeed: 6.26
 --- !u!114 &1972753946
 MonoBehaviour:
   m_ObjectHideFlags: 0

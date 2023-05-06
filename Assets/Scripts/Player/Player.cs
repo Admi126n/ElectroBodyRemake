@@ -6,9 +6,9 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     [Header("Move speed")]
-    float walkSpeed = 3f;
+    [SerializeField] float walkSpeed = 3f;
     // float runSpeed = 4f;
-    [SerializeField] float jumpSpeed = 6.25f;
+    [SerializeField] float jumpSpeed = 6.2f;
 
     Vector2 moveInput;
     float jumpInput;
@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     Animator armsAnimator;
     CapsuleCollider2D feetCollider;
     // BoxCollider2D bodyCollider;
+    SpriteRenderer armsRenderer;
 
     // bool hasGun = false;
 
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour
         // bodyCollider = GetComponent<BoxCollider2D>();
         feetCollider = GetComponent<CapsuleCollider2D>();
         armsAnimator = gameObject.transform.GetChild(0).GetComponent<Animator>();
+        armsRenderer = gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -36,6 +38,7 @@ public class Player : MonoBehaviour
         Jump();
         SetJumpAnim();
         FlipSprite();
+        StopMovingWhileFlipping();
     }
 
     void OnMove(InputValue value)
@@ -45,6 +48,20 @@ public class Player : MonoBehaviour
         if (moveInput.x != 0 && Mathf.Sign(moveInput.x) == Mathf.Sign(transform.localScale.x))
         {
             bodyAnimator.SetTrigger("Flip");
+        }
+    }
+
+    void StopMovingWhileFlipping()
+    {
+        AnimatorClipInfo[] currClipInfo = bodyAnimator.GetCurrentAnimatorClipInfo(0);
+        string name = currClipInfo[0].clip.name;
+        if (name == "bodyNoGunFlip" || name == "bodyGunFlip")
+        {
+            armsRenderer.gameObject.SetActive(false);
+            myRigidbody.velocity = new(0f, myRigidbody.velocity.y);
+        } else
+        {
+            armsRenderer.gameObject.SetActive(true);
         }
     }
 
@@ -61,38 +78,23 @@ public class Player : MonoBehaviour
         }
         else
         {
-            myRigidbody.velocity = new(playerVelocity.x, myRigidbody.velocity.y);
+            myRigidbody.velocity = new(playerVelocity.x, myRigidbody.velocity.y);  // <- mozliwe zrodlo bledu z postacia ktora 'utyka' w animacji skoku
             bodyAnimator.SetBool("Walk", false);
             armsAnimator.SetBool("Walk", false);
         }
     }
 
-    private bool IsMoving()
-    {
-        return true;
-    }
-
     private void FlipSprite()
     {
+        // moveinput.x > 0 -> move right
+        // moveInput.x < 0 -> move left
+        // transform.localScale.x > 0 -> facing left
+        // transform.localScale.x < 0 -> facing right
+
         // I don't know why but when I start using tilemaps after stop moving player has
         // speed -1.754443E-15 in opposite direction so player sprite is flipping and flipping.
         // Comparing to 0.01 works fine.
         // bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
-
-        // block moving
-        // play flip anim - DONE
-        // unblock moving
-
-        if (feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
-        {
-            // moveinput.x > 0 -> move right
-            // moveInput.x < 0 -> move left
-            // transform.localScale.x > 0 -> facing left
-            // transform.localScale.x < 0 -> facing right
-        }
-
-
-
         bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > 0.01f;
 
         if (playerHasHorizontalSpeed && feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
