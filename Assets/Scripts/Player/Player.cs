@@ -6,9 +6,9 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     [Header("Move speed")]
-    [SerializeField] float walkSpeed = 3f;
+    [SerializeField] float walkSpeed = 3.05f;
     // float runSpeed = 4f;
-    [SerializeField] float jumpSpeed = 6.2f;
+    [SerializeField] float jumpSpeed = 6.26f;
 
     Vector2 moveInput;
     float jumpInput;
@@ -17,21 +17,23 @@ public class Player : MonoBehaviour
     Animator bodyAnimator;
     Animator armsAnimator;
     CapsuleCollider2D feetCollider;
-    // BoxCollider2D bodyCollider;
+    BoxCollider2D bodyCollider;
     SpriteRenderer armsRenderer;
+
+    AudioPlayer audioPlayer;
 
     // bool hasGun = false;
 
     void Start()
     {
+        audioPlayer = FindObjectOfType<AudioPlayer>();
         myRigidbody = GetComponent<Rigidbody2D>();
         bodyAnimator = GetComponent<Animator>();
-        // bodyCollider = GetComponent<BoxCollider2D>();
+        bodyCollider = GetComponent<BoxCollider2D>();
         feetCollider = GetComponent<CapsuleCollider2D>();
         armsAnimator = gameObject.transform.GetChild(0).GetComponent<Animator>();
         armsRenderer = gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
     }
-
     void Update()
     {
         Move();
@@ -39,6 +41,16 @@ public class Player : MonoBehaviour
         SetJumpAnim();
         FlipSprite();
         StopMovingWhileFlipping();
+        StopWalkAnim();
+    }
+
+    void StopWalkAnim()
+    {
+        if (bodyCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        {
+            bodyAnimator.SetBool("Walk", false);
+            armsAnimator.SetBool("Walk", false);
+        }
     }
 
     void OnMove(InputValue value)
@@ -67,18 +79,24 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        if (feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        if (feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) || myRigidbody.velocity.y == 0)
         {
             playerVelocity = new(moveInput.x * walkSpeed, myRigidbody.velocity.y);
             myRigidbody.velocity = playerVelocity;
 
             bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > 0.01f;
+
+            if (playerHasHorizontalSpeed && !bodyCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+            {
+                audioPlayer.PlayWalkClip(myRigidbody.transform.position);
+            }
+
             bodyAnimator.SetBool("Walk", playerHasHorizontalSpeed);
             armsAnimator.SetBool("Walk", playerHasHorizontalSpeed);
         }
         else
         {
-            myRigidbody.velocity = new(playerVelocity.x, myRigidbody.velocity.y);  // <- mozliwe zrodlo bledu z postacia ktora 'utyka' w animacji skoku
+            myRigidbody.velocity = new(playerVelocity.x, myRigidbody.velocity.y);
             bodyAnimator.SetBool("Walk", false);
             armsAnimator.SetBool("Walk", false);
         }
@@ -109,12 +127,17 @@ public class Player : MonoBehaviour
         {
             if (bodyAnimator.GetBool("Jump"))
             {
+                audioPlayer.PlayLandingClip(myRigidbody.transform.position);
                 armsAnimator.SetTrigger("Landed");
             }
             bodyAnimator.SetBool("Jump", false);
         } else
         {
-            bodyAnimator.SetBool("Jump", true);
+            if (!bodyAnimator.GetBool("Jump"))
+            {
+                audioPlayer.PlayJumpClip(myRigidbody.transform.position);
+                bodyAnimator.SetBool("Jump", true);
+            }
         }
     }
 
