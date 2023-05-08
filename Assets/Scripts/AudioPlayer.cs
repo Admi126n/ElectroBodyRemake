@@ -9,9 +9,9 @@ public class AudioPlayer : MonoBehaviour
     [SerializeField] AudioClip jumpingClip;
     [SerializeField] AudioClip walkingClip;
 
-    float landingVolume = 5f;
-    float jumpingVolume = 5f;
-    float walkingVolume = 5f;
+    float landingVolume = 1f;
+    float jumpingVolume = 1f;
+    float walkingVolume = 1f;
 
     static AudioPlayer instance;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public class PlayerController: MonoBehaviour
 {
     [Header("Move speed")]
     [SerializeField] float walkSpeed = 3.05f;
@@ -41,10 +41,10 @@ public class Player : MonoBehaviour
         SetJumpAnim();
         FlipSprite();
         StopMovingWhileFlipping();
-        StopWalkAnim();
+        StopWalkAnimOnWallCollission();
     }
 
-    void StopWalkAnim()
+    void StopWalkAnimOnWallCollission()
     {
         if (bodyCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
@@ -69,6 +69,7 @@ public class Player : MonoBehaviour
         string name = currClipInfo[0].clip.name;
         if (name == "bodyNoGunFlip" || name == "bodyGunFlip")
         {
+            // FIXME: change armsRenderer alpha instead of deactivating componenet
             armsRenderer.gameObject.SetActive(false);
             myRigidbody.velocity = new(0f, myRigidbody.velocity.y);
         } else
