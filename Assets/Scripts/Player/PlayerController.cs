@@ -7,22 +7,39 @@ public class PlayerController: MonoBehaviour
 {
     [Header("Move speed")]
     [SerializeField] float walkSpeed = 3.05f;
-    // float runSpeed = 4f;
+    [SerializeField] float runSpeed = 4f;
     [SerializeField] float jumpSpeed = 6.26f;
 
     Vector2 moveInput;
-    float jumpInput;
     Vector2 playerVelocity;
     Rigidbody2D myRigidbody;
     Animator bodyAnimator;
-    Animator armsAnimator;
     CapsuleCollider2D feetCollider;
     BoxCollider2D bodyCollider;
-    SpriteRenderer armsRenderer;
-
     AudioPlayer audioPlayer;
+    PlayerAnimator playerAnimator;
 
-    // bool hasGun = false;
+    bool hasGun = false;
+    float jumpInput;
+    float moveSpeed;
+
+    private bool PlayerIsOnTheGround
+    {
+        get 
+        { 
+            return feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) || myRigidbody.velocity.y == 0;
+        }
+    }
+
+    private bool PlayerIsFlipping
+    {
+        get 
+        { 
+            AnimatorClipInfo[] currClipInfo = bodyAnimator.GetCurrentAnimatorClipInfo(0);
+            string name = currClipInfo[0].clip.name;
+            return (name == "bodyNoGunFlip" || name == "bodyGunFlip");
+        }
+    }
 
     void Start()
     {
@@ -31,9 +48,9 @@ public class PlayerController: MonoBehaviour
         bodyAnimator = GetComponent<Animator>();
         bodyCollider = GetComponent<BoxCollider2D>();
         feetCollider = GetComponent<CapsuleCollider2D>();
-        armsAnimator = gameObject.transform.GetChild(0).GetComponent<Animator>();
-        armsRenderer = gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        playerAnimator = GetComponent<PlayerAnimator>();
     }
+
     void Update()
     {
         Move();
@@ -44,77 +61,57 @@ public class PlayerController: MonoBehaviour
         StopWalkAnimOnWallCollission();
     }
 
-    void StopWalkAnimOnWallCollission()
+    private void StopWalkAnimOnWallCollission()
     {
         if (bodyCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
-            bodyAnimator.SetBool("Walk", false);
-            armsAnimator.SetBool("Walk", false);
+            playerAnimator.SetWalkBools(false);
         }
     }
 
-    void OnMove(InputValue value)
+    private void StopMovingWhileFlipping()
     {
-        moveInput = value.Get<Vector2>();
-
-        if (moveInput.x != 0 && Mathf.Sign(moveInput.x) == Mathf.Sign(transform.localScale.x))
+        if (PlayerIsFlipping)
         {
-            bodyAnimator.SetTrigger("Flip");
-        }
-    }
-
-    void StopMovingWhileFlipping()
-    {
-        AnimatorClipInfo[] currClipInfo = bodyAnimator.GetCurrentAnimatorClipInfo(0);
-        string name = currClipInfo[0].clip.name;
-        if (name == "bodyNoGunFlip" || name == "bodyGunFlip")
-        {
-            // FIXME: change armsRenderer alpha instead of deactivating componenet
-            armsRenderer.gameObject.SetActive(false);
+            playerAnimator.SetArmsAlpha(0f);
             myRigidbody.velocity = new(0f, myRigidbody.velocity.y);
         } else
         {
-            armsRenderer.gameObject.SetActive(true);
+            playerAnimator.SetArmsAlpha(1f);
         }
     }
 
     private void Move()
     {
-        if (feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) || myRigidbody.velocity.y == 0)
+        if (PlayerIsOnTheGround)
         {
-            playerVelocity = new(moveInput.x * walkSpeed, myRigidbody.velocity.y);
+            moveSpeed = hasGun ? walkSpeed : runSpeed;  // TODO: set it with hasGun bool
+
+            playerVelocity = new(moveInput.x *  moveSpeed, myRigidbody.velocity.y);
             myRigidbody.velocity = playerVelocity;
 
-            bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > 0.01f;
+            bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
+            playerAnimator.SetWalkBools(playerHasHorizontalSpeed);
 
             if (playerHasHorizontalSpeed && !bodyCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
             {
                 audioPlayer.PlayWalkClip(myRigidbody.transform.position);
             }
-
-            bodyAnimator.SetBool("Walk", playerHasHorizontalSpeed);
-            armsAnimator.SetBool("Walk", playerHasHorizontalSpeed);
         }
         else
         {
             myRigidbody.velocity = new(playerVelocity.x, myRigidbody.velocity.y);
-            bodyAnimator.SetBool("Walk", false);
-            armsAnimator.SetBool("Walk", false);
+            playerAnimator.SetWalkBools(false);
         }
     }
 
     private void FlipSprite()
     {
-        // moveinput.x > 0 -> move right
-        // moveInput.x < 0 -> move left
-        // transform.localScale.x > 0 -> facing left
-        // transform.localScale.x < 0 -> facing right
-
-        // I don't know why but when I start using tilemaps after stop moving player has
+        // I don't know why but when I start using tilemaps after stop moving sometimes player has
         // speed -1.754443E-15 in opposite direction so player sprite is flipping and flipping.
-        // Comparing to 0.01 works fine.
-        // bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
-        bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > 0.01f;
+        // Comparing to 0.01 works fine. But problem now doesn't occur. I leave it here just in case.
+        // bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > 0.01f;
+        bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
 
         if (playerHasHorizontalSpeed && feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
@@ -129,22 +126,17 @@ public class PlayerController: MonoBehaviour
             if (bodyAnimator.GetBool("Jump"))
             {
                 audioPlayer.PlayLandingClip(myRigidbody.transform.position);
-                armsAnimator.SetTrigger("Landed");
+                playerAnimator.TriggerArmsLanding();
             }
-            bodyAnimator.SetBool("Jump", false);
+            playerAnimator.SetJumpBool(false);
         } else
         {
             if (!bodyAnimator.GetBool("Jump"))
             {
                 audioPlayer.PlayJumpClip(myRigidbody.transform.position);
-                bodyAnimator.SetBool("Jump", true);
+                playerAnimator.SetJumpBool(true);
             }
         }
-    }
-
-    void OnJump(InputValue value)
-    {
-        jumpInput = jumpSpeed * value.Get<Vector2>().y;
     }
 
     private void Jump()
@@ -153,6 +145,21 @@ public class PlayerController: MonoBehaviour
         {
             myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, jumpInput);
         }
+    }
+
+    void OnMove(InputValue value)
+    {
+        moveInput = value.Get<Vector2>();
+
+        if (moveInput.x != 0 && Mathf.Sign(moveInput.x) == Mathf.Sign(transform.localScale.x))
+        {
+            playerAnimator.TriggerBodyFlipping();
+        }
+    }
+
+    void OnJump(InputValue value)
+    {
+        jumpInput = jumpSpeed * value.Get<Vector2>().y;
     }
 
     void OnTeleport()

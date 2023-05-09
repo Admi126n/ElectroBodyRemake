@@ -61,6 +61,7 @@ public class AudioPlayer : MonoBehaviour
         }
     }
 
+    // TODO: argument moveSpeed and set WaitForSeconds depending on this value
     IEnumerator StopPlaying()
     {
         yield return new WaitForSeconds(0.3f);
