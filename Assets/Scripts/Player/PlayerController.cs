@@ -19,9 +19,23 @@ public class PlayerController: MonoBehaviour
     AudioPlayer audioPlayer;
     PlayerAnimator playerAnimator;
 
-    bool hasGun = false;
+    private bool hasGun = false;
     float jumpInput;
     float moveSpeed;
+
+    public bool HasGun
+    {
+        get
+        {
+            return hasGun;
+        }
+        set
+        {
+            hasGun = value;
+            moveSpeed = hasGun ? walkSpeed : runSpeed;
+            playerAnimator.SetHasGunBools(value);
+        }
+    }
 
     private bool PlayerIsOnTheGround
     {
@@ -41,7 +55,7 @@ public class PlayerController: MonoBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
         audioPlayer = FindObjectOfType<AudioPlayer>();
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -51,7 +65,7 @@ public class PlayerController: MonoBehaviour
         playerAnimator = GetComponent<PlayerAnimator>();
     }
 
-    void Update()
+    private void Update()
     {
         Move();
         Jump();
@@ -165,10 +179,5 @@ public class PlayerController: MonoBehaviour
     void OnTeleport()
     {
         Debug.Log("Teleporting...");
-    }
-
-    void OnFire()
-    {
-        Debug.Log("Fire!");
     }
 }

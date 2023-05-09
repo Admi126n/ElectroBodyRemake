@@ -26,6 +26,11 @@ public class PlayerAnimator : MonoBehaviour
         SetAnimatorsBools("Walk", value);
     }
 
+    public void SetHasGunBools(bool value)
+    {
+        SetAnimatorsBools("HasGun", value);
+    }
+
     public void SetJumpBool(bool value)
     {
         bodyAnimator.SetBool("Jump", value);
