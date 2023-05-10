@@ -7,22 +7,29 @@ public class Bullet : MonoBehaviour
     Rigidbody2D bulletRigidbody;
     PlayerController playerController;
 
-    float bulletSpeed;
+    readonly float bulletSpeed = 8;
+    float bulletDirection;
 
     void Start()
     {
         bulletRigidbody = GetComponent<Rigidbody2D>();
         playerController = FindObjectOfType<PlayerController>();
 
-        bulletSpeed = -playerController.transform.localScale.x;
+        transform.localScale = new(-playerController.transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        bulletDirection = -playerController.transform.localScale.x * bulletSpeed;
     }
 
     void Update()
     {
-        bulletRigidbody.velocity = new(bulletSpeed, 0f);
+        bulletRigidbody.velocity = new(bulletDirection, 0f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Destroy(gameObject);
+    }
+
+    public void Destroy()
     {
         Destroy(gameObject);
     }

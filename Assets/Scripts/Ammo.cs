@@ -5,21 +5,22 @@ using UnityEngine.Tilemaps;
 
 public class Ammo : MonoBehaviour
 {
-    Tilemap test;
+    Tilemap ammoTilemap;
     PlayerGunController playerGunController;
 
     private void Start()
     {
-        test = GetComponent<Tilemap>();
+        ammoTilemap = GetComponent<Tilemap>();
         playerGunController = FindObjectOfType<PlayerGunController>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && collision.GetType() == typeof(BoxCollider2D))
         {
-            Vector3Int x = test.WorldToCell(collision.gameObject.transform.position);
-            test.SetTile(x, null);
+            Vector3Int playerPosition = ammoTilemap.WorldToCell(collision.gameObject.transform.position);
+            ammoTilemap.SetTile(playerPosition, null);
+            ammoTilemap.SetTile(new(playerPosition.x, playerPosition.y - 1, playerPosition.z), null);  // needed when player jumps on the ammo
             playerGunController.PickUpAmmo();
         }
     }

@@ -5,13 +5,24 @@ using UnityEngine.InputSystem;
 
 public class PlayerGunController : MonoBehaviour
 {
+    [Header("Bullets")]
+    [SerializeField] Bullet bullet_1;
+    [SerializeField] Bullet bullet_2;
+    [SerializeField] Bullet bullet_3;
+    [SerializeField] Bullet bullet_4;
+    [SerializeField] Bullet bullet_5;
+
+    [Header("Gun")]
+    [SerializeField] Transform gun;
+
     const int WeaponAmmo1 = 5;   // 20
-    const int WeaponAmmo2 = 10;  // 20 + 15
-    const int WeaponAmmo3 = 15;  // 20 + 15 + 25
-    const int WeaponAmmo4 = 20;  // 20 + 15 + 25 + 10
-    const int WeaponAmmo5 = 25;  // 20 + 15 + 25 + 10 + 15
+    const int WeaponAmmo2 = 10;  // 35
+    const int WeaponAmmo3 = 15;  // 60
+    const int WeaponAmmo4 = 20;  // 70
+    const int WeaponAmmo5 = 25;  // 85
 
     PlayerController playerController;
+    AudioPlayer audioPlayer;
 
     private int weaponCounter = 0;
     private int ammoCounter = 0;
@@ -19,6 +30,7 @@ public class PlayerGunController : MonoBehaviour
     void Start()
     {
         playerController = GetComponent<PlayerController>();
+        audioPlayer = FindObjectOfType<AudioPlayer>();
     }
 
     private void RefillWeaponMagazine()
@@ -69,22 +81,25 @@ public class PlayerGunController : MonoBehaviour
 
     private void Fire()
     {
+        // play fire sound for each bullet
+
+        audioPlayer.PlayBulletClip(weaponCounter, gun.position);
         switch (weaponCounter)
         {
             case 1:
-                Debug.Log("Fire with 1 weapon");
+                Instantiate(bullet_1, gun.position, transform.rotation);
                 break;
             case 2:
-                Debug.Log("Fire with 2 weapon");
+                Instantiate(bullet_2, gun.position, transform.rotation);
                 break;
             case 3:
-                Debug.Log("Fire with 3 weapon");
+                Instantiate(bullet_3, gun.position, transform.rotation);
                 break;
             case 4:
-                Debug.Log("Fire with 4 weapon");
+                Instantiate(bullet_4, gun.position, transform.rotation);
                 break;
             case 5:
-                Debug.Log("Fire with 5 weapon");
+                Instantiate(bullet_5, gun.position, transform.rotation);
                 break;
         }
     }
@@ -92,8 +107,9 @@ public class PlayerGunController : MonoBehaviour
     public void PickUpAmmo()
     {
         Debug.Log("Ammo picked up");
-
+        audioPlayer.PlayAmmoPickedUpClip(playerController.transform.position);
         weaponCounter++;
+        weaponCounter = Mathf.Clamp(weaponCounter, 0, 5);
         playerController.HasGun = true;
         RefillWeaponMagazine();
     }
