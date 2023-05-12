@@ -254,7 +254,7 @@ MonoBehaviour:
   - {x: 0.11331421, y: -0.99987197, z: 0.000000052154064}
   m_ShapePathHash: 1722784493
   m_Mesh: {fileID: 0}
-  m_InstanceId: -1266
+  m_InstanceId: -1262
 --- !u!114 &3854641026364202732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,8 +267,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3aa08ab0ccf61f4cb21f2f32624a55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 3.05
-  runSpeed: 4
+  walkSpeed: 2.27
+  runSpeed: 3.21
   jumpSpeed: 7
 --- !u!114 &1346515399
 MonoBehaviour:
