@@ -27,6 +27,7 @@ public class Bullet : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Destroy(gameObject);
+        // TODO: play explosion animation and sound(in place of bullet) and then destroy object
     }
 
     public void Destroy()

@@ -81,9 +81,6 @@ public class PlayerGunController : MonoBehaviour
 
     private void Fire()
     {
-        // play fire sound for each bullet
-
-        audioPlayer.PlayBulletClip(weaponCounter, gun.position);
         switch (weaponCounter)
         {
             case 1:
@@ -106,7 +103,6 @@ public class PlayerGunController : MonoBehaviour
 
     public void PickUpAmmo()
     {
-        Debug.Log("Ammo picked up");
         audioPlayer.PlayAmmoPickedUpClip(playerController.transform.position);
         weaponCounter++;
         weaponCounter = Mathf.Clamp(weaponCounter, 0, 5);
