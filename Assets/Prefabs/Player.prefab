@@ -43,13 +43,12 @@ GameObject:
   - component: {fileID: 521705261}
   - component: {fileID: 521705262}
   - component: {fileID: 521705264}
-  - component: {fileID: 521705265}
-  - component: {fileID: 521705266}
   - component: {fileID: 1602883507}
   - component: {fileID: 1972753946}
   - component: {fileID: 3854641026364202732}
   - component: {fileID: 1346515399}
   - component: {fileID: 911059098}
+  - component: {fileID: 1300684186}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -167,48 +166,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!70 &521705265
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7293255137352423862}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0022921613, y: -0.96027756}
-  m_Size: {x: 0.2410807, y: 0.05730725}
-  m_Direction: 1
---- !u!61 &521705266
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7293255137352423862}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.021025151, y: -0.10725027}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 2}
-    newSize: {x: 0.7741935, y: 1.548387}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.28966898, y: 1.7118152}
-  m_EdgeRadius: 0
 --- !u!114 &1602883507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,7 +269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 3.05
   runSpeed: 4
-  jumpSpeed: 6.26
+  jumpSpeed: 7
 --- !u!114 &1346515399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,6 +300,32 @@ MonoBehaviour:
   bullet_4: {fileID: 6219593886467461030, guid: 48d6cea8ade4cb74987e7ac6344af675, type: 3}
   bullet_5: {fileID: 6219593886467461030, guid: cb562abe96f5b1441a53f6a2afb7682e, type: 3}
   gun: {fileID: 8009730266778336016}
+--- !u!61 &1300684186
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7293255137352423862}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.020839408, y: -0.1178433}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 0.7741935, y: 1.548387}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.29165897, y: 1.735685}
+  m_EdgeRadius: 0
 --- !u!1 &7293255137369337000
 GameObject:
   m_ObjectHideFlags: 0
