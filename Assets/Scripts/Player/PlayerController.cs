@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     BoxCollider2D bodyCollider;
     AudioPlayer audioPlayer;
     PlayerAnimator playerAnimator;
+    PlayerGunController playerGunController;
 
     private bool hasGun = false;
     float jumpInput;
@@ -36,7 +37,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     private bool PlayerIsFlipping
     {
         get
@@ -47,68 +47,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private bool IsGrounded()
-    {
-        float extraHeight = 0.01f;
-        RaycastHit2D raycastHit = Physics2D.BoxCast(bodyCollider.bounds.center, bodyCollider.bounds.size, 0f, Vector2.down, extraHeight, LayerMask.GetMask("Ground"));
-        //Color rayColor;
-        //if (raycastHit.collider != null)
-        //{
-        //    rayColor = Color.green;
-        //}
-        //else
-        //{
-        //    rayColor = Color.red;
-        //}
-
-        //Debug.DrawRay(bodyCollider.bounds.center + new Vector3(bodyCollider.bounds.extents.x, 0f), Vector2.down * (bodyCollider.bounds.extents.y + extraHeight), rayColor);
-        //Debug.DrawRay(bodyCollider.bounds.center - new Vector3(bodyCollider.bounds.extents.x, 0f), Vector2.down * (bodyCollider.bounds.extents.y + extraHeight), rayColor);
-        //Debug.DrawRay(bodyCollider.bounds.center - new Vector3(bodyCollider.bounds.extents.x, bodyCollider.bounds.extents.y + extraHeight), Vector2.right * (bodyCollider.bounds.extents.x), rayColor);
-
-        //Debug.Log(raycastHit.collider);
-
-        return raycastHit.collider != null;
-    }
-
-    private bool IsTouchingWall()
-    {
-        float extraHeight = 0.02f;
-        RaycastHit2D raycastHit;
-
-        if (transform.localScale.x < 0)
-        {
-            raycastHit = Physics2D.Raycast(bodyCollider.bounds.center, Vector2.right, bodyCollider.bounds.extents.x + extraHeight, LayerMask.GetMask("Ground"));
-        } else
-        {
-            raycastHit = Physics2D.Raycast(bodyCollider.bounds.center, Vector2.left, bodyCollider.bounds.extents.x + extraHeight, LayerMask.GetMask("Ground"));
-        }
-
-        
-        //Color rayColor;
-        //if (raycastHit.collider != null)
-        //{
-        //    rayColor = Color.green;
-        //}
-        //else
-        //{
-        //    rayColor = Color.red;
-        //}
-
-        //if (transform.localScale.x < 0)
-        //{
-        //    Debug.DrawRay(bodyCollider.bounds.center, Vector2.right * (bodyCollider.bounds.extents.x + extraHeight), rayColor);
-        //}
-        //else
-        //{
-        //    Debug.DrawRay(bodyCollider.bounds.center, Vector2.left * (bodyCollider.bounds.extents.x + extraHeight), rayColor);
-        //}
-
-        //Debug.Log(raycastHit.collider);
-        return raycastHit.collider != null;
-
-
-    }
-
     private void Start()
     {
         audioPlayer = FindObjectOfType<AudioPlayer>();
@@ -116,6 +54,9 @@ public class PlayerController : MonoBehaviour
         bodyAnimator = GetComponent<Animator>();
         bodyCollider = GetComponent<BoxCollider2D>();
         playerAnimator = GetComponent<PlayerAnimator>();
+        playerGunController = GetComponent<PlayerGunController>();
+
+        moveSpeed = runSpeed;
     }
 
     private void Update()
@@ -126,6 +67,7 @@ public class PlayerController : MonoBehaviour
         FlipSprite();
         StopMovingWhileFlipping();
         StopWalkAnimOnWallCollission();
+        SetXVelocityOnJumping();
     }
 
     private void StopWalkAnimOnWallCollission()
@@ -153,8 +95,6 @@ public class PlayerController : MonoBehaviour
     {
         if (IsGrounded())
         {
-            moveSpeed = hasGun ? walkSpeed : runSpeed;  // TODO: set it with hasGun bool
-
             playerVelocity = new(moveInput.x * moveSpeed, myRigidbody.velocity.y);
             myRigidbody.velocity = playerVelocity;
             // TODO: Set playerAnimator&&armsAnimator.SetBool("WalkSpeed", value) - value based on playerVelocity
@@ -217,6 +157,79 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private bool IsGrounded()
+    {
+        float extraHeight = 0.01f;
+        RaycastHit2D raycastHit = Physics2D.BoxCast(bodyCollider.bounds.center, bodyCollider.bounds.size, 0f, Vector2.down, extraHeight, LayerMask.GetMask("Ground"));
+        //Color rayColor;
+        //if (raycastHit.collider != null)
+        //{
+        //    rayColor = Color.green;
+        //}
+        //else
+        //{
+        //    rayColor = Color.red;
+        //}
+
+        //Debug.DrawRay(bodyCollider.bounds.center + new Vector3(bodyCollider.bounds.extents.x, 0f), Vector2.down * (bodyCollider.bounds.extents.y + extraHeight), rayColor);
+        //Debug.DrawRay(bodyCollider.bounds.center - new Vector3(bodyCollider.bounds.extents.x, 0f), Vector2.down * (bodyCollider.bounds.extents.y + extraHeight), rayColor);
+        //Debug.DrawRay(bodyCollider.bounds.center - new Vector3(bodyCollider.bounds.extents.x, bodyCollider.bounds.extents.y + extraHeight), Vector2.right * (bodyCollider.bounds.extents.x), rayColor);
+
+        //Debug.Log(raycastHit.collider);
+
+        return raycastHit.collider != null;
+    }
+
+    private bool IsTouchingWall()
+    {
+        float extraHeight = 0.02f;
+        RaycastHit2D raycastHit;
+
+        if (transform.localScale.x < 0)
+        {
+            raycastHit = Physics2D.Raycast(bodyCollider.bounds.center, Vector2.right, bodyCollider.bounds.extents.x + extraHeight, LayerMask.GetMask("Ground"));
+        }
+        else
+        {
+            raycastHit = Physics2D.Raycast(bodyCollider.bounds.center, Vector2.left, bodyCollider.bounds.extents.x + extraHeight, LayerMask.GetMask("Ground"));
+        }
+
+
+        //Color rayColor;
+        //if (raycastHit.collider != null)
+        //{
+        //    rayColor = Color.green;
+        //}
+        //else
+        //{
+        //    rayColor = Color.red;
+        //}
+
+        //if (transform.localScale.x < 0)
+        //{
+        //    Debug.DrawRay(bodyCollider.bounds.center, Vector2.right * (bodyCollider.bounds.extents.x + extraHeight), rayColor);
+        //}
+        //else
+        //{
+        //    Debug.DrawRay(bodyCollider.bounds.center, Vector2.left * (bodyCollider.bounds.extents.x + extraHeight), rayColor);
+        //}
+
+        //Debug.Log(raycastHit.collider);
+        return raycastHit.collider != null;
+
+
+    }
+
+    private void SetXVelocityOnJumping()
+    {
+        if (myRigidbody.velocity.x != 0 && myRigidbody.velocity.y != 0)
+        {
+            float xVelocity = HasGun ? walkSpeed * -transform.localScale.x : runSpeed * -transform.localScale.x;
+
+            myRigidbody.velocity = new(xVelocity, myRigidbody.velocity.y);
+        }
+    }
+
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
@@ -235,5 +248,28 @@ public class PlayerController : MonoBehaviour
     void OnTeleport()
     {
         Debug.Log("Teleporting...");
+    }
+
+    void OnHideTakeGun()
+    {
+        Debug.Log(HasGun);
+        if (HasGun)
+        {
+            playerAnimator.TriggerGunHiding();
+            HasGun = false;
+        } else if (playerGunController.AmmoCounter > 0)
+        {
+            playerAnimator.TriggerGunTaking();
+        }
+    }
+
+    void OnJumpLeft()
+    {
+        Debug.Log("Jump left");
+    }
+
+    void OnJumpRight()
+    {
+        Debug.Log("Jump right");
     }
 }

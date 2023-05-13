@@ -24,6 +24,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "HideTakeGun",
+                    "type": "Button",
+                    "id": "ec37ccdd-9898-4e47-ac3d-ff00f5ff8315",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Jump",
                     "type": "Value",
                     "id": "69e69218-6271-407c-bdf0-bcd6e9251aa3",
@@ -194,6 +203,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Teleport",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "056d5e40-5981-40a5-9fec-71a89ce341f5",
+                    "path": "<Keyboard>/rightShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HideTakeGun",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ce2cfa8a-62ac-48e9-b998-3d4713a69ac8",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HideTakeGun",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

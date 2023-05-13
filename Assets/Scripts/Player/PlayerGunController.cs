@@ -27,6 +27,14 @@ public class PlayerGunController : MonoBehaviour
     private int weaponCounter = 0;
     private int ammoCounter = 0;
 
+    public int AmmoCounter
+    {
+        get
+        {
+            return ammoCounter;
+        }
+    }
+
     void Start()
     {
         playerController = GetComponent<PlayerController>();
@@ -112,7 +120,8 @@ public class PlayerGunController : MonoBehaviour
 
     void OnFire()
     {
-        if (ammoCounter > 0)
+        //if (ammoCounter > 0)
+        if (ammoCounter > 0 && playerController.HasGun)
         {
             Fire();
             ammoCounter--;
