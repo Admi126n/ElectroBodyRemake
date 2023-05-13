@@ -120,7 +120,6 @@ public class PlayerGunController : MonoBehaviour
 
     void OnFire()
     {
-        //if (ammoCounter > 0)
         if (ammoCounter > 0 && playerController.HasGun)
         {
             Fire();

@@ -252,7 +252,6 @@ public class PlayerController : MonoBehaviour
 
     void OnHideTakeGun()
     {
-        Debug.Log(HasGun);
         if (HasGun)
         {
             playerAnimator.TriggerGunHiding();
@@ -263,13 +262,30 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnJumpLeft()
+    void OnJumpLeft(InputValue value)
     {
-        Debug.Log("Jump left");
+        if (value.Get<Vector2>().y == 1)
+        {
+            jumpInput = jumpSpeed * 1;
+            moveInput = new(-1f, 0f);
+        } else
+        {
+            jumpInput = 0;
+            moveInput = new(0f, 0f);
+        }
     }
 
-    void OnJumpRight()
+    void OnJumpRight(InputValue value)
     {
-        Debug.Log("Jump right");
+        if (value.Get<Vector2>().y == 1)
+        {
+            jumpInput = jumpSpeed * 1;
+            moveInput = new(1f, 0f);
+        }
+        else
+        {
+            jumpInput = 0;
+            moveInput = new(0f, 0f);
+        }
     }
 }
