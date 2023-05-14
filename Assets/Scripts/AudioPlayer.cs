@@ -9,13 +9,17 @@ public class AudioPlayer : MonoBehaviour
     [SerializeField] AudioClip jumpingClip;
     [SerializeField] AudioClip walkingClip;
 
+    [Header("Weapon Sounds")]
+    [SerializeField] AudioClip ammoPickedUp;
+
+    [Header("Other Sounds")]
+    [SerializeField] AudioClip explosion;
+
     float landingVolume = 1f;
     float jumpingVolume = 1f;
     float walkingVolume = 1f;
 
     static AudioPlayer instance;
-
-    private bool playWalkingClip = true;
 
     private void Awake()
     {
@@ -51,20 +55,18 @@ public class AudioPlayer : MonoBehaviour
         PlayClip(jumpingClip, position, jumpingVolume);
     }
 
-    public void PlayWalkClip(Vector3 position)
+    public void PlayFootStepClip(Vector3 position)
     {
-        if (playWalkingClip)
-        {
-            PlayClip(walkingClip, position, walkingVolume);
-            playWalkingClip = false;
-            StartCoroutine(StopPlaying());
-        }
+        PlayClip(walkingClip, position, walkingVolume);
     }
 
-    // TODO: argument moveSpeed and set WaitForSeconds depending on this value
-    IEnumerator StopPlaying()
+    public void PlayAmmoPickedUpClip(Vector3 position)
     {
-        yield return new WaitForSeconds(0.3f);
-        playWalkingClip = true;
+        PlayClip(ammoPickedUp, position, 1f);
+    }
+
+    public void PlayExplosionClip(Vector3 position)
+    {
+        PlayClip(explosion, position, 1f);
     }
 }

@@ -26,6 +26,11 @@ public class PlayerAnimator : MonoBehaviour
         SetAnimatorsBools("Walk", value);
     }
 
+    public void SetHasGunBools(bool value)
+    {
+        SetAnimatorsBools("HasGun", value);
+    }
+
     public void SetJumpBool(bool value)
     {
         bodyAnimator.SetBool("Jump", value);
@@ -46,5 +51,15 @@ public class PlayerAnimator : MonoBehaviour
         Color temp = armsRenderer.color;
         temp.a = value;
         armsRenderer.color = temp;
+    }
+
+    public void TriggerGunTaking()
+    {
+        armsAnimator.SetTrigger("TakeGun");
+    }
+
+    public void TriggerGunHiding()
+    {
+        armsAnimator.SetTrigger("HideGun");
     }
 }
