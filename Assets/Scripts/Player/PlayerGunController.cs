@@ -22,6 +22,7 @@ public class PlayerGunController : MonoBehaviour
     const int WeaponAmmo5 = 25;  // 85
 
     PlayerController playerController;
+    PlayerAnimator playerAnimator;
     AudioPlayer audioPlayer;
 
     private int weaponCounter = 0;
@@ -38,6 +39,7 @@ public class PlayerGunController : MonoBehaviour
     void Start()
     {
         playerController = GetComponent<PlayerController>();
+        playerAnimator = GetComponent<PlayerAnimator>();
         audioPlayer = FindObjectOfType<AudioPlayer>();
     }
 
@@ -114,7 +116,11 @@ public class PlayerGunController : MonoBehaviour
         audioPlayer.PlayAmmoPickedUpClip(playerController.transform.position);
         weaponCounter++;
         weaponCounter = Mathf.Clamp(weaponCounter, 0, 5);
-        playerController.HasGun = true;
+
+        if (!playerController.HasGun)
+        {
+            playerAnimator.TriggerGunTaking();
+        }
         RefillWeaponMagazine();
     }
 

@@ -740,7 +740,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Electro Body Remake
 
-    Pre-alpha v0.1
+    Pre-alpha v0.2
 
     admi126n@gmail.com'
   m_isRightToLeft: 0
@@ -4044,6 +4044,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4697984994024047428, guid: cfbad1dab478c4f42bf89e7bf6a9e1cc, type: 3}
+      propertyPath: test
+      value: 
+      objectReference: {fileID: 8300000, guid: f84a2bf3a6b43994a970dab1c4bc6fe8, type: 3}
+    - target: {fileID: 4697984994024047428, guid: cfbad1dab478c4f42bf89e7bf6a9e1cc, type: 3}
+      propertyPath: explosion
+      value: 
+      objectReference: {fileID: 8300000, guid: 835650bb09b06a64283da59cab58afde, type: 3}
     - target: {fileID: 4697984994024047429, guid: cfbad1dab478c4f42bf89e7bf6a9e1cc, type: 3}
       propertyPath: m_RootOrder
       value: 5

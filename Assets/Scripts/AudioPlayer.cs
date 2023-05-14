@@ -12,6 +12,9 @@ public class AudioPlayer : MonoBehaviour
     [Header("Weapon Sounds")]
     [SerializeField] AudioClip ammoPickedUp;
 
+    [Header("Other Sounds")]
+    [SerializeField] AudioClip explosion;
+
     float landingVolume = 1f;
     float jumpingVolume = 1f;
     float walkingVolume = 1f;
@@ -60,5 +63,10 @@ public class AudioPlayer : MonoBehaviour
     public void PlayAmmoPickedUpClip(Vector3 position)
     {
         PlayClip(ammoPickedUp, position, 1f);
+    }
+
+    public void PlayExplosionClip(Vector3 position)
+    {
+        PlayClip(explosion, position, 1f);
     }
 }
