@@ -52,4 +52,14 @@ public class PlayerAnimator : MonoBehaviour
         temp.a = value;
         armsRenderer.color = temp;
     }
+
+    public void TriggerGunTaking()
+    {
+        armsAnimator.SetTrigger("TakeGun");
+    }
+
+    public void TriggerGunHiding()
+    {
+        armsAnimator.SetTrigger("HideGun");
+    }
 }

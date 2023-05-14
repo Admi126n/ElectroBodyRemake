@@ -24,6 +24,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "HideTakeGun",
+                    "type": "Button",
+                    "id": "ec37ccdd-9898-4e47-ac3d-ff00f5ff8315",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Jump",
                     "type": "Value",
                     "id": "69e69218-6271-407c-bdf0-bcd6e9251aa3",
@@ -40,6 +49,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "JumpLeft",
+                    "type": "Value",
+                    "id": "fe53e9ad-e7a8-453c-a253-703008fff7c0",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "JumpRight",
+                    "type": "Value",
+                    "id": "07ccfedb-cfbd-4e64-b683-43d0225ab7a1",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -155,6 +182,17 @@
                 },
                 {
                     "name": "up",
+                    "id": "425b4603-ed44-454f-94f1-91f0cf8cb5ea",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "up",
                     "id": "8d85876a-2c3e-459b-a213-2f4edc8a76ea",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
@@ -196,6 +234,94 @@
                     "action": "Teleport",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "056d5e40-5981-40a5-9fec-71a89ce341f5",
+                    "path": "<Keyboard>/rightShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HideTakeGun",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ce2cfa8a-62ac-48e9-b998-3d4713a69ac8",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HideTakeGun",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "d18f9c01-af40-44c5-a607-8a1cfd9b513d",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JumpLeft",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "1ecd5b8b-b0b1-4db9-88db-a2837c463eec",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JumpLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "up",
+                    "id": "eaa2b7de-a2fc-4741-bf6c-10815bb4df9e",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JumpLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "7d8cd793-e38e-497e-b85f-2aa654a62c3a",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JumpRight",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "56361ac7-869c-4301-906e-ed219976696e",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JumpRight",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "up",
+                    "id": "2f89545f-91c7-4616-bad6-1bb372f7e9ee",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JumpRight",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },

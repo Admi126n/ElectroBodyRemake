@@ -22,14 +22,24 @@ public class PlayerGunController : MonoBehaviour
     const int WeaponAmmo5 = 25;  // 85
 
     PlayerController playerController;
+    PlayerAnimator playerAnimator;
     AudioPlayer audioPlayer;
 
     private int weaponCounter = 0;
     private int ammoCounter = 0;
 
+    public int AmmoCounter
+    {
+        get
+        {
+            return ammoCounter;
+        }
+    }
+
     void Start()
     {
         playerController = GetComponent<PlayerController>();
+        playerAnimator = GetComponent<PlayerAnimator>();
         audioPlayer = FindObjectOfType<AudioPlayer>();
     }
 
@@ -81,9 +91,6 @@ public class PlayerGunController : MonoBehaviour
 
     private void Fire()
     {
-        // play fire sound for each bullet
-
-        audioPlayer.PlayBulletClip(weaponCounter, gun.position);
         switch (weaponCounter)
         {
             case 1:
@@ -106,17 +113,20 @@ public class PlayerGunController : MonoBehaviour
 
     public void PickUpAmmo()
     {
-        Debug.Log("Ammo picked up");
         audioPlayer.PlayAmmoPickedUpClip(playerController.transform.position);
         weaponCounter++;
         weaponCounter = Mathf.Clamp(weaponCounter, 0, 5);
-        playerController.HasGun = true;
+
+        if (!playerController.HasGun)
+        {
+            playerAnimator.TriggerGunTaking();
+        }
         RefillWeaponMagazine();
     }
 
     void OnFire()
     {
-        if (ammoCounter > 0)
+        if (ammoCounter > 0 && playerController.HasGun)
         {
             Fire();
             ammoCounter--;

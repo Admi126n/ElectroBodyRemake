@@ -10,20 +10,16 @@ public class AudioPlayer : MonoBehaviour
     [SerializeField] AudioClip walkingClip;
 
     [Header("Weapon Sounds")]
-    [SerializeField] AudioClip bullet_1_clip;
-    [SerializeField] AudioClip bullet_2_clip;
-    [SerializeField] AudioClip bullet_3_clip;
-    [SerializeField] AudioClip bullet_4_clip;
-    [SerializeField] AudioClip bullet_5_clip;
     [SerializeField] AudioClip ammoPickedUp;
+
+    [Header("Other Sounds")]
+    [SerializeField] AudioClip explosion;
 
     float landingVolume = 1f;
     float jumpingVolume = 1f;
     float walkingVolume = 1f;
 
     static AudioPlayer instance;
-
-    private bool playWalkingClip = true;
 
     private void Awake()
     {
@@ -59,36 +55,9 @@ public class AudioPlayer : MonoBehaviour
         PlayClip(jumpingClip, position, jumpingVolume);
     }
 
-    public void PlayWalkClip(Vector3 position)
+    public void PlayFootStepClip(Vector3 position)
     {
-        if (playWalkingClip)
-        {
-            PlayClip(walkingClip, position, walkingVolume);
-            playWalkingClip = false;
-            StartCoroutine(StopPlaying());
-        }
-    }
-
-    public void PlayBulletClip(int weapon, Vector3 position)
-    {
-        switch (weapon)
-        {
-            case 1:
-                PlayClip(bullet_1_clip, position, 1f);
-                break;
-            case 2:
-                PlayClip(bullet_2_clip, position, 1f);
-                break;
-            case 3:
-                PlayClip(bullet_3_clip, position, 1f);
-                break;
-            case 4:
-                PlayClip(bullet_4_clip, position, 1f);
-                break;
-            case 5:
-                PlayClip(bullet_5_clip, position, 1f);
-                break;
-        }
+        PlayClip(walkingClip, position, walkingVolume);
     }
 
     public void PlayAmmoPickedUpClip(Vector3 position)
@@ -96,10 +65,8 @@ public class AudioPlayer : MonoBehaviour
         PlayClip(ammoPickedUp, position, 1f);
     }
 
-    // TODO: argument moveSpeed and set WaitForSeconds depending on this value
-    IEnumerator StopPlaying()
+    public void PlayExplosionClip(Vector3 position)
     {
-        yield return new WaitForSeconds(0.3f);
-        playWalkingClip = true;
+        PlayClip(explosion, position, 1f);
     }
 }
