@@ -47,9 +47,5 @@ MonoBehaviour:
   landingClip: {fileID: 8300000, guid: d9d7023069664e24ab9d76dcfa70a55a, type: 3}
   jumpingClip: {fileID: 8300000, guid: eeb4cff6dc7b3b545a405788b7269020, type: 3}
   walkingClip: {fileID: 8300000, guid: 1931dff9b740b744f82c6ea3213ba486, type: 3}
-  bullet_1_clip: {fileID: 8300000, guid: 2d2ae4f797c0d084baed0a9dfcbd8bee, type: 3}
-  bullet_2_clip: {fileID: 8300000, guid: b4d78ba59c3fb644ea9f23ceb9aaeab5, type: 3}
-  bullet_3_clip: {fileID: 8300000, guid: dca119dcc08d8fb4b845cc16dde4a966, type: 3}
-  bullet_4_clip: {fileID: 8300000, guid: 6984f8bf06565bb48988ce1562662e9a, type: 3}
-  bullet_5_clip: {fileID: 8300000, guid: 04c4f2d01b9aeee4899ca043e443cc9b, type: 3}
   ammoPickedUp: {fileID: 8300000, guid: 08cea4153a8b79a43a20ac703362a8c3, type: 3}
+  explosion: {fileID: 8300000, guid: 64aed2dae7933d445b4ccd9439af6500, type: 3}
