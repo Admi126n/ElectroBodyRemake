@@ -25,7 +25,7 @@ public class PlayerTeleportingController : MonoBehaviour, PlayerTeleporting
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Teleporter"))
+        if (collision.CompareTag(K.T.teleporter))
         {
             canTeleport = true;
         }
@@ -33,7 +33,7 @@ public class PlayerTeleportingController : MonoBehaviour, PlayerTeleporting
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Teleporter"))
+        if (collision.CompareTag(K.T.teleporter))
         {
             canTeleport = false;
         }

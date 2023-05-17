@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
         {
             AnimatorClipInfo[] currClipInfo = bodyAnimator.GetCurrentAnimatorClipInfo(0);
             string name = currClipInfo[0].clip.name;
-            return (name == "bodyNoGunFlip" || name == "bodyGunFlip");
+            return (name == K.A.bodyNoGunFlip || name == K.A.bodyGunFlip);
         }
     }
 
@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
     {
         if (IsGrounded())
         {
-            if (bodyAnimator.GetBool("Jump"))
+            if (bodyAnimator.GetBool(K.ACP.jump))
             {
                 audioPlayer.PlayLandingClip(myRigidbody.transform.position);
                 playerAnimator.TriggerArmsLanding();
@@ -141,9 +141,9 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (!bodyAnimator.GetBool("Jump"))
+            if (!bodyAnimator.GetBool(K.ACP.jump))
             {
-                audioPlayer.PlayJumpClip(myRigidbody.transform.position);
+                audioPlayer.PlayJumpingClip(myRigidbody.transform.position);
                 playerAnimator.SetJumpBool(true);
             }
         }
@@ -160,7 +160,7 @@ public class PlayerController : MonoBehaviour
     private bool IsGrounded()
     {
         float extraHeight = 0.01f;
-        RaycastHit2D raycastHit = Physics2D.BoxCast(bodyCollider.bounds.center, bodyCollider.bounds.size, 0f, Vector2.down, extraHeight, LayerMask.GetMask("Ground"));
+        RaycastHit2D raycastHit = Physics2D.BoxCast(bodyCollider.bounds.center, bodyCollider.bounds.size, 0f, Vector2.down, extraHeight, LayerMask.GetMask(K.L.ground));
         //Color rayColor;
         //if (raycastHit.collider != null)
         //{
@@ -187,11 +187,11 @@ public class PlayerController : MonoBehaviour
 
         if (transform.localScale.x < 0)
         {
-            raycastHit = Physics2D.Raycast(bodyCollider.bounds.center, Vector2.right, bodyCollider.bounds.extents.x + extraHeight, LayerMask.GetMask("Ground"));
+            raycastHit = Physics2D.Raycast(bodyCollider.bounds.center, Vector2.right, bodyCollider.bounds.extents.x + extraHeight, LayerMask.GetMask(K.L.ground));
         }
         else
         {
-            raycastHit = Physics2D.Raycast(bodyCollider.bounds.center, Vector2.left, bodyCollider.bounds.extents.x + extraHeight, LayerMask.GetMask("Ground"));
+            raycastHit = Physics2D.Raycast(bodyCollider.bounds.center, Vector2.left, bodyCollider.bounds.extents.x + extraHeight, LayerMask.GetMask(K.L.ground));
         }
 
 

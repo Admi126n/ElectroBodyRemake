@@ -5,9 +5,9 @@ using UnityEngine;
 public class AudioPlayer : MonoBehaviour
 {
     [Header("Player Sounds")]
-    [SerializeField] AudioClip landingClip;
-    [SerializeField] AudioClip jumpingClip;
-    [SerializeField] AudioClip walkingClip;
+    [SerializeField] AudioClip landing;
+    [SerializeField] AudioClip jumping;
+    [SerializeField] AudioClip walking;
 
     [Header("Weapon Sounds")]
     [SerializeField] AudioClip ammoPickedUp;
@@ -15,27 +15,25 @@ public class AudioPlayer : MonoBehaviour
     [Header("Other Sounds")]
     [SerializeField] AudioClip explosion;
 
-    float landingVolume = 1f;
-    float jumpingVolume = 1f;
-    float walkingVolume = 1f;
+    private readonly float volume = 1f;
 
-    static AudioPlayer instance;
+    static AudioPlayer audioPlayerInstance;
 
     private void Awake()
     {
         ManageSingleton();
     }
 
-    void ManageSingleton()
+    private void ManageSingleton()
     {
-        if (instance != null)
+        if (audioPlayerInstance != null)
         {
             gameObject.SetActive(false);
             Destroy(gameObject);
         }
         else
         {
-            instance = this;
+            audioPlayerInstance = this;
             DontDestroyOnLoad(gameObject);
         }
     }
@@ -47,17 +45,17 @@ public class AudioPlayer : MonoBehaviour
 
     public void PlayLandingClip(Vector3 position)
     {
-        PlayClip(landingClip, position, landingVolume);
+        PlayClip(landing, position, volume);
     }
 
-    public void PlayJumpClip(Vector3 position)
+    public void PlayJumpingClip(Vector3 position)
     {
-        PlayClip(jumpingClip, position, jumpingVolume);
+        PlayClip(jumping, position, volume);
     }
 
     public void PlayFootStepClip(Vector3 position)
     {
-        PlayClip(walkingClip, position, walkingVolume);
+        PlayClip(walking, position, volume);
     }
 
     public void PlayAmmoPickedUpClip(Vector3 position)

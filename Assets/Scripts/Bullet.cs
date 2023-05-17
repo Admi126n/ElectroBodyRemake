@@ -4,33 +4,34 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    Rigidbody2D bulletRigidbody;
-    Animator bulletAnimator;
-    PlayerController playerController;
-    AudioPlayer audioPlayer;
+    private Rigidbody2D bulletRigidbody;
+    private Animator bulletAnimator;
+    private PlayerController playerController;
+    private AudioPlayer audioPlayer;
 
-    readonly float bulletSpeed = 8;
-    float bulletDirection;
+    private readonly float bulletBaseSpeed = 8;
+    private float bulletHorizontalSpeed;
 
-    void Start()
+    private void Start()
     {
         bulletRigidbody = GetComponent<Rigidbody2D>();
         bulletAnimator = GetComponent<Animator>();
         playerController = FindObjectOfType<PlayerController>();
         audioPlayer = FindObjectOfType<AudioPlayer>();
 
+        // set bullet direction
         transform.localScale = new(-playerController.transform.localScale.x, transform.localScale.y, transform.localScale.z);
-        bulletDirection = -playerController.transform.localScale.x * bulletSpeed;
+        bulletHorizontalSpeed = -playerController.transform.localScale.x * bulletBaseSpeed;
     }
 
-    void Update()
+    private void Update()
     {
-        bulletRigidbody.velocity = new(bulletDirection, 0f);
+        bulletRigidbody.velocity = new(bulletHorizontalSpeed, 0f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        bulletAnimator.SetTrigger("Explode");
+        bulletAnimator.SetTrigger(K.ACP.explode);
         audioPlayer.PlayExplosionClip(transform.position);
 
         // FIXME: 4 weapon's bullet should explode only on collision with walls
