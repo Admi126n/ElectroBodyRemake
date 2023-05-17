@@ -245,11 +245,6 @@ public class PlayerController : MonoBehaviour
         jumpInput = jumpSpeed * value.Get<Vector2>().y;
     }
 
-    void OnTeleport()
-    {
-        Debug.Log("Teleporting...");
-    }
-
     void OnHideTakeGun()
     {
         if (HasGun)
