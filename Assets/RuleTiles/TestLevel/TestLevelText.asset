@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: TestLevelBackground
+  m_Name: TestLevelText
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 415989423, guid: e7777b76df089604286c896742e87cb9, type: 3}
+  m_Sprite: {fileID: -1813711009, guid: f4bfb10e42dd4a547b54dc8371e5ee8a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

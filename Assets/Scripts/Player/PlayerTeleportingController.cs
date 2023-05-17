@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerTeleportingController : MonoBehaviour, PlayerTeleporting
 {
     private PlayerController playerController;
+    private AudioPlayer audioPlayer;
 
     private bool canTeleport = false;
     private Vector3 teleportingDestination;
@@ -12,6 +13,7 @@ public class PlayerTeleportingController : MonoBehaviour, PlayerTeleporting
     void Start()
     {
         playerController = GetComponent<PlayerController>();
+        audioPlayer = FindObjectOfType<AudioPlayer>();
     }
 
     void OnTeleport()
@@ -19,6 +21,7 @@ public class PlayerTeleportingController : MonoBehaviour, PlayerTeleporting
         if (canTeleport)
         {
             Debug.Log("Teleporting...");
+            audioPlayer.PlayTeleportingClip(playerController.transform.position);
             playerController.gameObject.transform.position = teleportingDestination;
         }
     }

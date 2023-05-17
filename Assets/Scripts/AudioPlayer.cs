@@ -8,6 +8,7 @@ public class AudioPlayer : MonoBehaviour
     [SerializeField] AudioClip landing;
     [SerializeField] AudioClip jumping;
     [SerializeField] AudioClip walking;
+    [SerializeField] AudioClip teleporting;
 
     [Header("Weapon Sounds")]
     [SerializeField] AudioClip ammoPickedUp;
@@ -56,6 +57,11 @@ public class AudioPlayer : MonoBehaviour
     public void PlayFootStepClip(Vector3 position)
     {
         PlayClip(walking, position, volume);
+    }
+
+    public void PlayTeleportingClip(Vector3 position)
+    {
+        PlayClip(teleporting, position, volume);
     }
 
     public void PlayAmmoPickedUpClip(Vector3 position)
