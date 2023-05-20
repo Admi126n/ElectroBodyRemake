@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerTeleportingController : MonoBehaviour, PlayerTeleporting
 {
     private PlayerController playerController;
+    private PlayerAnimator playerAnimator;
     private AudioPlayer audioPlayer;
 
     private bool canTeleport = false;
@@ -13,6 +14,7 @@ public class PlayerTeleportingController : MonoBehaviour, PlayerTeleporting
     void Start()
     {
         playerController = GetComponent<PlayerController>();
+        playerAnimator = GetComponent<PlayerAnimator>();
         audioPlayer = FindObjectOfType<AudioPlayer>();
     }
 
@@ -20,9 +22,8 @@ public class PlayerTeleportingController : MonoBehaviour, PlayerTeleporting
     {
         if (canTeleport)
         {
-            Debug.Log("Teleporting...");
+            playerAnimator.TriggerTeleportation();
             audioPlayer.PlayTeleportingClip(playerController.transform.position);
-            playerController.gameObject.transform.position = teleportingDestination;
         }
     }
 
@@ -40,6 +41,11 @@ public class PlayerTeleportingController : MonoBehaviour, PlayerTeleporting
         {
             canTeleport = false;
         }
+    }
+
+    public void TeleportPlayer()
+    {
+        playerController.gameObject.transform.position = teleportingDestination;
     }
 
     public void SetTeleportingDestination(Vector3 destination)

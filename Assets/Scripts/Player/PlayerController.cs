@@ -47,6 +47,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private bool PlayerIsTeleporting
+    {
+        get
+        {
+            AnimatorClipInfo[] currClipInfo = bodyAnimator.GetCurrentAnimatorClipInfo(0);
+            string name = currClipInfo[0].clip.name;
+            return (name == K.A.bodyNoGunTeleport || name == K.A.bodyNoGunExitTeleport || name == K.A.bodyGunTeleport || name == K.A.bodyGunExitTeleport);
+        }
+    }
+
     private void Start()
     {
         audioPlayer = FindObjectOfType<AudioPlayer>();
@@ -80,7 +90,7 @@ public class PlayerController : MonoBehaviour
 
     private void StopMovingWhileFlipping()
     {
-        if (PlayerIsFlipping)
+        if (PlayerIsFlipping || PlayerIsTeleporting)
         {
             playerAnimator.SetArmsAlpha(0f);
             myRigidbody.velocity = new(0f, myRigidbody.velocity.y);

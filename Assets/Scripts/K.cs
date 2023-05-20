@@ -22,6 +22,10 @@ public static class K
     {
         public static readonly string bodyNoGunFlip = "BodyNoGunFlip";
         public static readonly string bodyGunFlip = "BodyGunFlip";
+        public static readonly string bodyNoGunExitTeleport = "BodyNoGunExitTeleport";
+        public static readonly string bodyNoGunTeleport = "BodyNoGunTeleport";
+        public static readonly string bodyGunExitTeleport = "BodyGunExitTeleport";
+        public static readonly string bodyGunTeleport = "BodyGunTeleport";
     }
 
     /// <summary>
@@ -46,5 +50,6 @@ public static class K
         public static readonly string takeGun = "TakeGun";
         public static readonly string hideGun = "HideGun";
         public static readonly string explode = "Explode";
+        public static readonly string teleport = "Teleport";
     }
 }

@@ -56,6 +56,11 @@ public class PlayerAnimator : MonoBehaviour
         armsAnimator.SetTrigger(K.ACP.hideGun);
     }
 
+    public void TriggerTeleportation()
+    {
+        bodyAnimator.SetTrigger(K.ACP.teleport);
+    }
+
     public void SetArmsAlpha(float value)
     {
         Color temp = armsRenderer.color;
