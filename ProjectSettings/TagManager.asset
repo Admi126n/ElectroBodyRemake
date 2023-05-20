@@ -7,6 +7,7 @@ TagManager:
   - Ammo
   - Bullet
   - Teleporter
+  - InactiveTeleporter
   layers:
   - Default
   - TransparentFX

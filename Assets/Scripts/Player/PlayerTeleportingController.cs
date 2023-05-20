@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class PlayerTeleportingController : MonoBehaviour, PlayerTeleporting
+public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
 {
     private PlayerController playerController;
     private PlayerAnimator playerAnimator;
@@ -10,6 +11,7 @@ public class PlayerTeleportingController : MonoBehaviour, PlayerTeleporting
 
     private bool canTeleport = false;
     private Vector3 teleportingDestination;
+    private bool teleportPressed;
 
     void Start()
     {
@@ -18,13 +20,19 @@ public class PlayerTeleportingController : MonoBehaviour, PlayerTeleporting
         audioPlayer = FindObjectOfType<AudioPlayer>();
     }
 
-    void OnTeleport()
+    private void Update()
     {
-        if (canTeleport)
+        if (canTeleport && teleportPressed)
         {
+            teleportPressed = false;
             playerAnimator.TriggerTeleportation();
             audioPlayer.PlayTeleportingClip(playerController.transform.position);
         }
+    }
+
+    void OnTeleport(InputValue value)
+    {
+        teleportPressed = value.Get<Vector2>().y == 1f;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

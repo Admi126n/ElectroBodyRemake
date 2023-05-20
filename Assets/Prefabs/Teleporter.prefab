@@ -206,6 +206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   destination_id: 0
+  inactiveBase: {fileID: -1711346162, guid: e92508dfa81557c4ab0d104f828ecadc, type: 3}
 --- !u!61 &1808215795855422943
 BoxCollider2D:
   m_ObjectHideFlags: 0
