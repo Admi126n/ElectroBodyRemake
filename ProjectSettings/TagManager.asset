@@ -9,6 +9,7 @@ TagManager:
   - Teleporter
   - InactiveTeleporter
   - Chip
+  - ExitTeleporter
   layers:
   - Default
   - TransparentFX

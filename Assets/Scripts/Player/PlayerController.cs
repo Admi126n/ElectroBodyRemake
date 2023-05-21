@@ -169,7 +169,7 @@ public class PlayerController : MonoBehaviour
 
     private bool IsGrounded()
     {
-        float extraHeight = 0.01f;
+        float extraHeight = 0.02f;
         RaycastHit2D raycastHit = Physics2D.BoxCast(bodyCollider.bounds.center, bodyCollider.bounds.size, 0f, Vector2.down, extraHeight, LayerMask.GetMask(K.L.ground));
         //Color rayColor;
         //if (raycastHit.collider != null)

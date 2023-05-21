@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 8265784355311359753}
   - component: {fileID: 8265784355311359767}
   - component: {fileID: 8265784355311359764}
+  - component: {fileID: 2627843158425646919}
   m_Layer: 0
   m_Name: ExitTeleoprter
-  m_TagString: Untagged
+  m_TagString: InactiveTeleporter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,6 +121,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destinationScene: 0
+--- !u!61 &2627843158425646919
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8265784355311359752}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.24791777}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.50416446}
+  m_EdgeRadius: 0
 --- !u!1 &8265784356198815373
 GameObject:
   m_ObjectHideFlags: 0

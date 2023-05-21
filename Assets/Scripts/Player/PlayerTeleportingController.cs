@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
 {
@@ -11,6 +12,7 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
     private AudioPlayer audioPlayer;
 
     private bool canTeleport = false;
+    private bool teleportToAnotherScene = false;
     private Vector3 teleportingDestination;
     private int destinationScene;
     private bool teleportPressed;
@@ -44,7 +46,12 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
         if (collision.CompareTag(K.T.teleporter))
         {
             canTeleport = true;
-        } else if (collision.CompareTag(K.T.chip))
+            teleportToAnotherScene = false;
+        } else if (collision.CompareTag(K.T.exitTeleporter))
+        {
+            canTeleport = true;
+            teleportToAnotherScene = true;
+        }  else if (collision.CompareTag(K.T.chip))
         {
             Destroy(collision.gameObject);
             chipCounter++;
@@ -62,17 +69,19 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
         if (collision.CompareTag(K.T.teleporter))
         {
             canTeleport = false;
+            teleportToAnotherScene = false;
         }
     }
 
     public void TeleportPlayer()
     {
-        playerController.gameObject.transform.position = teleportingDestination;
-    }
-
-    public void TeleportPlayer(int sceneIndex)
-    {
-        Debug.Log("Teleporting to " + sceneIndex.ToString() + " level");
+        if (teleportToAnotherScene)
+        {
+            SceneManager.LoadScene(1);
+        } else
+        {
+            playerController.gameObject.transform.position = teleportingDestination;
+        }
     }
 
     public int GetChipCounter()
@@ -83,5 +92,10 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
     public void SetTeleportingDestination(Vector3 destination)
     {
         teleportingDestination = new (destination.x, destination.y + 0.5f, destination.y);
+    }
+
+    public void SetDestinationScene(int index)
+    {
+        destinationScene = index;
     }
 }

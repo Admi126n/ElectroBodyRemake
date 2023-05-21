@@ -8,6 +8,7 @@ public class ExitTeleporter : MonoBehaviour
 
     private SpriteRenderer teleporterRenderer;
     private Animator teleporterAnimator;
+    private PlayerTeleportingController player;
 
     private bool isActive = false;
 
@@ -15,12 +16,22 @@ public class ExitTeleporter : MonoBehaviour
     {
         teleporterRenderer = GetComponent<SpriteRenderer>();
         teleporterAnimator = GetComponent<Animator>();
+        player = FindObjectOfType<PlayerTeleportingController>();
     }
 
     public void ActivateTeleporter()
     {
         teleporterRenderer.enabled = true;
         teleporterAnimator.enabled = true;
-        isActive = false;
+        gameObject.tag = K.T.exitTeleporter;
+        isActive = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (isActive && collision.CompareTag(K.T.player))
+        {
+            player.SetDestinationScene(destinationScene);
+        }
     }
 }

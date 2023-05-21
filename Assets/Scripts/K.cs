@@ -34,6 +34,7 @@ public static class K
     public static class T
     {
         public static readonly string teleporter = "Teleporter";
+        public static readonly string exitTeleporter = "ExitTeleporter";
         public static readonly string inactiveTeleporter = "InactiveTeleporter";
         public static readonly string player = "Player";
         public static readonly string chip = "Chip";
