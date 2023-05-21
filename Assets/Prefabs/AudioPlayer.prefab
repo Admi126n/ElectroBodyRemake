@@ -44,8 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b99d4f27ae9a7f48bff29cbc8def9b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  landingClip: {fileID: 8300000, guid: d9d7023069664e24ab9d76dcfa70a55a, type: 3}
-  jumpingClip: {fileID: 8300000, guid: eeb4cff6dc7b3b545a405788b7269020, type: 3}
-  walkingClip: {fileID: 8300000, guid: 1931dff9b740b744f82c6ea3213ba486, type: 3}
+  landing: {fileID: 8300000, guid: d9d7023069664e24ab9d76dcfa70a55a, type: 3}
+  jumping: {fileID: 8300000, guid: eeb4cff6dc7b3b545a405788b7269020, type: 3}
+  walking: {fileID: 8300000, guid: 1931dff9b740b744f82c6ea3213ba486, type: 3}
+  teleporting: {fileID: 8300000, guid: 9298b09cdfd3a82448ae430c77801fc9, type: 3}
   ammoPickedUp: {fileID: 8300000, guid: 08cea4153a8b79a43a20ac703362a8c3, type: 3}
   explosion: {fileID: 8300000, guid: 64aed2dae7933d445b4ccd9439af6500, type: 3}
+  chipPickedUp: {fileID: 8300000, guid: f51e181ef63249e4f8fc5459acd229bf, type: 3}

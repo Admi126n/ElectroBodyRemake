@@ -43,12 +43,12 @@
                 },
                 {
                     "name": "Teleport",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "6605421a-c4f3-4421-a43d-0d6175b993f9",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "JumpLeft",
@@ -204,39 +204,6 @@
                 },
                 {
                     "name": "",
-                    "id": "da9b229d-f81f-4878-9f3f-fde7edd4c077",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Teleport",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6e1c2d73-2c0f-4f59-967e-47d6a1a3d32f",
-                    "path": "<Keyboard>/downArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Teleport",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d10e81da-bd98-483f-9b82-a2952faab5ae",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Teleport",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "056d5e40-5981-40a5-9fec-71a89ce341f5",
                     "path": "<Keyboard>/rightShift",
                     "interactions": "",
@@ -320,6 +287,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "JumpRight",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "40902192-de91-4730-8d84-a80915ca8c43",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Teleport",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "12aaa66c-d400-4581-a58c-1246a3931082",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Teleport",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "up",
+                    "id": "df0b3e0d-d171-41f6-b765-b858cb96d20b",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Teleport",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "up",
+                    "id": "6a487071-2161-4d6e-afa0-b419decee50d",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Teleport",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }

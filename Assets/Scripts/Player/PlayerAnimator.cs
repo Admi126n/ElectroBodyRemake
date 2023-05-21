@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
 {
-    Animator bodyAnimator;
-    Animator armsAnimator;
-    SpriteRenderer armsRenderer;
+    private Animator bodyAnimator;
+    private Animator armsAnimator;
+    private SpriteRenderer armsRenderer;
 
     private void Start()
     {
@@ -23,27 +23,42 @@ public class PlayerAnimator : MonoBehaviour
 
     public void SetWalkBools(bool value)
     {
-        SetAnimatorsBools("Walk", value);
+        SetAnimatorsBools(K.ACP.walk, value);
     }
 
     public void SetHasGunBools(bool value)
     {
-        SetAnimatorsBools("HasGun", value);
+        SetAnimatorsBools(K.ACP.hasGun, value);
     }
 
     public void SetJumpBool(bool value)
     {
-        bodyAnimator.SetBool("Jump", value);
+        bodyAnimator.SetBool(K.ACP.jump, value);
     }
 
     public void TriggerArmsLanding()
     {
-        armsAnimator.SetTrigger("Landed");
+        armsAnimator.SetTrigger(K.ACP.landed);
     }
 
     public void TriggerBodyFlipping()
     {
-        bodyAnimator.SetTrigger("Flip");
+        bodyAnimator.SetTrigger(K.ACP.flip);
+    }
+
+    public void TriggerGunTaking()
+    {
+        armsAnimator.SetTrigger(K.ACP.takeGun);
+    }
+
+    public void TriggerGunHiding()
+    {
+        armsAnimator.SetTrigger(K.ACP.hideGun);
+    }
+
+    public void TriggerTeleportation()
+    {
+        bodyAnimator.SetTrigger(K.ACP.teleport);
     }
 
     public void SetArmsAlpha(float value)
@@ -51,15 +66,5 @@ public class PlayerAnimator : MonoBehaviour
         Color temp = armsRenderer.color;
         temp.a = value;
         armsRenderer.color = temp;
-    }
-
-    public void TriggerGunTaking()
-    {
-        armsAnimator.SetTrigger("TakeGun");
-    }
-
-    public void TriggerGunHiding()
-    {
-        armsAnimator.SetTrigger("HideGun");
     }
 }
