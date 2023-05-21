@@ -8,6 +8,7 @@ TagManager:
   - Bullet
   - Teleporter
   - InactiveTeleporter
+  - Chip
   layers:
   - Default
   - TransparentFX
