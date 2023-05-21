@@ -5,17 +5,20 @@ using UnityEngine.InputSystem;
 
 public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
 {
+    private GameController gameController;
     private PlayerController playerController;
     private PlayerAnimator playerAnimator;
     private AudioPlayer audioPlayer;
 
     private bool canTeleport = false;
     private Vector3 teleportingDestination;
+    private int destinationScene;
     private bool teleportPressed;
     private int chipCounter = 0;
 
     void Start()
     {
+        gameController = FindObjectOfType<GameController>();
         playerController = GetComponent<PlayerController>();
         playerAnimator = GetComponent<PlayerAnimator>();
         audioPlayer = FindObjectOfType<AudioPlayer>();
@@ -46,6 +49,11 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
             Destroy(collision.gameObject);
             chipCounter++;
             audioPlayer.PlayChipPickedUpClip(playerController.transform.position);
+
+            if (chipCounter == 3)
+            {
+                gameController.ActivateExitTeleporter();
+            }
         }
     }
 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e92508dfa81557c4ab0d104f828ecadc
+guid: e2678e54385fa1a40a7427a167bccbda
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,7 +117,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: teleporter_0
+      name: teleporters_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,14 +131,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 929b79f66ba769b42a27ba0fe1a597c5
-      internalID: -863845569
+      spriteID: dbd9412b793d6ec4c92fee3357223b7e
+      internalID: 39842007
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: teleporter_1
+      name: teleporters_1
       rect:
         serializedVersion: 2
         x: 24
@@ -152,14 +152,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3f3a929b55b7e0f4ea51d8c536a9e1f9
-      internalID: 13288135
+      spriteID: d43242df2f82a2041ae0550a4fd517f6
+      internalID: -1752869870
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: teleporter_2
+      name: teleporters_2
       rect:
         serializedVersion: 2
         x: 48
@@ -173,14 +173,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 763266ce8f1992a40bf577c65e124930
-      internalID: -1711346162
+      spriteID: eeae4539eb310ea4a92e83bcb1173e5a
+      internalID: 1413413105
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: teleporter_3
+      name: teleporters_3
       rect:
         serializedVersion: 2
         x: 72
@@ -194,8 +194,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f65015d39c0c2e4aa2398be4c487f2b
-      internalID: -1648916178
+      spriteID: 121e24285b757ca4bbd6b6f843d759bf
+      internalID: 920034963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: teleporters_4
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45c42d3d7cce6024583ed717d1ef11f0
+      internalID: -1000978649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: teleporters_5
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 930285151d0a0dd4983047a59eeafa5a
+      internalID: -138180960
       vertices: []
       indices: 
       edges: []
@@ -211,10 +253,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      teleporter_3: -1648916178
-      teleporter_1: 13288135
-      teleporter_0: -863845569
-      teleporter_2: -1711346162
+      teleporters_2: 1413413105
+      teleporters_1: -1752869870
+      teleporters_3: 920034963
+      teleporters_4: -1000978649
+      teleporters_5: -138180960
+      teleporters_0: 39842007
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

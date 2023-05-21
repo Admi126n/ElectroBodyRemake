@@ -37,41 +37,9 @@ public class Teleporter : MonoBehaviour
         teleporterAnimator = GetComponent<Animator>();
         player = FindObjectOfType<PlayerTeleportingController>();
 
-        DetectTeleporterDuplicates();
-
         if (destinationId == -1)
         {
-            SetInactiveTeleporter();
-        }
-    }
-
-    private void DetectTeleporterDuplicates()
-    {
-        List<int> teleportersIds = new();
-
-        foreach (Teleporter teleporter in teleporters)
-        {
-            teleportersIds.Add(teleporter.GetId());
-        }
-
-        List<int> duplicates = teleportersIds.GroupBy(x => x)
-              .Where(g => g.Count() > 1)
-              .Select(y => y.Key)
-              .ToList();
-
-        if (duplicates.Count() > 0)
-        {
-            Debug.Break();
-            foreach (int el in duplicates)
-            {
-                foreach (Teleporter teleporter in teleporters)
-                {
-                    if (el == teleporter.GetId())
-                    {
-                        Debug.LogError("Found teleporter with duplicated ID, teleporter position: " + teleporter.GetTeleporterPosition().ToString());
-                    }
-                }
-            }
+            DeactivateTeleporter();
         }
     }
 
@@ -88,7 +56,7 @@ public class Teleporter : MonoBehaviour
         return new Vector3();
     }
 
-    private void SetInactiveTeleporter()
+    private void DeactivateTeleporter()
     {
         teleporterRenderer.enabled = false;
         teleporterAnimator.enabled = false;
