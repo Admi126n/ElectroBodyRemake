@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Ammo
   - Bullet
+  - Teleporter
+  - InactiveTeleporter
+  - Chip
+  - ExitTeleporter
   layers:
   - Default
   - TransparentFX
