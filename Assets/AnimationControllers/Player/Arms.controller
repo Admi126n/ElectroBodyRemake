@@ -176,7 +176,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: armsGun
+  m_Name: ArmsGun
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -228,7 +228,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: armsNoGunIdle
+  m_Name: ArmsNoGunIdle
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -306,7 +306,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: armsNoGunWalk
+  m_Name: ArmsNoGunWalk
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -334,7 +334,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: armsTakeGun
+  m_Name: ArmsTakeGun
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -491,7 +491,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: armsGunLand
+  m_Name: ArmsGunLand
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -518,7 +518,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: armsHideGun
+  m_Name: ArmsHideGun
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -545,7 +545,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: armsNoGunLand
+  m_Name: ArmsNoGunLand
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
