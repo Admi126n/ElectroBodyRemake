@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Class with all strings needed in code. Here are all clips names, layers names, etc.
 /// </summary>
-public static class K
+static class K
 {
     /// <summary>
     /// Class with layers names
@@ -26,6 +26,11 @@ public static class K
         public static readonly string bodyNoGunTeleport = "BodyNoGunTeleport";
         public static readonly string bodyGunExitTeleport = "BodyGunExitTeleport";
         public static readonly string bodyGunTeleport = "BodyGunTeleport";
+        public static readonly string armsTakeGun = "ArmsTakeGun";
+        public static readonly string armsHideGun = "ArmsHideGun";
+        public static readonly string armsGun = "ArmsGun";
+        public static readonly string armsNoGunIdle = "ArmsNoGunIdle";
+        public static readonly string armsNoGunWalk = "ArmsNoGunWalk";
     }
 
     /// <summary>
@@ -55,4 +60,10 @@ public static class K
         public static readonly string explode = "Explode";
         public static readonly string teleport = "Teleport";
     }
+}
+
+public enum Animators
+{
+    BodyAnimator = 0,
+    ArmsAnimator = 1
 }

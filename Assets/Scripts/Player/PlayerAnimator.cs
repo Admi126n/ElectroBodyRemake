@@ -8,6 +8,8 @@ public class PlayerAnimator : MonoBehaviour
     private Animator armsAnimator;
     private SpriteRenderer armsRenderer;
 
+    private bool isManagingGun;
+
     private void Start()
     {
         bodyAnimator = GetComponent<Animator>();
@@ -38,6 +40,8 @@ public class PlayerAnimator : MonoBehaviour
 
     public void TriggerArmsLanding()
     {
+        if (isManagingGun) return;
+
         armsAnimator.SetTrigger(K.ACP.landed);
     }
 
@@ -48,11 +52,15 @@ public class PlayerAnimator : MonoBehaviour
 
     public void TriggerGunTaking()
     {
+        if (isManagingGun) return;
+
         armsAnimator.SetTrigger(K.ACP.takeGun);
     }
 
     public void TriggerGunHiding()
     {
+        if (isManagingGun) return;
+
         armsAnimator.SetTrigger(K.ACP.hideGun);
     }
 
@@ -66,5 +74,28 @@ public class PlayerAnimator : MonoBehaviour
         Color temp = armsRenderer.color;
         temp.a = value;
         armsRenderer.color = temp;
+    }
+
+    public string GetCurrentAnimName(Animators animatorName)
+    {
+        string clipName = "";
+
+        if (animatorName == Animators.BodyAnimator)
+        {
+            AnimatorClipInfo[] currClipInfo = bodyAnimator.GetCurrentAnimatorClipInfo(0);
+            clipName = currClipInfo[0].clip.name;
+            return clipName;
+        } else if (animatorName == Animators.ArmsAnimator)
+        {
+            AnimatorClipInfo[] currClipInfo = armsAnimator.GetCurrentAnimatorClipInfo(0);
+            clipName = currClipInfo[0].clip.name;
+            return clipName;
+        }
+        return clipName;
+    }
+
+    public void SetIsManagingGun(bool value)
+    {
+        isManagingGun = value;
     }
 }

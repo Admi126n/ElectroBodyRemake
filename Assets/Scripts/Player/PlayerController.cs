@@ -41,8 +41,7 @@ public class PlayerController : MonoBehaviour
     {
         get
         {
-            AnimatorClipInfo[] currClipInfo = bodyAnimator.GetCurrentAnimatorClipInfo(0);
-            string name = currClipInfo[0].clip.name;
+            string name = playerAnimator.GetCurrentAnimName(Animators.BodyAnimator);
             return (name == K.A.bodyNoGunFlip || name == K.A.bodyGunFlip);
         }
     }
@@ -51,8 +50,7 @@ public class PlayerController : MonoBehaviour
     {
         get
         {
-            AnimatorClipInfo[] currClipInfo = bodyAnimator.GetCurrentAnimatorClipInfo(0);
-            string name = currClipInfo[0].clip.name;
+            string name = playerAnimator.GetCurrentAnimName(Animators.BodyAnimator);
             return (name == K.A.bodyNoGunTeleport || name == K.A.bodyNoGunExitTeleport || name == K.A.bodyGunTeleport || name == K.A.bodyGunExitTeleport);
         }
     }
@@ -250,11 +248,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnJump(InputValue value)
-    {
-        jumpInput = jumpSpeed * value.Get<Vector2>().y;
-    }
-
     void OnHideTakeGun()
     {
         if (HasGun)
@@ -267,30 +260,32 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnJumpLeft(InputValue value)
+    /// <summary>
+    /// Method triggered by input system.
+    /// </summary>
+    /// <param name="value">InputValue from input system.</param>
+    private void OnJump(InputValue value)
     {
-        if (value.Get<Vector2>().y == 1)
-        {
-            jumpInput = jumpSpeed * 1;
-            moveInput = new(-1f, 0f);
-        } else
-        {
-            jumpInput = 0;
-            moveInput = new(0f, 0f);
-        }
+        jumpInput = jumpSpeed * value.Get<Vector2>().y;
     }
 
-    void OnJumpRight(InputValue value)
+    /// <summary>
+    /// Method triggered by input system.
+    /// </summary>
+    /// <param name="value">InputValue from input system.</param>
+    private void OnJumpLeft(InputValue value)
     {
-        if (value.Get<Vector2>().y == 1)
-        {
-            jumpInput = jumpSpeed * 1;
-            moveInput = new(1f, 0f);
-        }
-        else
-        {
-            jumpInput = 0;
-            moveInput = new(0f, 0f);
-        }
+        jumpInput = jumpSpeed * value.Get<Vector2>().y;
+        moveInput = new(-value.Get<Vector2>().y, 0f);
+    }
+
+    /// <summary>
+    /// Method triggered by input system.
+    /// </summary>
+    /// <param name="value">InputValue from input system.</param>
+    private void OnJumpRight(InputValue value)
+    {
+        jumpInput = jumpSpeed * value.Get<Vector2>().y;
+        moveInput = new(value.Get<Vector2>().y, 0f);
     }
 }

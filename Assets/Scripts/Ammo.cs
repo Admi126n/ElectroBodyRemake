@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+/// <summary>
+/// Script used with ammo tile map
+/// </summary>
 public class Ammo : MonoBehaviour
 {
     private Tilemap ammoTilemap;
@@ -14,6 +17,10 @@ public class Ammo : MonoBehaviour
         playerGunController = FindObjectOfType<PlayerGunController>();
     }
 
+    /// <summary>
+    /// On trigger enter, when player collide with tile map, script deletes ammo from its tilemap.
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag(K.T.player))
