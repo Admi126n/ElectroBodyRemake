@@ -43,6 +43,7 @@ static class K
         public static readonly string inactiveTeleporter = "InactiveTeleporter";
         public static readonly string player = "Player";
         public static readonly string chip = "Chip";
+        public static readonly string Ammo = "Ammo";
     }
 
     /// <summary>

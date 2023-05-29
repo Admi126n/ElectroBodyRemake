@@ -248,7 +248,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnHideTakeGun()
+    void OnManageGun()
     {
         if (HasGun)
         {

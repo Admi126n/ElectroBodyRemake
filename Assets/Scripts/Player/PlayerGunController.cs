@@ -111,7 +111,7 @@ public class PlayerGunController : MonoBehaviour
         }
     }
 
-    public void PickUpAmmo()
+    private void PickUpAmmo()
     {
         audioPlayer.PlayAmmoPickedUpClip(playerController.transform.position);
         weaponCounter++;
@@ -136,6 +136,15 @@ public class PlayerGunController : MonoBehaviour
             {
                 playerController.HasGun = false;
             }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag(K.T.Ammo))
+        {
+            Destroy(collision.gameObject);
+            PickUpAmmo();
         }
     }
 }
