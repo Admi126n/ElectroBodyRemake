@@ -33,6 +33,12 @@ public class PlayerAnimator : MonoBehaviour
         SetAnimatorsBools(K.ACP.hasGun, value);
     }
 
+    public void SetWalkSpeed(float value)
+    {
+        bodyAnimator.SetFloat(K.ACP.WalkSpeed, value);
+        armsAnimator.SetFloat(K.ACP.WalkSpeed, value);
+    }
+
     public void SetJumpBool(bool value)
     {
         bodyAnimator.SetBool(K.ACP.jump, value);

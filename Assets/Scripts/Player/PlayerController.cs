@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     PlayerGunController playerGunController;
 
     private bool hasGun = false;
+    private bool canMove = true;
     float jumpInput;
     float moveSpeed;
 
@@ -75,7 +76,7 @@ public class PlayerController : MonoBehaviour
         FlipSprite();
         StopMovingWhileFlipping();
         StopWalkAnimOnWallCollission();
-        SetXVelocityOnJumping();
+        SetHorizontalVelocityOnFalling();
     }
 
     private void StopWalkAnimOnWallCollission()
@@ -101,18 +102,28 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
+        if (!canMove)
+        {
+            myRigidbody.velocity = new(0f, myRigidbody.velocity.y);
+            return;
+        }
+
         if (IsGrounded())
         {
             playerVelocity = new(moveInput.x * moveSpeed, myRigidbody.velocity.y);
             myRigidbody.velocity = playerVelocity;
-            // TODO: Set playerAnimator&&armsAnimator.SetBool("WalkSpeed", value) - value based on playerVelocity
+
+            playerAnimator.SetWalkSpeed(Mathf.Abs(myRigidbody.velocity.x / walkSpeed));
 
             bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
             playerAnimator.SetWalkBools(playerHasHorizontalSpeed);
         }
-        else
+        else if (myRigidbody.velocity.y > 0)
         {
             myRigidbody.velocity = new(playerVelocity.x, myRigidbody.velocity.y);
+            playerAnimator.SetWalkBools(false);
+        } else
+        {
             playerAnimator.SetWalkBools(false);
         }
     }
@@ -185,6 +196,7 @@ public class PlayerController : MonoBehaviour
 
         //Debug.Log(raycastHit.collider);
 
+
         return raycastHit.collider != null;
     }
 
@@ -228,14 +240,22 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void SetXVelocityOnJumping()
+    /// <summary>
+    /// Sets player's horizontal velocity when player is falling off the platform's edge.
+    /// </summary>
+    private void SetHorizontalVelocityOnFalling()
     {
-        if (myRigidbody.velocity.x != 0 && myRigidbody.velocity.y != 0)
+        // And here again, I can't compare value to Mathf.Epsilon because player has some stupid x velocity when moving left.
+        if (Mathf.Abs(myRigidbody.velocity.x) > 0.01 && Mathf.Abs(myRigidbody.velocity.x) < moveSpeed && myRigidbody.velocity.y != 0)
         {
-            float xVelocity = HasGun ? walkSpeed * -transform.localScale.x : runSpeed * -transform.localScale.x;
-
+            float xVelocity = moveSpeed * -transform.localScale.x;
             myRigidbody.velocity = new(xVelocity, myRigidbody.velocity.y);
         }
+    }
+
+    public void SetCanMove(bool value)
+    {
+        canMove = value;
     }
 
     void OnMove(InputValue value)

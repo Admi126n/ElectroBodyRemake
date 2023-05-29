@@ -30,6 +30,7 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
     {
         if (canTeleport && teleportPressed)
         {
+            playerController.SetCanMove(false);
             teleportPressed = false;
             playerAnimator.TriggerTeleportation();
             audioPlayer.PlayTeleportingClip(playerController.transform.position);
@@ -73,6 +74,9 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
         }
     }
 
+    /// <summary>
+    /// Method is called from player's teleporting animations.
+    /// </summary>
     public void TeleportPlayer()
     {
         if (teleportToAnotherScene)
@@ -82,6 +86,7 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
         {
             playerController.gameObject.transform.position = teleportingDestination;
         }
+        playerController.SetCanMove(true);
     }
 
     public int GetChipCounter()

@@ -60,6 +60,7 @@ static class K
         public static readonly string hideGun = "HideGun";
         public static readonly string explode = "Explode";
         public static readonly string teleport = "Teleport";
+        public static readonly string WalkSpeed = "WalkSpeed";
     }
 }
 
