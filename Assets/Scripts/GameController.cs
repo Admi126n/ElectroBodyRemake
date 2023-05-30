@@ -5,43 +5,47 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    List<Teleporter> teleporters;
+    private class TeleporterData
+    {
+        public readonly Vector3 teleporterPosition;
+        public readonly int teleporterDestinationId;
+
+        public TeleporterData(Vector3 teleporterPosition, int teleporterDestinationId)
+        {
+            this.teleporterPosition = teleporterPosition;
+            this.teleporterDestinationId = teleporterDestinationId;
+        }
+    }
+
+    readonly Dictionary<int, TeleporterData> teleporters = new();
     List<ExitTeleporter> exitTeleporters;
 
     void Start()
     {
         exitTeleporters = new(FindObjectsOfType<ExitTeleporter>());
-        teleporters = new(FindObjectsOfType<Teleporter>());
 
-        DetectTeleporterDuplicates();
+        FillTeleportersDict();
     }
 
-    private void DetectTeleporterDuplicates()
+    private void FillTeleportersDict()
     {
-        List<int> teleportersIds = new();
+        List<Teleporter> teleportersObjects = new(FindObjectsOfType<Teleporter>());
 
-        foreach (Teleporter teleporter in teleporters)
+        foreach (Teleporter teleporter in teleportersObjects)
         {
-            teleportersIds.Add(teleporter.GetId());
-        }
-
-        List<int> duplicates = teleportersIds.GroupBy(x => x)
-              .Where(g => g.Count() > 1)
-              .Select(y => y.Key)
-              .ToList();
-
-        if (duplicates.Count() > 0)
-        {
-            Debug.Break();
-            foreach (int el in duplicates)
+            try
             {
-                foreach (Teleporter teleporter in teleporters)
-                {
-                    if (el == teleporter.GetId())
-                    {
-                        Debug.LogError("Found teleporter with duplicated ID, teleporter position: " + teleporter.GetTeleporterPosition().ToString());
-                    }
-                }
+                TeleporterData teleporterData = new(teleporter.GetTeleporterPosition(), teleporter.GetDestinationId());
+
+                teleporters.Add(teleporter.GetId(), teleporterData);
+            }
+            catch (System.ArgumentException)
+            {
+                Debug.Break();
+
+                Debug.LogError("Found teleporters with duplicated ID, teleporters positions: "
+                    + teleporter.GetTeleporterPosition().ToString()
+                    + "; " + teleporters[teleporter.GetId()].teleporterPosition.ToString());
             }
         }
     }
