@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8265784355311359767}
   - component: {fileID: 8265784355311359764}
   - component: {fileID: 2627843158425646919}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ExitTeleoprter
   m_TagString: InactiveTeleporter
   m_Icon: {fileID: 0}

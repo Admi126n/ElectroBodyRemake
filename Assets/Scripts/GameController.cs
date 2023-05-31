@@ -5,16 +5,40 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    private class TeleporterData
+    public class TeleporterData
     {
-        public readonly Vector3 teleporterPosition;
-        public readonly int teleporterDestinationId;
+        public Vector3 TeleporterPosition
+        {
+            get
+            {
+                return TeleporterPosition;
+            }
+
+            set
+            {
+                TeleporterPosition = value;
+            }
+        }
+
+        public int TeleporterDestinationId
+        {
+            get
+            {
+                return TeleporterDestinationId;
+            }
+
+            set
+            {
+                TeleporterDestinationId = value;
+            }
+        }
 
         public TeleporterData(Vector3 teleporterPosition, int teleporterDestinationId)
         {
-            this.teleporterPosition = teleporterPosition;
-            this.teleporterDestinationId = teleporterDestinationId;
+            TeleporterPosition = teleporterPosition;
+            TeleporterDestinationId = teleporterDestinationId;
         }
+
     }
 
     readonly Dictionary<int, TeleporterData> teleporters = new();
@@ -45,7 +69,7 @@ public class GameController : MonoBehaviour
 
                 Debug.LogError("Found teleporters with duplicated ID, teleporters positions: "
                     + teleporter.GetTeleporterPosition().ToString()
-                    + "; " + teleporters[teleporter.GetId()].teleporterPosition.ToString());
+                    + "; " + teleporters[teleporter.GetId()].TeleporterPosition.ToString());
             }
         }
     }
@@ -56,5 +80,10 @@ public class GameController : MonoBehaviour
         {
             exitTeleporter.ActivateTeleporter();
         }
+    }
+
+    public Dictionary<int, TeleporterData> GetTeleporters()
+    {
+        return teleporters;
     }
 }

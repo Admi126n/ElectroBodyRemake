@@ -69,6 +69,9 @@ public class Teleporter : MonoBehaviour
     {
         if (isActive && collision.CompareTag(K.T.player))
         {
+            // To dziala git, po teleportacji metoda sie triggeruje
+            Debug.Log("Teleporter.OnTriggerEnter2D()");
+
             player.SetTeleportingDestination(GetDestinationPosition());
         }
     }
