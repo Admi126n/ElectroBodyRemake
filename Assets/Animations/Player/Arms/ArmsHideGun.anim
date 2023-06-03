@@ -103,12 +103,19 @@ AnimationClip:
     functionName: SetIsManagingGun
     data: y
     objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
+    floatParameter: 1
     intParameter: 0
     messageOptions: 0
   - time: 0.8666667
     functionName: SetIsManagingGun
     data: n
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.8666667
+    functionName: SetPlayerControlerHasGun
+    data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

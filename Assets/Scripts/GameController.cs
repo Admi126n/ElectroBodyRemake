@@ -7,31 +7,8 @@ public class GameController : MonoBehaviour
 {
     public class TeleporterData
     {
-        public Vector3 TeleporterPosition
-        {
-            get
-            {
-                return TeleporterPosition;
-            }
-
-            set
-            {
-                TeleporterPosition = value;
-            }
-        }
-
-        public int TeleporterDestinationId
-        {
-            get
-            {
-                return TeleporterDestinationId;
-            }
-
-            set
-            {
-                TeleporterDestinationId = value;
-            }
-        }
+        public Vector3 TeleporterPosition { get; set; }
+        public int TeleporterDestinationId { get; set; }
 
         public TeleporterData(Vector3 teleporterPosition, int teleporterDestinationId)
         {
@@ -80,10 +57,5 @@ public class GameController : MonoBehaviour
         {
             exitTeleporter.ActivateTeleporter();
         }
-    }
-
-    public Dictionary<int, TeleporterData> GetTeleporters()
-    {
-        return teleporters;
     }
 }

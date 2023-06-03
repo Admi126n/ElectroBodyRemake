@@ -23,13 +23,14 @@ public class ExitTeleporter : MonoBehaviour
     {
         teleporterRenderer.enabled = true;
         teleporterAnimator.enabled = true;
-        gameObject.tag = K.T.exitTeleporter;
+        gameObject.tag = K.T.ExitTeleporter;
+        gameObject.layer = LayerMask.NameToLayer(K.L.Teleporters);
         isActive = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isActive && collision.CompareTag(K.T.player))
+        if (isActive && collision.CompareTag(K.T.Player))
         {
             player.SetDestinationScene(destinationScene);
         }

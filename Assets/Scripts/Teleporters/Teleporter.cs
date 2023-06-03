@@ -9,7 +9,7 @@ interface IPlayerTeleporting
 }
 
 /// <summary>
-/// Teleporter script. Setting destinationId to -1 makes teleporter inactive (it is only destination teleporter)
+/// Teleporter script. Setting destinationId to -1 makes teleporter inactive (it is only destination teleporter).
 /// </summary>
 public class Teleporter : MonoBehaviour
 {
@@ -61,17 +61,14 @@ public class Teleporter : MonoBehaviour
         teleporterRenderer.enabled = false;
         teleporterAnimator.enabled = false;
         teleporterBaseRenderer.sprite = inactiveBase;
-        teleporterRenderer.tag = K.T.inactiveTeleporter;
+        gameObject.layer = LayerMask.NameToLayer(K.L.InactiveTeleporters);
         isActive = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isActive && collision.CompareTag(K.T.player))
+        if (isActive && collision.CompareTag(K.T.Player))
         {
-            // To dziala git, po teleportacji metoda sie triggeruje
-            Debug.Log("Teleporter.OnTriggerEnter2D()");
-
             player.SetTeleportingDestination(GetDestinationPosition());
         }
     }

@@ -31,7 +31,7 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        bulletAnimator.SetTrigger(K.ACP.explode);
+        bulletAnimator.SetTrigger(K.ACP.Explode);
         audioPlayer.PlayExplosionClip(transform.position);
 
         // FIXME: 4 weapon's bullet should explode only on collision with walls

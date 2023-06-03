@@ -11,10 +11,8 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
     private PlayerAnimator playerAnimator;
     private AudioPlayer audioPlayer;
 
-    //private bool canTeleport = false;
     private bool teleportToAnotherScene = false;
     private Vector3 teleportingDestination;
-    private Vector3 oldTeleportingDestination;
     private int destinationScene;
     private bool teleportPressed;
     private int chipCounter = 0;
@@ -29,18 +27,12 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
 
     private void Update()
     {
-        if (Time.frameCount % 20 == 0)
-        {
-            // Debug.Log("PlayerTeleportingController.Update(); canTeleport=" + canTeleport.ToString() + "; teleportPressed=" + teleportPressed.ToString());
-        }
-        
         if (teleportPressed && playerController.gameObject.GetComponent<Rigidbody2D>().IsTouchingLayers(LayerMask.GetMask("Teleporters")))
-            {
-                Debug.LogWarning("PlayerTeleportingController.Update().if(...)");
-                playerController.SetCanMove(false);
-                teleportPressed = false;
-                playerAnimator.TriggerTeleportation();
-                audioPlayer.PlayTeleportingClip(playerController.transform.position);
+        {
+            playerController.CanMove = false;
+            teleportPressed = false;
+            playerAnimator.TriggerTeleportation();
+            audioPlayer.PlayTeleportingClip(playerController.transform.position);
         }
     }
 
@@ -51,16 +43,13 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(K.T.teleporter))
+        if (collision.CompareTag(K.T.Teleporter))
         {
-            //canTeleport = true;
             teleportToAnotherScene = false;
-            Debug.LogWarning("PlayerTeleportingController.OnTriggerEnter2D(); teleportPressed=" + teleportPressed.ToString());
-        } else if (collision.CompareTag(K.T.exitTeleporter))
+        } else if (collision.CompareTag(K.T.ExitTeleporter))
         {
-            //canTeleport = true;
             teleportToAnotherScene = true;
-        }  else if (collision.CompareTag(K.T.chip))
+        }  else if (collision.CompareTag(K.T.Chip))
         {
             Destroy(collision.gameObject);
             chipCounter++;
@@ -73,17 +62,6 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag(K.T.teleporter) && playerController.gameObject.transform.position != oldTeleportingDestination)
-        {
-            Debug.LogWarning("PlayerTeleportingController.OnTriggerExit2D(), collision exit from: " + collision.gameObject.name + "; player position: " + playerController.gameObject.transform.position
-                + "old teleporting destination: " + oldTeleportingDestination);
-            //canTeleport = false;
-            //teleportToAnotherScene = false;
-        }
-    }
-
     /// <summary>
     /// Method is called from player's teleporting animations.
     /// </summary>
@@ -91,23 +69,12 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
     {
         if (teleportToAnotherScene)
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(destinationScene);
         } else
         {
-            oldTeleportingDestination = teleportingDestination;
             playerController.gameObject.transform.position = teleportingDestination;
         }
-        playerController.SetCanMove(true);
-    }
-
-    IEnumerator Test()
-    {
-        yield return new WaitForSeconds(1f);
-    }
-
-    public int GetChipCounter()
-    {
-        return chipCounter;
+        playerController.CanMove = true;
     }
 
     public void SetTeleportingDestination(Vector3 destination)

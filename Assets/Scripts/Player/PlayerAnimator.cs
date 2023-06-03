@@ -4,82 +4,93 @@ using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
 {
-    private Animator bodyAnimator;
-    private Animator armsAnimator;
-    private SpriteRenderer armsRenderer;
+    private Animator _bodyAnimator;
+    private Animator _armsAnimator;
 
-    private bool isManagingGun;
+    public bool IsManagingGun { set; get; }
+
+    public bool PlayerIsFlipping
+    {
+        get
+        {
+            string name = GetCurrentAnimName(Animators.BodyAnimator);
+            return (name == K.A.NoGunFlip || name == K.A.GunFlip);
+        }
+    }
+
+    public bool PlayerIsTeleporting
+    {
+        get
+        {
+            string name = GetCurrentAnimName(Animators.BodyAnimator);
+            return (name == K.A.NoGunTeleport || name == K.A.NoGunExitTeleport || name == K.A.GunTeleport || name == K.A.GunExitTeleport);
+        }
+    }
 
     private void Start()
     {
-        bodyAnimator = GetComponent<Animator>();
-        armsAnimator = gameObject.transform.GetChild(0).GetComponent<Animator>();
-        armsRenderer = gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        _bodyAnimator = GetComponent<Animator>();
+        _armsAnimator = gameObject.transform.GetChild(0).GetComponent<Animator>();
     }
 
     private void SetAnimatorsBools(string boolName, bool value)
     {
-        bodyAnimator.SetBool(boolName, value);
-        armsAnimator.SetBool(boolName, value);
+        _bodyAnimator.SetBool(boolName, value);
+        _armsAnimator.SetBool(boolName, value);
     }
 
     public void SetWalkBools(bool value)
     {
-        SetAnimatorsBools(K.ACP.walk, value);
+        SetAnimatorsBools(K.ACP.Walk, value);
     }
 
     public void SetHasGunBools(bool value)
     {
-        SetAnimatorsBools(K.ACP.hasGun, value);
+        SetAnimatorsBools(K.ACP.HasGun, value);
     }
 
     public void SetWalkSpeed(float value)
     {
-        bodyAnimator.SetFloat(K.ACP.WalkSpeed, value);
-        armsAnimator.SetFloat(K.ACP.WalkSpeed, value);
+        _bodyAnimator.SetFloat(K.ACP.WalkSpeed, value);
+        _armsAnimator.SetFloat(K.ACP.WalkSpeed, value);
     }
 
     public void SetJumpBool(bool value)
     {
-        bodyAnimator.SetBool(K.ACP.jump, value);
+        _bodyAnimator.SetBool(K.ACP.Jump, value);
     }
 
     public void TriggerArmsLanding()
     {
-        if (isManagingGun) return;
+        if (IsManagingGun) return;
 
-        armsAnimator.SetTrigger(K.ACP.landed);
+        _armsAnimator.SetTrigger(K.ACP.Landed);
     }
 
     public void TriggerBodyFlipping()
     {
-        bodyAnimator.SetTrigger(K.ACP.flip);
+        _bodyAnimator.SetTrigger(K.ACP.Flip);
     }
 
     public void TriggerGunTaking()
     {
-        if (isManagingGun) return;
+        if (IsManagingGun) return;
 
-        armsAnimator.SetTrigger(K.ACP.takeGun);
+        _armsAnimator.SetTrigger(K.ACP.TakeGun);
     }
 
     public void TriggerGunHiding()
     {
-        if (isManagingGun) return;
+        if (IsManagingGun) return;
 
-        armsAnimator.SetTrigger(K.ACP.hideGun);
+        _armsAnimator.SetTrigger(K.ACP.HideGun);
     }
 
     public void TriggerTeleportation()
     {
-        bodyAnimator.SetTrigger(K.ACP.teleport);
-    }
+        // if (_isTeleporting) return;
 
-    public void SetArmsAlpha(float value)
-    {
-        Color temp = armsRenderer.color;
-        temp.a = value;
-        armsRenderer.color = temp;
+        _bodyAnimator.SetTrigger(K.ACP.Teleport);
     }
 
     public string GetCurrentAnimName(Animators animatorName)
@@ -88,20 +99,15 @@ public class PlayerAnimator : MonoBehaviour
 
         if (animatorName == Animators.BodyAnimator)
         {
-            AnimatorClipInfo[] currClipInfo = bodyAnimator.GetCurrentAnimatorClipInfo(0);
+            AnimatorClipInfo[] currClipInfo = _bodyAnimator.GetCurrentAnimatorClipInfo(0);
             clipName = currClipInfo[0].clip.name;
             return clipName;
         } else if (animatorName == Animators.ArmsAnimator)
         {
-            AnimatorClipInfo[] currClipInfo = armsAnimator.GetCurrentAnimatorClipInfo(0);
+            AnimatorClipInfo[] currClipInfo = _armsAnimator.GetCurrentAnimatorClipInfo(0);
             clipName = currClipInfo[0].clip.name;
             return clipName;
         }
         return clipName;
-    }
-
-    public void SetIsManagingGun(bool value)
-    {
-        isManagingGun = value;
     }
 }

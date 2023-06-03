@@ -4,29 +4,31 @@ using UnityEngine;
 
 public class PlayerArmsController : MonoBehaviour
 {
-    PlayerController playerController;
-    PlayerAnimator playerAnimator;
+    private PlayerController _playerController;
+    private PlayerAnimator _playerAnimator;
 
-    void Start()
+    private void Start()
     {
-        playerController = FindObjectOfType<PlayerController>();
-        playerAnimator = FindObjectOfType<PlayerAnimator>();
+        _playerController = FindObjectOfType<PlayerController>();
+        _playerAnimator = FindObjectOfType<PlayerAnimator>();
     }
 
-    public void TakeGun()
+    /// <
+    /// >
+    /// Method is called in ArmsTakeGun and ArmsHideGun animations.
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetPlayerControlerHasGun(float value)
     {
-        playerController.HasGun = true;
+        _playerController.HasGun = value == 1.0f;
     }
 
-    public void SetIsManagingGun(string value)
+    /// <summary>
+    /// Method is called in ArmsTakeGun and ArmsHideGun animations.
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetIsManagingGun(float value)
     {
-        if (value.ToLower() == "y")
-        {
-            playerAnimator.SetIsManagingGun(true);
-        } else
-        {
-            playerAnimator.SetIsManagingGun(false);
-        }
-        
+        _playerAnimator.IsManagingGun = value == 1.0f;
     }
 }

@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BodyGunFlip
+  m_Name: GunFlip
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -103,7 +103,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BodyNoGunExitTeleport
+  m_Name: NoGunExitTeleport
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -155,7 +155,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BodyGunExitTeleport
+  m_Name: GunExitTeleport
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -261,7 +261,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BodyGunTeleport
+  m_Name: GunTeleport
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -316,7 +316,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BodyNoGunFlip
+  m_Name: NoGunFlip
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -674,7 +674,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BodyNoGunTeleport
+  m_Name: NoGunTeleport
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
