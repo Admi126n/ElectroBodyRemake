@@ -141,8 +141,12 @@ public class PlayerController : MonoBehaviour
         {
             if (!_bodyAnimator.GetBool(K.ACP.Jump))
             {
-                _audioPlayer.PlayJumpingClip(_playerRigidbody.transform.position);
                 _playerAnimator.SetJumpBool(true);
+
+                if (_jumpInput > 0.0f)
+                {
+                    _audioPlayer.PlayJumpingClip(_playerRigidbody.transform.position);
+                }
             }
         }
     }
