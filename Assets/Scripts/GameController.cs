@@ -3,54 +3,64 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+public class TeleporterData
 {
-    List<Teleporter> teleporters;
-    List<ExitTeleporter> exitTeleporters;
+    public Vector3 TeleporterPosition { get; set; }
+    public int TeleporterDestinationId { get; set; }
 
-    void Start()
+    public TeleporterData(Vector3 teleporterPosition, int teleporterDestinationId)
     {
-        exitTeleporters = new(FindObjectsOfType<ExitTeleporter>());
-        teleporters = new(FindObjectsOfType<Teleporter>());
-
-        DetectTeleporterDuplicates();
+        TeleporterPosition = teleporterPosition;
+        TeleporterDestinationId = teleporterDestinationId;
     }
 
-    private void DetectTeleporterDuplicates()
+}
+
+public class GameController : MonoBehaviour
+{
+    private readonly Dictionary<int, TeleporterData> _Teleporters = new();
+    private List<ExitTeleporter> _exitTeleporters;
+
+    private void Start()
     {
-        List<int> teleportersIds = new();
+        _exitTeleporters = new(FindObjectsOfType<ExitTeleporter>());
 
-        foreach (Teleporter teleporter in teleporters)
+        FillTeleportersDict();
+    }
+
+    private void FillTeleportersDict()
+    {
+        List<Teleporter> teleportersObjects = new(FindObjectsOfType<Teleporter>());
+
+        foreach (Teleporter teleporter in teleportersObjects)
         {
-            teleportersIds.Add(teleporter.GetId());
-        }
-
-        List<int> duplicates = teleportersIds.GroupBy(x => x)
-              .Where(g => g.Count() > 1)
-              .Select(y => y.Key)
-              .ToList();
-
-        if (duplicates.Count() > 0)
-        {
-            Debug.Break();
-            foreach (int el in duplicates)
+            try
             {
-                foreach (Teleporter teleporter in teleporters)
-                {
-                    if (el == teleporter.GetId())
-                    {
-                        Debug.LogError("Found teleporter with duplicated ID, teleporter position: " + teleporter.GetTeleporterPosition().ToString());
-                    }
-                }
+                TeleporterData teleporterData = new(teleporter.GetTeleporterPosition(), teleporter.GetDestinationId());
+
+                _Teleporters.Add(teleporter.GetId(), teleporterData);
+            }
+            catch (System.ArgumentException)
+            {
+                Debug.Break();
+
+                Debug.LogError("Found teleporters with duplicated ID, teleporters positions: "
+                    + teleporter.GetTeleporterPosition().ToString()
+                    + "; " + _Teleporters[teleporter.GetId()].TeleporterPosition.ToString());
             }
         }
     }
 
     public void ActivateExitTeleporter()
     {
-        foreach (ExitTeleporter exitTeleporter in exitTeleporters)
+        foreach (ExitTeleporter exitTeleporter in _exitTeleporters)
         {
             exitTeleporter.ActivateTeleporter();
         }
+    }
+
+    public Dictionary<int, TeleporterData> GetTeleporters()
+    {
+        return _Teleporters;
     }
 }

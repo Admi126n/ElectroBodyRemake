@@ -1,58 +1,69 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 /// <summary>
 /// Class with all strings needed in code. Here are all clips names, layers names, etc.
 /// </summary>
-public static class K
+static class K
 {
     /// <summary>
-    /// Class with layers names
+    /// Class with layers names.
     /// </summary>
     public static class L
     {
-        public static readonly string ground = "Ground";
+        public static readonly string Ground = "Ground";
+        public static readonly string Teleporters = "Teleporters";
+        public static readonly string InactiveTeleporters = "InactiveTeleporters";
     }
 
     /// <summary>
-    /// Class with animations names
+    /// Class with animations names.
     /// </summary>
     public static class A
     {
-        public static readonly string bodyNoGunFlip = "BodyNoGunFlip";
-        public static readonly string bodyGunFlip = "BodyGunFlip";
-        public static readonly string bodyNoGunExitTeleport = "BodyNoGunExitTeleport";
-        public static readonly string bodyNoGunTeleport = "BodyNoGunTeleport";
-        public static readonly string bodyGunExitTeleport = "BodyGunExitTeleport";
-        public static readonly string bodyGunTeleport = "BodyGunTeleport";
+        public static readonly string NoGunFlip = "NoGunFlip";
+        public static readonly string GunFlip = "GunFlip";
+        public static readonly string NoGunExitTeleport = "NoGunExitTeleport";
+        public static readonly string NoGunTeleport = "NoGunTeleport";
+        public static readonly string GunExitTeleport = "GunExitTeleport";
+        public static readonly string GunTeleport = "GunTeleport";
+        public static readonly string ArmsTakeGun = "ArmsTakeGun";
+        public static readonly string ArmsHideGun = "ArmsHideGun";
+        public static readonly string ArmsGun = "ArmsGun";
+        public static readonly string ArmsNoGunIdle = "ArmsNoGunIdle";
+        public static readonly string ArmsNoGunWalk = "ArmsNoGunWalk";
     }
 
     /// <summary>
-    /// Class with tags
+    /// Class with tags.
     /// </summary>
     public static class T
     {
-        public static readonly string teleporter = "Teleporter";
-        public static readonly string exitTeleporter = "ExitTeleporter";
-        public static readonly string inactiveTeleporter = "InactiveTeleporter";
-        public static readonly string player = "Player";
-        public static readonly string chip = "Chip";
+        public static readonly string Teleporter = "Teleporter";
+        public static readonly string ExitTeleporter = "ExitTeleporter";
+        public static readonly string InactiveTeleporter = "InactiveTeleporter";
+        public static readonly string Player = "Player";
+        public static readonly string Chip = "Chip";
+        public static readonly string Ammo = "Ammo";
     }
 
     /// <summary>
-    /// Class with animations controllers' parameters names
+    /// Class with animations controllers' parameters names.
     /// </summary>
     public static class ACP
     {
-        public static readonly string jump = "Jump";
-        public static readonly string walk = "Walk";
-        public static readonly string hasGun = "HasGun";
-        public static readonly string landed = "Landed";
-        public static readonly string flip = "Flip";
-        public static readonly string takeGun = "TakeGun";
-        public static readonly string hideGun = "HideGun";
-        public static readonly string explode = "Explode";
-        public static readonly string teleport = "Teleport";
+        public static readonly string Jump = "Jump";
+        public static readonly string Walk = "Walk";
+        public static readonly string HasGun = "HasGun";
+        public static readonly string Landed = "Landed";
+        public static readonly string Flip = "Flip";
+        public static readonly string TakeGun = "TakeGun";
+        public static readonly string HideGun = "HideGun";
+        public static readonly string Explode = "Explode";
+        public static readonly string Teleport = "Teleport";
+        public static readonly string WalkSpeed = "WalkSpeed";
     }
+}
+
+public enum Animators
+{
+    BodyAnimator = 0,
+    ArmsAnimator = 1
 }

@@ -6,96 +6,84 @@ using UnityEngine.SceneManagement;
 
 public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
 {
-    private GameController gameController;
-    private PlayerController playerController;
-    private PlayerAnimator playerAnimator;
-    private AudioPlayer audioPlayer;
+    private GameController _gameController;
+    private PlayerController _playerController;
+    private PlayerAnimator _playerAnimator;
+    private AudioPlayer _audioPlayer;
 
-    private bool canTeleport = false;
-    private bool teleportToAnotherScene = false;
-    private Vector3 teleportingDestination;
-    private int destinationScene;
-    private bool teleportPressed;
-    private int chipCounter = 0;
+    private bool _teleportToAnotherScene = false;
+    private Vector3 _teleportingDestination;
+    private int _destinationScene;
+    private bool _teleportPressed;
+    private int _chipCounter = 0;
 
-    void Start()
+    private void Start()
     {
-        gameController = FindObjectOfType<GameController>();
-        playerController = GetComponent<PlayerController>();
-        playerAnimator = GetComponent<PlayerAnimator>();
-        audioPlayer = FindObjectOfType<AudioPlayer>();
+        _gameController = FindObjectOfType<GameController>();
+        _playerController = GetComponent<PlayerController>();
+        _playerAnimator = GetComponent<PlayerAnimator>();
+        _audioPlayer = FindObjectOfType<AudioPlayer>();
     }
 
     private void Update()
     {
-        if (canTeleport && teleportPressed)
+        if (_teleportPressed && _playerController.gameObject.GetComponent<Rigidbody2D>().IsTouchingLayers(LayerMask.GetMask("Teleporters")))
         {
-            teleportPressed = false;
-            playerAnimator.TriggerTeleportation();
-            audioPlayer.PlayTeleportingClip(playerController.transform.position);
+            _playerController.CanMove = false;
+            _teleportPressed = false;
+            _playerAnimator.TriggerTeleportation();
+            _audioPlayer.PlayTeleportingClip(_playerController.transform.position);
         }
     }
 
+    /// <summary>
+    /// Method triggered by input system.
+    /// </summary>
     void OnTeleport(InputValue value)
     {
-        teleportPressed = value.Get<Vector2>().y == 1f;
+        _teleportPressed = value.Get<Vector2>().y == 1f;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(K.T.teleporter))
-        {
-            canTeleport = true;
-            teleportToAnotherScene = false;
-        } else if (collision.CompareTag(K.T.exitTeleporter))
-        {
-            canTeleport = true;
-            teleportToAnotherScene = true;
-        }  else if (collision.CompareTag(K.T.chip))
+        _teleportToAnotherScene = collision.CompareTag(K.T.ExitTeleporter);
+
+        if (collision.CompareTag(K.T.Chip))
         {
             Destroy(collision.gameObject);
-            chipCounter++;
-            audioPlayer.PlayChipPickedUpClip(playerController.transform.position);
+            _chipCounter++;
+            _audioPlayer.PlayChipPickedUpClip(_playerController.transform.position);
 
-            if (chipCounter == 3)
+            if (_chipCounter == 3)
             {
-                gameController.ActivateExitTeleporter();
+                _gameController.ActivateExitTeleporter();
             }
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag(K.T.teleporter))
-        {
-            canTeleport = false;
-            teleportToAnotherScene = false;
-        }
-    }
-
+    /// <summary>
+    /// Method is called from player's teleporting animations.
+    /// </summary>
     public void TeleportPlayer()
     {
-        if (teleportToAnotherScene)
+        if (_teleportToAnotherScene)
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(_destinationScene);
         } else
         {
-            playerController.gameObject.transform.position = teleportingDestination;
+            _playerController.gameObject.transform.position = _teleportingDestination;
         }
-    }
-
-    public int GetChipCounter()
-    {
-        return chipCounter;
+        // TODO: should be set at the end of exit teleporter animations
+        _playerController.CanMove = true;
     }
 
     public void SetTeleportingDestination(Vector3 destination)
     {
-        teleportingDestination = new (destination.x, destination.y + 0.5f, destination.y);
+        _teleportingDestination = new (destination.x, destination.y + 0.5f, destination.y);
     }
 
     public void SetDestinationScene(int index)
     {
-        destinationScene = index;
+        _destinationScene = index;
     }
 }

@@ -10,118 +10,106 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float runSpeed = 3.21f;
     [SerializeField] float jumpSpeed = 7f;
 
-    Vector2 moveInput;
-    Vector2 playerVelocity;
-    Rigidbody2D myRigidbody;
-    Animator bodyAnimator;
-    BoxCollider2D bodyCollider;
-    AudioPlayer audioPlayer;
-    PlayerAnimator playerAnimator;
-    PlayerGunController playerGunController;
+    private Vector2 _moveInput;
+    private Vector2 _playerVelocity;
+    private Rigidbody2D _playerRigidbody;
+    private Animator _bodyAnimator;
+    private BoxCollider2D _bodyCollider;
+    private AudioPlayer _audioPlayer;
+    private PlayerAnimator _playerAnimator;
+    private PlayerGunController _playerGunController;
 
-    private bool hasGun = false;
-    float jumpInput;
-    float moveSpeed;
-
+    private float _jumpInput;
+    private float _moveSpeed;
+    private bool _hasGun = false;
+    
     public bool HasGun
     {
-        get
-        {
-            return hasGun;
-        }
         set
         {
-            hasGun = value;
-            moveSpeed = hasGun ? walkSpeed : runSpeed;
-            playerAnimator.SetHasGunBools(value);
+            _hasGun = value;
+            _moveSpeed = HasGun ? walkSpeed : runSpeed;
+            _playerAnimator.SetHasGunBools(value);
         }
+        get { return _hasGun; }
     }
 
-    private bool PlayerIsFlipping
-    {
-        get
-        {
-            AnimatorClipInfo[] currClipInfo = bodyAnimator.GetCurrentAnimatorClipInfo(0);
-            string name = currClipInfo[0].clip.name;
-            return (name == K.A.bodyNoGunFlip || name == K.A.bodyGunFlip);
-        }
-    }
-
-    private bool PlayerIsTeleporting
-    {
-        get
-        {
-            AnimatorClipInfo[] currClipInfo = bodyAnimator.GetCurrentAnimatorClipInfo(0);
-            string name = currClipInfo[0].clip.name;
-            return (name == K.A.bodyNoGunTeleport || name == K.A.bodyNoGunExitTeleport || name == K.A.bodyGunTeleport || name == K.A.bodyGunExitTeleport);
-        }
-    }
+    public bool CanMove { set; get; }
 
     private void Start()
     {
-        audioPlayer = FindObjectOfType<AudioPlayer>();
-        myRigidbody = GetComponent<Rigidbody2D>();
-        bodyAnimator = GetComponent<Animator>();
-        bodyCollider = GetComponent<BoxCollider2D>();
-        playerAnimator = GetComponent<PlayerAnimator>();
-        playerGunController = GetComponent<PlayerGunController>();
+        _audioPlayer = FindObjectOfType<AudioPlayer>();
+        _playerRigidbody = GetComponent<Rigidbody2D>();
+        _bodyAnimator = GetComponent<Animator>();
+        _bodyCollider = GetComponent<BoxCollider2D>();
+        _playerAnimator = GetComponent<PlayerAnimator>();
+        _playerGunController = GetComponent<PlayerGunController>();
 
-        moveSpeed = runSpeed;
+        _moveSpeed = runSpeed;
+        CanMove = true;
     }
 
     private void Update()
     {
         Move();
         Jump();
-        SetJumpAnim();
+        SetJumpAnimAndSound();
         FlipSprite();
         StopMovingWhileFlipping();
         StopWalkAnimOnWallCollission();
-        SetXVelocityOnJumping();
+        SetHorizontalVelocityOnFalling();
     }
 
     private void StopWalkAnimOnWallCollission()
     {
         if (IsTouchingWall())
         {
-            playerAnimator.SetWalkBools(false);
+            _playerAnimator.SetWalkBools(false);
         }
     }
 
     private void StopMovingWhileFlipping()
     {
-        if (PlayerIsFlipping || PlayerIsTeleporting)
+        if (_playerAnimator.PlayerIsFlipping || _playerAnimator.PlayerIsTeleporting)
         {
-            playerAnimator.SetArmsAlpha(0f);
-            myRigidbody.velocity = new(0f, myRigidbody.velocity.y);
-        }
-        else
-        {
-            playerAnimator.SetArmsAlpha(1f);
+            _playerRigidbody.velocity = new(0f, _playerRigidbody.velocity.y);
         }
     }
 
     private void Move()
     {
+        if (!CanMove)
+        {
+            _playerRigidbody.velocity = new(0f, _playerRigidbody.velocity.y);
+            return;
+        }
+
         if (IsGrounded())
         {
-            playerVelocity = new(moveInput.x * moveSpeed, myRigidbody.velocity.y);
-            myRigidbody.velocity = playerVelocity;
-            // TODO: Set playerAnimator&&armsAnimator.SetBool("WalkSpeed", value) - value based on playerVelocity
+            _playerVelocity = new(_moveInput.x * _moveSpeed, _playerRigidbody.velocity.y);
+            _playerRigidbody.velocity = _playerVelocity;
 
-            bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
-            playerAnimator.SetWalkBools(playerHasHorizontalSpeed);
+            _playerAnimator.SetWalkSpeed(Mathf.Abs(_playerRigidbody.velocity.x / walkSpeed));
+
+            bool playerHasHorizontalSpeed = Mathf.Abs(_playerRigidbody.velocity.x) > Mathf.Epsilon;
+            _playerAnimator.SetWalkBools(playerHasHorizontalSpeed);
         }
-        else
+        else if (_playerRigidbody.velocity.y > 0)
         {
-            myRigidbody.velocity = new(playerVelocity.x, myRigidbody.velocity.y);
-            playerAnimator.SetWalkBools(false);
+            _playerRigidbody.velocity = new(_playerVelocity.x, _playerRigidbody.velocity.y);
+            _playerAnimator.SetWalkBools(false);
+        } else
+        {
+            _playerAnimator.SetWalkBools(false);
         }
     }
 
+    /// <summary>
+    /// Method is called in BodyWalk anim.
+    /// </summary>
     public void PlayFootSetpClip()
     {
-        audioPlayer.PlayFootStepClip(transform.position);
+        _audioPlayer.PlayFootStepClip(transform.position);
     }
 
     private void FlipSprite()
@@ -130,31 +118,35 @@ public class PlayerController : MonoBehaviour
         // speed -1.754443E-15 in opposite direction so player sprite is flipping and flipping.
         // Comparing to 0.01 works fine. But problem now doesn't occur. I leave it here just in case.
         // bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > 0.01f;
-        bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
+        bool playerHasHorizontalSpeed = Mathf.Abs(_playerRigidbody.velocity.x) > Mathf.Epsilon;
 
         if (playerHasHorizontalSpeed && IsGrounded())
         {
-            transform.localScale = new Vector2(-Mathf.Sign(myRigidbody.velocity.x), 1f);
+            transform.localScale = new Vector2(-Mathf.Sign(_playerRigidbody.velocity.x), 1f);
         }
     }
 
-    private void SetJumpAnim()
+    private void SetJumpAnimAndSound()
     {
         if (IsGrounded())
         {
-            if (bodyAnimator.GetBool(K.ACP.jump))
+            if (_bodyAnimator.GetBool(K.ACP.Jump))
             {
-                audioPlayer.PlayLandingClip(myRigidbody.transform.position);
-                playerAnimator.TriggerArmsLanding();
+                _audioPlayer.PlayLandingClip(_playerRigidbody.transform.position);
+                _playerAnimator.TriggerArmsLanding();
             }
-            playerAnimator.SetJumpBool(false);
+            _playerAnimator.SetJumpBool(false);
         }
         else
         {
-            if (!bodyAnimator.GetBool(K.ACP.jump))
+            if (!_bodyAnimator.GetBool(K.ACP.Jump))
             {
-                audioPlayer.PlayJumpingClip(myRigidbody.transform.position);
-                playerAnimator.SetJumpBool(true);
+                _playerAnimator.SetJumpBool(true);
+
+                if (_jumpInput > 0.0f)
+                {
+                    _audioPlayer.PlayJumpingClip(_playerRigidbody.transform.position);
+                }
             }
         }
     }
@@ -163,134 +155,108 @@ public class PlayerController : MonoBehaviour
     {
         if (IsGrounded())
         {
-            myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, jumpInput);
+            _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _jumpInput);
         }
     }
 
     private bool IsGrounded()
     {
         float extraHeight = 0.02f;
-        RaycastHit2D raycastHit = Physics2D.BoxCast(bodyCollider.bounds.center, bodyCollider.bounds.size, 0f, Vector2.down, extraHeight, LayerMask.GetMask(K.L.ground));
-        //Color rayColor;
-        //if (raycastHit.collider != null)
-        //{
-        //    rayColor = Color.green;
-        //}
-        //else
-        //{
-        //    rayColor = Color.red;
-        //}
-
-        //Debug.DrawRay(bodyCollider.bounds.center + new Vector3(bodyCollider.bounds.extents.x, 0f), Vector2.down * (bodyCollider.bounds.extents.y + extraHeight), rayColor);
-        //Debug.DrawRay(bodyCollider.bounds.center - new Vector3(bodyCollider.bounds.extents.x, 0f), Vector2.down * (bodyCollider.bounds.extents.y + extraHeight), rayColor);
-        //Debug.DrawRay(bodyCollider.bounds.center - new Vector3(bodyCollider.bounds.extents.x, bodyCollider.bounds.extents.y + extraHeight), Vector2.right * (bodyCollider.bounds.extents.x), rayColor);
-
-        //Debug.Log(raycastHit.collider);
-
+        RaycastHit2D raycastHit = Physics2D.BoxCast(_bodyCollider.bounds.center, _bodyCollider.bounds.size, 0f, Vector2.down, extraHeight, LayerMask.GetMask(K.L.Ground));
+        
         return raycastHit.collider != null;
     }
 
     private bool IsTouchingWall()
     {
         float extraHeight = 0.02f;
-        RaycastHit2D raycastHit;
+        RaycastHit2D topRaycastHit;
+        RaycastHit2D bottomRaycastHit;
+        Vector2 bodyCenter = _bodyCollider.bounds.center;
+        Vector2 bodyTop = new(bodyCenter.x, bodyCenter.y + 0.5f);
+        Vector2 bodyBottom = new(bodyCenter.x, bodyCenter.y - 0.5f);
 
         if (transform.localScale.x < 0)
         {
-            raycastHit = Physics2D.Raycast(bodyCollider.bounds.center, Vector2.right, bodyCollider.bounds.extents.x + extraHeight, LayerMask.GetMask(K.L.ground));
+            topRaycastHit = Physics2D.Raycast(bodyTop, Vector2.right, _bodyCollider.bounds.extents.x + extraHeight, LayerMask.GetMask(K.L.Ground));
+            bottomRaycastHit = Physics2D.Raycast(bodyBottom, Vector2.right, _bodyCollider.bounds.extents.x + extraHeight, LayerMask.GetMask(K.L.Ground));
         }
         else
         {
-            raycastHit = Physics2D.Raycast(bodyCollider.bounds.center, Vector2.left, bodyCollider.bounds.extents.x + extraHeight, LayerMask.GetMask(K.L.ground));
+            topRaycastHit = Physics2D.Raycast(bodyTop, Vector2.left, _bodyCollider.bounds.extents.x + extraHeight, LayerMask.GetMask(K.L.Ground));
+            bottomRaycastHit = Physics2D.Raycast(bodyBottom, Vector2.left, _bodyCollider.bounds.extents.x + extraHeight, LayerMask.GetMask(K.L.Ground));
         }
 
-
-        //Color rayColor;
-        //if (raycastHit.collider != null)
-        //{
-        //    rayColor = Color.green;
-        //}
-        //else
-        //{
-        //    rayColor = Color.red;
-        //}
-
-        //if (transform.localScale.x < 0)
-        //{
-        //    Debug.DrawRay(bodyCollider.bounds.center, Vector2.right * (bodyCollider.bounds.extents.x + extraHeight), rayColor);
-        //}
-        //else
-        //{
-        //    Debug.DrawRay(bodyCollider.bounds.center, Vector2.left * (bodyCollider.bounds.extents.x + extraHeight), rayColor);
-        //}
-
-        //Debug.Log(raycastHit.collider);
-        return raycastHit.collider != null;
-
-
+        return topRaycastHit.collider != null || bottomRaycastHit.collider != null;
     }
 
-    private void SetXVelocityOnJumping()
+    /// <summary>
+    /// Sets player's horizontal velocity when player is falling off the platform's edge.
+    /// </summary>
+    private void SetHorizontalVelocityOnFalling()
     {
-        if (myRigidbody.velocity.x != 0 && myRigidbody.velocity.y != 0)
+        // And here again, I can't compare value to Mathf.Epsilon because player has some stupid x velocity when moving left.
+        if (Mathf.Abs(_playerRigidbody.velocity.x) > 0.01 && Mathf.Abs(_playerRigidbody.velocity.x) < _moveSpeed && _playerRigidbody.velocity.y != 0)
         {
-            float xVelocity = HasGun ? walkSpeed * -transform.localScale.x : runSpeed * -transform.localScale.x;
-
-            myRigidbody.velocity = new(xVelocity, myRigidbody.velocity.y);
+            float xVelocity = _moveSpeed * -transform.localScale.x;
+            _playerRigidbody.velocity = new(xVelocity, _playerRigidbody.velocity.y);
         }
     }
 
+    /// <summary>
+    /// Method triggered by input system.
+    /// </summary>
+    /// <param name="value"></param>
     void OnMove(InputValue value)
     {
-        moveInput = value.Get<Vector2>();
+        _moveInput = value.Get<Vector2>();
 
-        if (moveInput.x != 0 && Mathf.Sign(moveInput.x) == Mathf.Sign(transform.localScale.x))
+        if (_moveInput.x != 0 && Mathf.Sign(_moveInput.x) == Mathf.Sign(transform.localScale.x))
         {
-            playerAnimator.TriggerBodyFlipping();
+            _playerAnimator.TriggerBodyFlipping();
         }
     }
 
-    void OnJump(InputValue value)
-    {
-        jumpInput = jumpSpeed * value.Get<Vector2>().y;
-    }
-
-    void OnHideTakeGun()
+    /// <summary>
+    /// Method triggered by input system.
+    /// </summary>
+    void OnManageGun()
     {
         if (HasGun)
         {
-            playerAnimator.TriggerGunHiding();
-            HasGun = false;
-        } else if (playerGunController.AmmoCounter > 0)
+            _playerAnimator.TriggerGunHiding();
+        } else if (_playerGunController.AmmoCounter > 0)
         {
-            playerAnimator.TriggerGunTaking();
+            _playerAnimator.TriggerGunTaking();
         }
     }
 
-    void OnJumpLeft(InputValue value)
+    /// <summary>
+    /// Method triggered by input system.
+    /// </summary>
+    /// <param name="value">InputValue from input system.</param>
+    private void OnJump(InputValue value)
     {
-        if (value.Get<Vector2>().y == 1)
-        {
-            jumpInput = jumpSpeed * 1;
-            moveInput = new(-1f, 0f);
-        } else
-        {
-            jumpInput = 0;
-            moveInput = new(0f, 0f);
-        }
+        _jumpInput = jumpSpeed * value.Get<Vector2>().y;
     }
 
-    void OnJumpRight(InputValue value)
+    /// <summary>
+    /// Method triggered by input system.
+    /// </summary>
+    /// <param name="value">InputValue from input system.</param>
+    private void OnJumpLeft(InputValue value)
     {
-        if (value.Get<Vector2>().y == 1)
-        {
-            jumpInput = jumpSpeed * 1;
-            moveInput = new(1f, 0f);
-        }
-        else
-        {
-            jumpInput = 0;
-            moveInput = new(0f, 0f);
-        }
+        _jumpInput = jumpSpeed * value.Get<Vector2>().y;
+        _moveInput = new(-value.Get<Vector2>().y, 0f);
+    }
+
+    /// <summary>
+    /// Method triggered by input system.
+    /// </summary>
+    /// <param name="value">InputValue from input system.</param>
+    private void OnJumpRight(InputValue value)
+    {
+        _jumpInput = jumpSpeed * value.Get<Vector2>().y;
+        _moveInput = new(value.Get<Vector2>().y, 0f);
     }
 }

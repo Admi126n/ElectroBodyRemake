@@ -6,32 +6,33 @@ public class ExitTeleporter : MonoBehaviour
 {
     [SerializeField] private int destinationScene;
 
-    private SpriteRenderer teleporterRenderer;
-    private Animator teleporterAnimator;
-    private PlayerTeleportingController player;
+    private SpriteRenderer _teleporterRenderer;
+    private Animator _teleporterAnimator;
+    private IPlayerTeleporting _player;
 
-    private bool isActive = false;
+    private bool _isActive = false;
 
-    void Start()
+    private void Start()
     {
-        teleporterRenderer = GetComponent<SpriteRenderer>();
-        teleporterAnimator = GetComponent<Animator>();
-        player = FindObjectOfType<PlayerTeleportingController>();
+        _teleporterRenderer = GetComponent<SpriteRenderer>();
+        _teleporterAnimator = GetComponent<Animator>();
+        _player = FindObjectOfType<PlayerTeleportingController>();
     }
 
     public void ActivateTeleporter()
     {
-        teleporterRenderer.enabled = true;
-        teleporterAnimator.enabled = true;
-        gameObject.tag = K.T.exitTeleporter;
-        isActive = true;
+        _teleporterRenderer.enabled = true;
+        _teleporterAnimator.enabled = true;
+        gameObject.tag = K.T.ExitTeleporter;
+        gameObject.layer = LayerMask.NameToLayer(K.L.Teleporters);
+        _isActive = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isActive && collision.CompareTag(K.T.player))
+        if (_isActive && collision.CompareTag(K.T.Player))
         {
-            player.SetDestinationScene(destinationScene);
+            _player.SetDestinationScene(destinationScene);
         }
     }
 }
