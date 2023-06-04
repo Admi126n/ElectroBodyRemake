@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         Jump();
-        SetJumpAnim();
+        SetJumpAnimAndSound();
         FlipSprite();
         StopMovingWhileFlipping();
         StopWalkAnimOnWallCollission();
@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void SetJumpAnim()
+    private void SetJumpAnimAndSound()
     {
         if (IsGrounded())
         {
@@ -188,8 +188,6 @@ public class PlayerController : MonoBehaviour
         }
 
         return topRaycastHit.collider != null || bottomRaycastHit.collider != null;
-
-
     }
 
     /// <summary>

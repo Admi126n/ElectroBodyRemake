@@ -6,6 +6,7 @@ using UnityEngine;
 interface IPlayerTeleporting
 {
     void SetTeleportingDestination(Vector3 destination);
+    void SetDestinationScene(int index);
 }
 
 /// <summary>
@@ -20,22 +21,22 @@ public class Teleporter : MonoBehaviour
     [Header("Sprites")]
     [SerializeField] private Sprite inactiveBase;
 
-    List<Teleporter> teleporters = new();
+    private Dictionary<int, TeleporterData> _teleporters = new();
+    private GameController _gameController;
+    private SpriteRenderer _teleporterBaseRenderer;
+    private SpriteRenderer _teleporterRenderer;
+    private Animator _teleporterAnimator;
+    private IPlayerTeleporting _player;
 
-    SpriteRenderer teleporterBaseRenderer;
-    SpriteRenderer teleporterRenderer;
-    Animator teleporterAnimator;
-    IPlayerTeleporting player;
+    private bool _isActive = true;
 
-    bool isActive = true;
-
-    void Start()
+    private void Start()
     {
-        teleporters = new (FindObjectsOfType<Teleporter>());
-        teleporterBaseRenderer = gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
-        teleporterRenderer = GetComponent<SpriteRenderer>();
-        teleporterAnimator = GetComponent<Animator>();
-        player = FindObjectOfType<PlayerTeleportingController>();
+        _gameController = FindObjectOfType<GameController>();
+        _teleporterBaseRenderer = gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        _teleporterRenderer = GetComponent<SpriteRenderer>();
+        _teleporterAnimator = GetComponent<Animator>();
+        _player = FindObjectOfType<PlayerTeleportingController>();
 
         if (destinationId == -1)
         {
@@ -45,31 +46,25 @@ public class Teleporter : MonoBehaviour
 
     private Vector3 GetDestinationPosition()
     {
-        foreach (Teleporter teleporter in teleporters)
-        {
-            if (teleporter.GetId() == destinationId)
-            {
-                return teleporter.gameObject.transform.position;
-            }
-        }
+        _teleporters = _gameController.GetTeleporters();
 
-        return new Vector3();
+        return _teleporters[destinationId].TeleporterPosition;
     }
 
     private void DeactivateTeleporter()
     {
-        teleporterRenderer.enabled = false;
-        teleporterAnimator.enabled = false;
-        teleporterBaseRenderer.sprite = inactiveBase;
+        _teleporterRenderer.enabled = false;
+        _teleporterAnimator.enabled = false;
+        _teleporterBaseRenderer.sprite = inactiveBase;
         gameObject.layer = LayerMask.NameToLayer(K.L.InactiveTeleporters);
-        isActive = false;
+        _isActive = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isActive && collision.CompareTag(K.T.Player))
+        if (_isActive && collision.CompareTag(K.T.Player))
         {
-            player.SetTeleportingDestination(GetDestinationPosition());
+            _player.SetTeleportingDestination(GetDestinationPosition());
         }
     }
 

@@ -15,83 +15,87 @@ public class PlayerGunController : MonoBehaviour
     [Header("Gun")]
     [SerializeField] Transform gun;
 
-    const int WeaponAmmo1 = 5;   // 20
-    const int WeaponAmmo2 = 10;  // 35
-    const int WeaponAmmo3 = 15;  // 60
-    const int WeaponAmmo4 = 20;  // 70
-    const int WeaponAmmo5 = 25;  // 85
+    private const int _WeaponAmmo1 = 5;   // 20
+    private const int _WeaponAmmo2 = 10;  // 35
+    private const int _WeaponAmmo3 = 15;  // 60
+    private const int _WeaponAmmo4 = 20;  // 70
+    private const int _WeaponAmmo5 = 25;  // 85
 
-    PlayerController playerController;
-    PlayerAnimator playerAnimator;
-    AudioPlayer audioPlayer;
+    private PlayerController _playerController;
+    private PlayerAnimator _playerAnimator;
+    private AudioPlayer _audioPlayer;
 
-    private int weaponCounter = 0;
-    private int ammoCounter = 0;
+    private int _weaponCounter = 0;
+    private int _ammoCounter = 0;
 
     public int AmmoCounter
     {
         get
         {
-            return ammoCounter;
+            return _ammoCounter;
+        }
+        private set
+        {
+            _ammoCounter = value;
         }
     }
 
-    void Start()
+    private void Start()
     {
-        playerController = GetComponent<PlayerController>();
-        playerAnimator = GetComponent<PlayerAnimator>();
-        audioPlayer = FindObjectOfType<AudioPlayer>();
+        _playerController = GetComponent<PlayerController>();
+        _playerAnimator = GetComponent<PlayerAnimator>();
+        _audioPlayer = FindObjectOfType<AudioPlayer>();
     }
 
     private void RefillWeaponMagazine()
     {
-        switch (weaponCounter)
+        switch (_weaponCounter)
         {
             case 1:
-                ammoCounter = WeaponAmmo1;
+                _ammoCounter = _WeaponAmmo1;
                 break;
             case 2:
-                ammoCounter = WeaponAmmo2;
+                _ammoCounter = _WeaponAmmo2;
                 break;
             case 3:
-                ammoCounter = WeaponAmmo3;
+                _ammoCounter = _WeaponAmmo3;
                 break;
             case 4:
-                ammoCounter = WeaponAmmo4;
+                _ammoCounter = _WeaponAmmo4;
                 break;
             case 5:
-                ammoCounter = WeaponAmmo5;
+                _ammoCounter = _WeaponAmmo5;
                 break;
         }
     }
 
     private void UpdateWeapon()
     {
-        if (ammoCounter == 0)
+        if (_ammoCounter == 0)
         {
-            weaponCounter = 0;
-        } else if (ammoCounter <= WeaponAmmo1)
+            _weaponCounter = 0;
+        } else if (_ammoCounter <= _WeaponAmmo1)
         {
-            weaponCounter = 1;
-        } else if (ammoCounter <= WeaponAmmo2)
+            _weaponCounter = 1;
+        } else if (_ammoCounter <= _WeaponAmmo2)
         {
-            weaponCounter = 2;
-        } else if (ammoCounter <= WeaponAmmo3)
+            _weaponCounter = 2;
+        } else if (_ammoCounter <= _WeaponAmmo3)
         {
-            weaponCounter = 3;
-        } else if (ammoCounter <= WeaponAmmo4)
+            _weaponCounter = 3;
+        } else if (_ammoCounter <= _WeaponAmmo4)
         {
-            weaponCounter = 4;
+            _weaponCounter = 4;
         } else
         {
-            weaponCounter = 5;
+            _weaponCounter = 5;
         }
 
     }
 
     private void Fire()
     {
-        switch (weaponCounter)
+        switch (_weaponCounter)
         {
             case 1:
                 Instantiate(bullet_1, gun.position, transform.rotation);
@@ -113,28 +117,31 @@ public class PlayerGunController : MonoBehaviour
 
     private void PickUpAmmo()
     {
-        audioPlayer.PlayAmmoPickedUpClip(playerController.transform.position);
-        weaponCounter++;
-        weaponCounter = Mathf.Clamp(weaponCounter, 0, 5);
+        _audioPlayer.PlayAmmoPickedUpClip(_playerController.transform.position);
+        _weaponCounter++;
+        _weaponCounter = Mathf.Clamp(_weaponCounter, 0, 5);
 
-        if (!playerController.HasGun)
+        if (!_playerController.HasGun)
         {
-            playerAnimator.TriggerGunTaking();
+            _playerAnimator.TriggerGunTaking();
         }
         RefillWeaponMagazine();
     }
 
+    /// <summary>
+    /// Method triggered by input system.
+    /// </summary>
     void OnFire()
     {
-        if (ammoCounter > 0 && playerController.HasGun)
+        if (_ammoCounter > 0 && _playerController.HasGun)
         {
             Fire();
-            ammoCounter--;
+            _ammoCounter--;
             UpdateWeapon();
 
-            if (ammoCounter == 0)
+            if (_ammoCounter == 0)
             {
-                playerController.HasGun = false;
+                _playerController.HasGun = false;
             }
         }
     }

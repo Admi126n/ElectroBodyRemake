@@ -17,7 +17,7 @@ public class AudioPlayer : MonoBehaviour
     [SerializeField] AudioClip explosion;
     [SerializeField] AudioClip chipPickedUp;
 
-    private readonly float volume = 1f;
+    private readonly float _Volume = 1f;
 
     static AudioPlayer audioPlayerInstance;
 
@@ -47,36 +47,36 @@ public class AudioPlayer : MonoBehaviour
 
     public void PlayLandingClip(Vector3 position)
     {
-        PlayClip(landing, position, volume);
+        PlayClip(landing, position, _Volume);
     }
 
     public void PlayJumpingClip(Vector3 position)
     {
-        PlayClip(jumping, position, volume);
+        PlayClip(jumping, position, _Volume);
     }
 
     public void PlayFootStepClip(Vector3 position)
     {
-        PlayClip(walking, position, volume);
+        PlayClip(walking, position, _Volume);
     }
 
     public void PlayTeleportingClip(Vector3 position)
     {
-        PlayClip(teleporting, position, volume);
+        PlayClip(teleporting, position, _Volume);
     }
 
     public void PlayAmmoPickedUpClip(Vector3 position)
     {
-        PlayClip(ammoPickedUp, position, volume);
+        PlayClip(ammoPickedUp, position, _Volume);
     }
 
     public void PlayChipPickedUpClip(Vector3 position)
     {
-        PlayClip(chipPickedUp, position, volume);
+        PlayClip(chipPickedUp, position, _Volume);
     }
 
     public void PlayExplosionClip(Vector3 position)
     {
-        PlayClip(explosion, position, volume);
+        PlayClip(explosion, position, _Volume);
     }
 }
