@@ -259,4 +259,12 @@ public class PlayerController : MonoBehaviour
         _jumpInput = jumpSpeed * value.Get<Vector2>().y;
         _moveInput = new(value.Get<Vector2>().y, 0f);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag(K.T.Cannon))
+        {
+            Debug.Log("You died");
+        }
+    }
 }

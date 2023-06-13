@@ -10,6 +10,7 @@ TagManager:
   - InactiveTeleporter
   - Chip
   - ExitTeleporter
+  - Cannon
   layers:
   - Default
   - TransparentFX

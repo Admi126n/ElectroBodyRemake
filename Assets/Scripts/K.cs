@@ -11,6 +11,7 @@ static class K
         public static readonly string Ground = "Ground";
         public static readonly string Teleporters = "Teleporters";
         public static readonly string InactiveTeleporters = "InactiveTeleporters";
+        public static readonly string Bullets = "Bullets";
     }
 
     /// <summary>
@@ -42,6 +43,8 @@ static class K
         public static readonly string Player = "Player";
         public static readonly string Chip = "Chip";
         public static readonly string Ammo = "Ammo";
+        public static readonly string Bullet = "Bullet";
+        public static readonly string Cannon = "Cannon";
     }
 
     /// <summary>
