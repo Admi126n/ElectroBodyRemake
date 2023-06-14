@@ -45,6 +45,7 @@ static class K
         public static readonly string Ammo = "Ammo";
         public static readonly string Bullet = "Bullet";
         public static readonly string Cannon = "Cannon";
+        public static readonly string Ground = "Ground";
     }
 
     /// <summary>

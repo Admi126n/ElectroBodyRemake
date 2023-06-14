@@ -11,6 +11,8 @@ TagManager:
   - Chip
   - ExitTeleporter
   - Cannon
+  - Ground
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -60,11 +62,11 @@ TagManager:
   - name: Item
     uniqueID: 520655353
     locked: 0
-  - name: Enemy
-    uniqueID: 3538378043
-    locked: 0
   - name: Bullet
     uniqueID: 3316767899
+    locked: 0
+  - name: Enemy
+    uniqueID: 3538378043
     locked: 0
   - name: Player
     uniqueID: 682373711

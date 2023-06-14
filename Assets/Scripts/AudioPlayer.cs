@@ -79,4 +79,9 @@ public class AudioPlayer : MonoBehaviour
     {
         PlayClip(explosion, position, _Volume);
     }
+
+    public void PlayCannonShootingClip(AudioClip clip, Vector3 position)
+    {
+        PlayClip(clip, position, _Volume);
+    }
 }
