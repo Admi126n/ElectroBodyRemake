@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
 {
-    private GameController _gameController;
+    private GameManager _gameController;
     private PlayerController _playerController;
     private PlayerAnimator _playerAnimator;
     private AudioPlayer _audioPlayer;
@@ -19,7 +19,7 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
 
     private void Start()
     {
-        _gameController = FindObjectOfType<GameController>();
+        _gameController = FindObjectOfType<GameManager>();
         _playerController = GetComponent<PlayerController>();
         _playerAnimator = GetComponent<PlayerAnimator>();
         _audioPlayer = FindObjectOfType<AudioPlayer>();

@@ -22,7 +22,7 @@ public class Teleporter : MonoBehaviour
     [SerializeField] private Sprite inactiveBase;
 
     private Dictionary<int, TeleporterData> _teleporters = new();
-    private GameController _gameController;
+    private GameManager _gameController;
     private SpriteRenderer _teleporterBaseRenderer;
     private SpriteRenderer _teleporterRenderer;
     private Animator _teleporterAnimator;
@@ -32,7 +32,7 @@ public class Teleporter : MonoBehaviour
 
     private void Start()
     {
-        _gameController = FindObjectOfType<GameController>();
+        _gameController = FindObjectOfType<GameManager>();
         _teleporterBaseRenderer = gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
         _teleporterRenderer = GetComponent<SpriteRenderer>();
         _teleporterAnimator = GetComponent<Animator>();
