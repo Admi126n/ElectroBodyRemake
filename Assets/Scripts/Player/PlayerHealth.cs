@@ -40,6 +40,22 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag(K.T.Enemy))
+        {
+            _bodyRenderer.enabled = false;
+            _armsRenderer.enabled = false;
+
+            // TODO play death animation (yes, you have to do special anim)
+
+            StartCoroutine(SpawnExplosions());
+
+            _playerInput.enabled = false;
+            StartCoroutine(RespawnPlayer());
+        }
+    }
+
 
     private IEnumerator SpawnExplosions()
     {

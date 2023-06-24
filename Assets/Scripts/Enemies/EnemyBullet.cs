@@ -11,9 +11,9 @@ public class EnemyBullet : MonoBehaviour
     };
 
     [SerializeField] BulletDirection bulletDirection;
+    [SerializeField] float bulletBaseSpeed = 2;
 
     private Rigidbody2D _bulletRigidbody;
-    private readonly float _BulletBaseSpeed = 2;
     private float _bulletSpeed;
 
     private void Start()
@@ -23,11 +23,11 @@ public class EnemyBullet : MonoBehaviour
         // set bullet direction
         if (bulletDirection == BulletDirection.Horizontal)
         {
-            _bulletSpeed = transform.parent.localScale.x * _BulletBaseSpeed;
+            _bulletSpeed = transform.parent.localScale.x * bulletBaseSpeed;
         }
         else
         {
-            _bulletSpeed = transform.parent.localScale.y * _BulletBaseSpeed;
+            _bulletSpeed = transform.parent.localScale.y * bulletBaseSpeed;
         }
     }
 

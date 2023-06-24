@@ -17,14 +17,14 @@ public class Cannon : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private BoxCollider2D _boxCollider;
 
-    void Start()
+    private void Start()
     {
         _audioPlayer = FindObjectOfType<AudioPlayer>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _boxCollider = GetComponent<BoxCollider2D>();
     }
 
-    void Update()
+    private void Update()
     {
         if (!_isActive)
         {

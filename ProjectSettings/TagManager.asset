@@ -13,6 +13,7 @@ TagManager:
   - Cannon
   - Ground
   - Enemy
+  - EnemyWall
   layers:
   - Default
   - TransparentFX

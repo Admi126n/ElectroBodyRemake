@@ -49,6 +49,7 @@ public class PlayerBullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        _bulletHorizontalSpeed = 0f;
         _bulletAnimator.SetTrigger(K.ACP.Explode);
         _audioPlayer.PlayExplosionClip(transform.position);
 
