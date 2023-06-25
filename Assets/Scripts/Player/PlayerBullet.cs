@@ -5,11 +5,10 @@ using UnityEngine;
 public class PlayerBullet : MonoBehaviour
 {
     [SerializeField] bool isDestroyableByTriggers;
+    [SerializeField] Explosion explosion;
 
     private Rigidbody2D _bulletRigidbody;
-    private Animator _bulletAnimator;
     private PlayerController _playerController;
-    private AudioPlayer _audioPlayer;
 
     private readonly float _BulletBaseSpeed = 8;
     private float _bulletHorizontalSpeed;
@@ -17,9 +16,7 @@ public class PlayerBullet : MonoBehaviour
     private void Start()
     {
         _bulletRigidbody = GetComponent<Rigidbody2D>();
-        _bulletAnimator = GetComponent<Animator>();
         _playerController = FindObjectOfType<PlayerController>();
-        _audioPlayer = FindObjectOfType<AudioPlayer>();
 
         // set bullet direction
         transform.localScale = new(-_playerController.transform.localScale.x, transform.localScale.y, transform.localScale.z);
@@ -36,7 +33,8 @@ public class PlayerBullet : MonoBehaviour
         string collisionTag = collision.tag;
 
         return (collisionTag == K.T.Ammo || collisionTag == K.T.Chip || collisionTag == K.T.Teleporter 
-            || collisionTag == K.T.InactiveTeleporter || collisionTag == K.T.ExitTeleporter);
+            || collisionTag == K.T.InactiveTeleporter || collisionTag == K.T.ExitTeleporter
+            || collisionTag == K.T.EnemyBullet);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -49,18 +47,24 @@ public class PlayerBullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        _bulletHorizontalSpeed = 0f;
-        _bulletAnimator.SetTrigger(K.ACP.Explode);
-        _audioPlayer.PlayExplosionClip(transform.position);
-
-        // FIXME: 5 weapon's bullet should have separate explode animation
+        if (collision.collider.CompareTag(K.T.Ground))
+        {
+            InstantiateExplosion();
+        } else
+        {
+            DestroyBullet();
+        }
     }
 
-    /// <summary>
-    /// Method is called in SmallExplosion animation.
-    /// </summary>
-    public void Destroy()
+    private void DestroyBullet()
     {
+        _bulletHorizontalSpeed = 0f;
         Destroy(gameObject);
+    }
+
+    private void InstantiateExplosion()
+    {
+        Instantiate(explosion, transform.position, transform.rotation);
+        DestroyBullet();
     }
 }

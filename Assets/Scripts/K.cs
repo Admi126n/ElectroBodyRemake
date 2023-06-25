@@ -50,6 +50,7 @@ static class K
         public static readonly string Ground = "Ground";
         public static readonly string Enemy = "Enemy";
         public static readonly string EnemyWall = "EnemyWall";
+        public static readonly string EnemyBullet = "EnemyBullet";
     }
 
     /// <summary>

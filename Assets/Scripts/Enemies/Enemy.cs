@@ -83,7 +83,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.collider.CompareTag(K.T.Bullet) || collision.collider.CompareTag(K.T.Player))
         {
-            // Instantiate(explosion, transform.position, transform.rotation);
+            Instantiate(explosion, transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }
