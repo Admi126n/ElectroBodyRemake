@@ -224,6 +224,7 @@ public class PlayerController : MonoBehaviour
     {
         if (HasGun)
         {
+            HasGun = false;
             _playerAnimator.TriggerGunHiding();
         } else if (_playerGunController.AmmoCounter > 0)
         {
