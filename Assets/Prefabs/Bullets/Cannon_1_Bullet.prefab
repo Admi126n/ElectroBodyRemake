@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5531241171500099197}
   - component: {fileID: 5531241171500099168}
   - component: {fileID: 5531241171500099199}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cannon_1_Bullet
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletDirection: 0
+  bulletBaseSpeed: 2
 --- !u!50 &5531241171500099168
 Rigidbody2D:
   serializedVersion: 4

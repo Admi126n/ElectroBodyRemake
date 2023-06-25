@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if (IsGrounded())
+        if (IsGrounded() && !_playerAnimator.GetIsTeleportingBool())
         {
             _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _jumpInput);
         }

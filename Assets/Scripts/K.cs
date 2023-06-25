@@ -12,6 +12,8 @@ static class K
         public static readonly string Teleporters = "Teleporters";
         public static readonly string InactiveTeleporters = "InactiveTeleporters";
         public static readonly string Bullets = "Bullets";
+        public static readonly string Player = "Player";
+        public static readonly string TeleportingPlayer = "TeleportingPlayer";
     }
 
     /// <summary>
@@ -65,6 +67,7 @@ static class K
         public static readonly string Explode = "Explode";
         public static readonly string Teleport = "Teleport";
         public static readonly string WalkSpeed = "WalkSpeed";
+        public static readonly string IsTeleporting = "IsTeleporting";
     }
 }
 

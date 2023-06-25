@@ -16,6 +16,7 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
     private int _destinationScene;
     private bool _teleportPressed;
     private int _chipCounter = 0;
+    private bool _canTeleport = false;
 
     private void Start()
     {
@@ -27,10 +28,13 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
 
     private void Update()
     {
-        if (_teleportPressed && _playerController.gameObject.GetComponent<Rigidbody2D>().IsTouchingLayers(LayerMask.GetMask("Teleporters")))
+        if (_teleportPressed && _playerController.gameObject.GetComponent<Rigidbody2D>().IsTouchingLayers(LayerMask.GetMask("Teleporters"))
+            && _canTeleport)
         {
+            gameObject.layer = LayerMask.NameToLayer(K.L.TeleportingPlayer);
+            _playerAnimator.SetIsTeleportingBool(true);
+            _canTeleport = false;
             _playerController.CanMove = false;
-            _teleportPressed = false;
             _playerAnimator.TriggerTeleportation();
             _audioPlayer.PlayTeleportingClip(_playerController.transform.position);
         }
@@ -62,7 +66,7 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
     }
 
     /// <summary>
-    /// Method is called from player's teleporting animations.
+    /// Method is called at the end of player's teleporting animations.
     /// </summary>
     public void TeleportPlayer()
     {
@@ -73,8 +77,24 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
         {
             _playerController.gameObject.transform.position = _teleportingDestination;
         }
-        // TODO: should be set at the end of exit teleporter animations
+    }
+
+    private IEnumerator ExitFromTeleporterCoroutine()
+    {
+        yield return new WaitForSeconds(0.45f);
+
+        gameObject.layer = LayerMask.NameToLayer(K.L.Player);
+        _playerAnimator.SetIsTeleportingBool(false);
         _playerController.CanMove = true;
+        _canTeleport = true;
+    }
+
+    /// <summary>
+    /// Method is called in GunExitTeleporter and NoGunExitTeleporter animations.
+    /// </summary>
+    public void ExitFromTeleporter()
+    {
+        StartCoroutine(ExitFromTeleporterCoroutine());
     }
 
     public void SetTeleportingDestination(Vector3 destination)
