@@ -31,7 +31,7 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
         if (_teleportPressed && _playerController.gameObject.GetComponent<Rigidbody2D>().IsTouchingLayers(LayerMask.GetMask("Teleporters"))
             && _canTeleport)
         {
-            gameObject.layer = LayerMask.NameToLayer(K.L.TeleportingPlayer);
+            gameObject.layer = LayerMask.NameToLayer(K.L.ImmortalPlayer);
             _playerAnimator.SetIsTeleportingBool(true);
             _canTeleport = false;
             _playerController.CanMove = false;

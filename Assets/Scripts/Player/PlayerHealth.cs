@@ -24,19 +24,9 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // if player is teleporting return
-
-        if (collision.CompareTag(K.T.Enemy))
+        if (collision.CompareTag(K.T.EnemyBullet))
         {
-            _bodyRenderer.enabled = false;
-            _armsRenderer.enabled = false;
-
-            // TODO play death animation (yes, you have to do special anim)
-
-            StartCoroutine(SpawnExplosions());
-
-            _playerInput.enabled = false;
-            StartCoroutine(RespawnPlayer());
+            KillPlayer();
         }
     }
 
@@ -44,15 +34,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (collision.collider.CompareTag(K.T.Enemy))
         {
-            _bodyRenderer.enabled = false;
-            _armsRenderer.enabled = false;
-
-            // TODO play death animation (yes, you have to do special anim)
-
-            StartCoroutine(SpawnExplosions());
-
-            _playerInput.enabled = false;
-            StartCoroutine(RespawnPlayer());
+            KillPlayer();
         }
     }
 
@@ -76,6 +58,20 @@ public class PlayerHealth : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         _gameManager.ResetGameSession();
+    }
+
+    private void KillPlayer()
+    {
+        _bodyRenderer.enabled = false;
+        _armsRenderer.enabled = false;
+        gameObject.layer = LayerMask.NameToLayer(K.L.ImmortalPlayer);
+
+        // TODO play death animation (yes, you have to do special anim)
+
+        StartCoroutine(SpawnExplosions());
+
+        _playerInput.enabled = false;
+        StartCoroutine(RespawnPlayer());
     }
 
 }

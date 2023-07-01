@@ -13,7 +13,7 @@ static class K
         public static readonly string InactiveTeleporters = "InactiveTeleporters";
         public static readonly string Bullets = "Bullets";
         public static readonly string Player = "Player";
-        public static readonly string TeleportingPlayer = "TeleportingPlayer";
+        public static readonly string ImmortalPlayer = "ImmortalPlayer";
     }
 
     /// <summary>
