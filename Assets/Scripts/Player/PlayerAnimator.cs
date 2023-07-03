@@ -60,6 +60,11 @@ public class PlayerAnimator : MonoBehaviour
         _bodyAnimator.SetBool(K.ACP.Jump, value);
     }
 
+    public void SetIsTeleportingBool(bool value)
+    {
+        _bodyAnimator.SetBool(K.ACP.IsTeleporting, value);
+    }
+
     public void TriggerArmsLanding()
     {
         if (IsManagingGun) return;
@@ -91,6 +96,11 @@ public class PlayerAnimator : MonoBehaviour
         // if (_isTeleporting) return;
 
         _bodyAnimator.SetTrigger(K.ACP.Teleport);
+    }
+
+    public bool GetIsTeleportingBool()
+    {
+        return _bodyAnimator.GetBool(K.ACP.IsTeleporting);
     }
 
     public string GetCurrentAnimName(Animators animatorName)

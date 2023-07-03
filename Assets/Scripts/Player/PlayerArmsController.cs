@@ -13,9 +13,8 @@ public class PlayerArmsController : MonoBehaviour
         _playerAnimator = FindObjectOfType<PlayerAnimator>();
     }
 
-    /// <
-    /// >
-    /// Method is called in ArmsTakeGun and ArmsHideGun animations.
+    /// <summary>
+    /// Method is called in ArmsTakeGun.
     /// </summary>
     /// <param name="value"></param>
     public void SetPlayerControlerHasGun(float value)

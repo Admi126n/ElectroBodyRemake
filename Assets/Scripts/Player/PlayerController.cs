@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if (IsGrounded())
+        if (IsGrounded() && !_playerAnimator.GetIsTeleportingBool())
         {
             _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _jumpInput);
         }
@@ -224,6 +224,7 @@ public class PlayerController : MonoBehaviour
     {
         if (HasGun)
         {
+            HasGun = false;
             _playerAnimator.TriggerGunHiding();
         } else if (_playerGunController.AmmoCounter > 0)
         {

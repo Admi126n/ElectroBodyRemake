@@ -6,11 +6,11 @@ using UnityEngine.InputSystem;
 public class PlayerGunController : MonoBehaviour
 {
     [Header("Bullets")]
-    [SerializeField] Bullet bullet_1;
-    [SerializeField] Bullet bullet_2;
-    [SerializeField] Bullet bullet_3;
-    [SerializeField] Bullet bullet_4;
-    [SerializeField] Bullet bullet_5;
+    [SerializeField] PlayerBullet bullet_1;
+    [SerializeField] PlayerBullet bullet_2;
+    [SerializeField] PlayerBullet bullet_3;
+    [SerializeField] PlayerBullet bullet_4;
+    [SerializeField] PlayerBullet bullet_5;
 
     [Header("Gun")]
     [SerializeField] Transform gun;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TeleporterData
 {
@@ -16,7 +17,7 @@ public class TeleporterData
 
 }
 
-public class GameController : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     private readonly Dictionary<int, TeleporterData> _Teleporters = new();
     private List<ExitTeleporter> _exitTeleporters;
@@ -26,6 +27,12 @@ public class GameController : MonoBehaviour
         _exitTeleporters = new(FindObjectsOfType<ExitTeleporter>());
 
         FillTeleportersDict();
+    }
+
+    public void ResetGameSession()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
     }
 
     private void FillTeleportersDict()
