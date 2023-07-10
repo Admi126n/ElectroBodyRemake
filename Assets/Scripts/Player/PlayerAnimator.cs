@@ -93,8 +93,6 @@ public class PlayerAnimator : MonoBehaviour
 
     public void TriggerTeleportation()
     {
-        // if (_isTeleporting) return;
-
         _bodyAnimator.SetTrigger(K.ACP.Teleport);
     }
 

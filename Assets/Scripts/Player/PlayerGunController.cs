@@ -128,6 +128,12 @@ public class PlayerGunController : MonoBehaviour
         RefillWeaponMagazine();
     }
 
+    public void ResetAmmo()
+    {
+        _playerController.HasGun = false;
+        _ammoCounter = 0;
+    }
+
     /// <summary>
     /// Method triggered by input system.
     /// </summary>
