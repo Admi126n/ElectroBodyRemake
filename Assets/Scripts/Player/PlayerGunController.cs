@@ -131,6 +131,7 @@ public class PlayerGunController : MonoBehaviour
     public void ResetAmmo()
     {
         _playerController.HasGun = false;
+        _weaponCounter = 0;
         _ammoCounter = 0;
     }
 
