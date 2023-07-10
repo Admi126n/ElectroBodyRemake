@@ -121,8 +121,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 682373711
-  m_SortingLayer: 7
+  m_SortingLayerID: -756589253
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 77322954, guid: 7c872f59371535c429feaba585baad48, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -168,10 +168,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 2
-  leftWall: {fileID: 0}
-  rightWall: {fileID: 0}
   shootingClip: {fileID: 8300000, guid: 81911a77ab3bb914ebfb26bd515513c5, type: 3}
   warningClip: {fileID: 8300000, guid: aa2567386da20514ca6d8867463df404, type: 3}
   bullet: {fileID: 5531241171500099197, guid: ffc3bae5f0d996b4397b7ada7744564c, type: 3}
   cooldown: 2
+  warningCooldown: 0
   explosion: {fileID: 8846356661966005616, guid: 3a1020714e5979c4190d305dfc9327fd, type: 3}

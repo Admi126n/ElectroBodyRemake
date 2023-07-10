@@ -95,7 +95,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -978199397
+  m_SortingLayerID: -1652985057
   m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -439618982, guid: cfe45c19a1651fc47b8259044e77ab90, type: 3}
@@ -143,7 +143,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDestroyableByTriggers: 0
-  hasSpecialExplosion: 0
   explosion: {fileID: 8846356661966005616, guid: 3a1020714e5979c4190d305dfc9327fd, type: 3}
 --- !u!61 &3377321098456188891
 BoxCollider2D:
