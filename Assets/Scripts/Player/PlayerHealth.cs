@@ -20,6 +20,8 @@ public class PlayerHealth : MonoBehaviour
         _armsRenderer = gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
         _gameManager = FindObjectOfType<GameManager>();
         _playerInput = GetComponent<PlayerInput>();
+
+        SpawnPlayer();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -53,6 +55,12 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    private void SpawnPlayer()
+    {
+        Vector3 respawnPosition = _gameManager.GetRespawnPosition(ScenePresist.GetRespawnId());
+        gameObject.transform.position = new(respawnPosition.x, respawnPosition.y + 0.5f, respawnPosition.z);
+    }
+
     private IEnumerator RespawnPlayer()
     {
         yield return new WaitForSeconds(2f);
@@ -73,5 +81,4 @@ public class PlayerHealth : MonoBehaviour
         _playerInput.enabled = false;
         StartCoroutine(RespawnPlayer());
     }
-
 }

@@ -17,6 +17,11 @@ public class ExitTeleporter : MonoBehaviour
         _teleporterRenderer = GetComponent<SpriteRenderer>();
         _teleporterAnimator = GetComponent<Animator>();
         _player = FindObjectOfType<PlayerTeleportingController>();
+
+        if (ScenePresist.GetChipCounter() == 3)
+        {
+            ActivateTeleporter();
+        }
     }
 
     public void ActivateTeleporter()

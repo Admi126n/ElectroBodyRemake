@@ -16,6 +16,7 @@ public class AudioPlayer : MonoBehaviour
     [Header("Other Sounds")]
     [SerializeField] AudioClip explosion;
     [SerializeField] AudioClip chipPickedUp;
+    [SerializeField] AudioClip respawnSet;
 
     private readonly float _Volume = 1f;
 
@@ -83,5 +84,10 @@ public class AudioPlayer : MonoBehaviour
     public void PlayCannonShootingClip(AudioClip clip, Vector3 position)
     {
         PlayClip(clip, position, _Volume);
+    }
+
+    public void PlayRespawnSetClip(Vector3 position)
+    {
+        PlayClip(respawnSet, position, _Volume);
     }
 }

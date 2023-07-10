@@ -15,7 +15,6 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
     private Vector3 _teleportingDestination;
     private int _destinationScene;
     private bool _teleportPressed;
-    private int _chipCounter = 0;
     private bool _canTeleport = false;
 
     private void Start()
@@ -55,10 +54,10 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
         if (collision.CompareTag(K.T.Chip))
         {
             Destroy(collision.gameObject);
-            _chipCounter++;
+            ScenePresist.IncreaseChipCounter();
             _audioPlayer.PlayChipPickedUpClip(_playerController.transform.position);
 
-            if (_chipCounter == 3)
+            if (ScenePresist.GetChipCounter() == 3)
             {
                 _gameController.ActivateExitTeleporter();
             }
@@ -72,6 +71,7 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
     {
         if (_teleportToAnotherScene)
         {
+            FindObjectOfType<ScenePresist>().ResetScenePersist();
             SceneManager.LoadScene(_destinationScene);
         } else
         {
