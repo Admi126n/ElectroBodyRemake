@@ -38,14 +38,11 @@ static class K
     /// </summary>
     public static class T
     {
-        public static readonly string Teleporter = "Teleporter";
-        public static readonly string ExitTeleporter = "ExitTeleporter";
-        public static readonly string InactiveTeleporter = "InactiveTeleporter";
         public static readonly string Player = "Player";
-        public static readonly string Chip = "Chip";
         public static readonly string Ammo = "Ammo";
-        public static readonly string Bullet = "Bullet";
-        public static readonly string Cannon = "Cannon";
+        public static readonly string PlayerBullet = "PlayerBullet";
+        public static readonly string Chip = "Chip";
+        public static readonly string ExitTeleporter = "ExitTeleporter";
         public static readonly string Ground = "Ground";
         public static readonly string Enemy = "Enemy";
         public static readonly string EnemyWall = "EnemyWall";

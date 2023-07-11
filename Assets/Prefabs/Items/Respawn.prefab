@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8677068277098158446}
   - component: {fileID: 3051434005304526720}
   - component: {fileID: 4646901476574271099}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Respawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,3 +116,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inactiveRespawn: {fileID: -1394302683, guid: f8a795582121f48529ddd9bc694d0bb9, type: 3}
   activeRespawn: {fileID: 924731939, guid: f8a795582121f48529ddd9bc694d0bb9, type: 3}
+  id: 0

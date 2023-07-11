@@ -5,16 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ammo
-  - Bullet
-  - Teleporter
-  - InactiveTeleporter
   - Chip
   - ExitTeleporter
-  - Cannon
   - Ground
   - Enemy
   - EnemyWall
   - EnemyBullet
+  - PlayerBullet
   layers:
   - Default
   - TransparentFX
@@ -24,7 +21,7 @@ TagManager:
   - UI
   - Player
   - Ground
-  - 
+  - Item
   - Enemy
   - PlayerBullet
   - Teleporter
