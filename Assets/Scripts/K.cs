@@ -8,11 +8,10 @@ static class K
     /// </summary>
     public static class L
     {
-        public static readonly string Ground = "Ground";
-        public static readonly string Teleporters = "Teleporters";
-        public static readonly string InactiveTeleporters = "InactiveTeleporters";
-        public static readonly string Bullets = "Bullets";
         public static readonly string Player = "Player";
+        public static readonly string Ground = "Ground";
+        public static readonly string Teleporter = "Teleporter";
+        public static readonly string InactiveTeleporter = "InactiveTeleporter";
         public static readonly string ImmortalPlayer = "ImmortalPlayer";
     }
 

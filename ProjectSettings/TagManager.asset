@@ -24,11 +24,11 @@ TagManager:
   - UI
   - Player
   - Ground
-  - Platforms
-  - Enemies
-  - Bullets
-  - Teleporters
-  - InactiveTeleporters
+  - 
+  - Enemy
+  - PlayerBullet
+  - Teleporter
+  - InactiveTeleporter
   - ImmortalPlayer
   - 
   - 
