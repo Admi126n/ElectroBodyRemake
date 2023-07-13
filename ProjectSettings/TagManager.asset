@@ -5,16 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ammo
-  - Bullet
-  - Teleporter
-  - InactiveTeleporter
   - Chip
   - ExitTeleporter
-  - Cannon
   - Ground
   - Enemy
   - EnemyWall
   - EnemyBullet
+  - PlayerBullet
   layers:
   - Default
   - TransparentFX
@@ -24,11 +21,11 @@ TagManager:
   - UI
   - Player
   - Ground
-  - Platforms
-  - Enemies
-  - Bullets
-  - Teleporters
-  - InactiveTeleporters
+  - Item
+  - Enemy
+  - PlayerBullet
+  - Teleporter
+  - InactiveTeleporter
   - ImmortalPlayer
   - 
   - 
@@ -55,24 +52,33 @@ TagManager:
   - name: Background
     uniqueID: 3356417561
     locked: 0
+  - name: Decoration_1
+    uniqueID: 1017177481
+    locked: 0
   - name: Ground
     uniqueID: 4251193883
-    locked: 0
-  - name: Platform
-    uniqueID: 3229997901
     locked: 0
   - name: Item
     uniqueID: 520655353
     locked: 0
-  - name: Bullet
-    uniqueID: 3316767899
-    locked: 0
-  - name: Enemy
-    uniqueID: 3538378043
+  - name: PlayerBullet
+    uniqueID: 2641982239
     locked: 0
   - name: Player
     uniqueID: 682373711
     locked: 0
-  - name: Explosions
+  - name: EnemyBullet
+    uniqueID: 870060403
+    locked: 0
+  - name: Enemy_1
+    uniqueID: 3538378043
+    locked: 0
+  - name: Enemy_2
+    uniqueID: 3640041231
+    locked: 0
+  - name: Explosion
     uniqueID: 2487816167
+    locked: 0
+  - name: Decoration_2
+    uniqueID: 470183867
     locked: 0

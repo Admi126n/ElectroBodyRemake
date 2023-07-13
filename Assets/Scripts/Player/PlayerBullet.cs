@@ -30,11 +30,7 @@ public class PlayerBullet : MonoBehaviour
 
     private bool ShouldNotBeDestroyedOnTrigger(Collider2D collision)
     {
-        string collisionTag = collision.tag;
-
-        return (collisionTag == K.T.Ammo || collisionTag == K.T.Chip || collisionTag == K.T.Teleporter 
-            || collisionTag == K.T.InactiveTeleporter || collisionTag == K.T.ExitTeleporter
-            || collisionTag == K.T.EnemyBullet);
+        return (collision.CompareTag(K.T.EnemyBullet));
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

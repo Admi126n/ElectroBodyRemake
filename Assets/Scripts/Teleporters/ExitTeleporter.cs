@@ -29,7 +29,7 @@ public class ExitTeleporter : MonoBehaviour
         _teleporterRenderer.enabled = true;
         _teleporterAnimator.enabled = true;
         gameObject.tag = K.T.ExitTeleporter;
-        gameObject.layer = LayerMask.NameToLayer(K.L.Teleporters);
+        gameObject.layer = LayerMask.NameToLayer(K.L.Teleporter);
         _isActive = true;
     }
 

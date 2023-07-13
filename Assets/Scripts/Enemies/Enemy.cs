@@ -81,7 +81,7 @@ public class Enemy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag(K.T.Bullet) || collision.collider.CompareTag(K.T.Player))
+        if (collision.collider.CompareTag(K.T.PlayerBullet) || collision.collider.CompareTag(K.T.Player))
         {
             Instantiate(explosion, transform.position, transform.rotation);
             Destroy(gameObject);

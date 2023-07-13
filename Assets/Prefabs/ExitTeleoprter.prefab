@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2627843158425646919}
   m_Layer: 12
   m_Name: ExitTeleoprter
-  m_TagString: InactiveTeleporter
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -52,7 +52,7 @@ public class Cannon : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isDestroyable && (collision.CompareTag(K.T.Bullet)))
+        if (isDestroyable && (collision.CompareTag(K.T.PlayerBullet)))
         {
             Instantiate(explosion, transform.position, transform.rotation);
             _boxCollider.enabled = false;

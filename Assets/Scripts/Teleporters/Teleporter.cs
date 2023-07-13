@@ -56,7 +56,7 @@ public class Teleporter : MonoBehaviour
         _teleporterRenderer.enabled = false;
         _teleporterAnimator.enabled = false;
         _teleporterBaseRenderer.sprite = inactiveBase;
-        gameObject.layer = LayerMask.NameToLayer(K.L.InactiveTeleporters);
+        gameObject.layer = LayerMask.NameToLayer(K.L.InactiveTeleporter);
         _isActive = false;
     }
 
