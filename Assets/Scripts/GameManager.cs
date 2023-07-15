@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        //Screen.SetResolution(1950, 1200, true);
         // TODO check if exit teleporter destination scene == current scene + 1
     }
 
