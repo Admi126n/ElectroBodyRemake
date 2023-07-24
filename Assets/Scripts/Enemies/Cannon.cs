@@ -60,4 +60,9 @@ public class Cannon : MonoBehaviour
             _isActive = false;
         }
     }
+
+    public bool IsActive()
+    {
+        return _isActive;
+    }
 }
