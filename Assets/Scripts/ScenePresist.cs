@@ -42,6 +42,7 @@ public class ScenePresist : MonoBehaviour
     public static void IncreaseChipCounter()
     {
         _chipCounter++;
+        FindObjectOfType<UIManager>().UpdateChipIndicator();
     }
 
     public static void ResetChipCounter()
