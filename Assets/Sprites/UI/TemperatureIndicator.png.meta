@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: db907a1d11d4e427c86faa2fb7fb0113
+guid: 21f8764888d714df49e56e8584b84a5a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,12 +105,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WeaponIndicators_0
+      name: TemperatureIndicator_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
+        width: 8
         height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -119,19 +119,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f2af0e5bf906f47c08d173e9b53fa372
-      internalID: 250612743
+      spriteID: f78cd55a0e7834ccf9a97d1961e6dce6
+      internalID: 2094427102
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WeaponIndicators_1
+      name: TemperatureIndicator_1
       rect:
         serializedVersion: 2
-        x: 16
+        x: 9
         y: 0
-        width: 16
+        width: 8
         height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -140,19 +140,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3e3449aee520e4fe5a9d4a3fbb7893a9
-      internalID: -47733349
+      spriteID: 2630297f55d604d25b630036d6edcc45
+      internalID: -1438276173
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WeaponIndicators_2
+      name: TemperatureIndicator_2
       rect:
         serializedVersion: 2
-        x: 32
+        x: 18
         y: 0
-        width: 16
+        width: 8
         height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -161,19 +161,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e6d2328120e4549b6a3bc44a5c6d51be
-      internalID: 370723711
+      spriteID: 09660780caa434a57aa4b7c3113275d7
+      internalID: -1689634818
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WeaponIndicators_3
+      name: TemperatureIndicator_3
       rect:
         serializedVersion: 2
-        x: 48
+        x: 27
         y: 0
-        width: 16
+        width: 8
         height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -182,8 +182,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7a23553b1d9e146f6b102b65d0ec690e
-      internalID: 1281761929
+      spriteID: 4434bb07ee64f4675b66518803d19ff6
+      internalID: -583918453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TemperatureIndicator_4
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 0
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b5d1393abf61432cad1630ba36812db
+      internalID: -1060479572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TemperatureIndicator_5
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 0
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1406f08b3707948639213a27e0b85326
+      internalID: 869122367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TemperatureIndicator_6
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 0
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1961f2070c2f4481391136f5286820c1
+      internalID: -958418976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TemperatureIndicator_7
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 0
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18ada4d3f082c477c98b7a2b3b1e51ef
+      internalID: -1741610627
       vertices: []
       indices: 
       edges: []
@@ -199,10 +283,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      WeaponIndicators_0: 250612743
-      WeaponIndicators_2: 370723711
-      WeaponIndicators_3: 1281761929
-      WeaponIndicators_1: -47733349
+      TemperatureIndicator_0: 2094427102
+      TemperatureIndicator_2: -1689634818
+      TemperatureIndicator_7: -1741610627
+      TemperatureIndicator_4: -1060479572
+      TemperatureIndicator_1: -1438276173
+      TemperatureIndicator_5: 869122367
+      TemperatureIndicator_6: -958418976
+      TemperatureIndicator_3: -583918453
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

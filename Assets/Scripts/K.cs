@@ -68,6 +68,15 @@ static class K
         public static readonly string WalkSpeed = "WalkSpeed";
         public static readonly string IsTeleporting = "IsTeleporting";
     }
+
+    public static class Ammo
+    {
+        public static readonly int Weapon1 = 5;   // 20
+        public static readonly int Weapon2 = 10;  // 35
+        public static readonly int Weapon3 = 15;  // 60
+        public static readonly int Weapon4 = 20;  // 70
+        public static readonly int Weapon5 = 25;  // 85
+    }
 }
 
 public enum Animators
