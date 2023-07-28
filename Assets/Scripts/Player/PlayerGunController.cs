@@ -40,8 +40,17 @@ public class PlayerGunController : MonoBehaviour
         }
         private set
         {
+            int oldValue = _ammoCounter;
             _ammoCounter = value;
-            _UIManager.UpdateWeaponIndicator(_ammoCounter);
+
+            if (oldValue < _ammoCounter)
+            {
+                _UIManager.IncreaseWeaponIndicator(_weaponCounter);
+            }
+            else
+            {
+                _UIManager.UpdateWeaponIndicator(_ammoCounter);
+            }
         }
     }
 

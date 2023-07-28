@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Sprite yellowWeapon;
 
     [Header("Temperature indicator sprites")]
+    [SerializeField] Sprite redIndicator;
     [SerializeField] Sprite lBlueSprite;
     [SerializeField] Sprite rBlueSprite;
     [SerializeField] Sprite lGreenSprite;
@@ -30,6 +31,8 @@ public class UIManager : MonoBehaviour
     private int _chipCounter = 0;
 
     private int _weaponCounter = 0;
+
+    private Coroutine _weaponBlinking;
 
     void Start()
     {
@@ -87,45 +90,116 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void UpdateWeaponIndicator(int ammoCounter)
+    public void IncreaseWeaponIndicator(int weaponCounter)
     {
+        StopCoroutine(WeaponBlinking());
 
+        temperatureIndicator[0].sprite = greenWeapon;
+        for (int i = 0; i < weaponCounter; i++)
+        {
+            if (i == 0)
+            {
+                weaponIndicator[i].sprite = yellowWeapon;
+            }
+            else
+            {
+                weaponIndicator[i].sprite = greenWeapon;
+            }
+        }
     }
 
-    //private IEnumerator WeaponBlinking()
-    //{
-        //while (true)
-        //{
-        //    weaponIndicator[_weaponCounter - 1].sprite = blueWeapon;
-        //    yield return new WaitForSeconds(0.3f);
-        //    weaponIndicator[_weaponCounter - 1].sprite = greenWeapon;
-        //    yield return new WaitForSeconds(0.3f);
-        //}
-    //}
+
+    public void UpdateWeaponIndicator(int ammoCounter)
+    {
+        ResetWeaponIndicator();
+        if (ammoCounter == 0)
+        {
+            //StopCoroutine(_weaponBlinking);
+            temperatureIndicator[0].sprite = redIndicator;
+        }
+        else if (ammoCounter > K.Ammo.Weapon4 + 2)
+        {
+            FillWeaponIndicator(5);
+        }
+        else if (ammoCounter > K.Ammo.Weapon3 + 2)
+        {
+            FillWeaponIndicator(4);
+        }
+        else if (ammoCounter > K.Ammo.Weapon2 + 2)
+        {
+            FillWeaponIndicator(3);
+        }
+        else if (ammoCounter > K.Ammo.Weapon1 + 2)
+        {
+            FillWeaponIndicator(2);
+        }
+        else if (ammoCounter > 2)
+        {
+            FillWeaponIndicator(1);
+        }
+    }
+
+    private void FillWeaponIndicator(int weapon)
+    {
+        weaponIndicator[0].sprite = yellowWeapon;
+
+        for (int i = 1; i < weapon; i++)
+        {
+            weaponIndicator[i].sprite = greenWeapon;
+        }
+    }
+
+    private void ManageWeaponBlinking()
+    {
+        if (_weaponBlinking == null)
+        {
+            _weaponBlinking = StartCoroutine(WeaponBlinking());
+        }
+    }
+
+    private IEnumerator WeaponBlinking()
+    {
+        while (true)
+        {
+            weaponIndicator[_weaponCounter - 1].sprite = blueWeapon;
+            yield return new WaitForSeconds(0.3f);
+
+            if (_weaponCounter == 1)
+            {
+                weaponIndicator[_weaponCounter - 1].sprite = yellowWeapon;
+            }
+            else
+            {
+                weaponIndicator[_weaponCounter - 1].sprite = greenWeapon;
+            }
+
+            yield return new WaitForSeconds(0.3f);
+        }
+    }
 
     public void UpdateTemperatureIndicator(int temp)
     {
-        for (int i = 0; i < temperatureIndicator.Count; i++)
+        for (int i = 1; i < temperatureIndicator.Count; i++)
         {
             if (i < temp)
             {
-                if (i == 0)
+                if (i == 1)
                 {
                     temperatureIndicator[i].sprite = lGreenSprite;
                 }
-                else if (i == 1)
+                else if (i == 2)
                 {
                     temperatureIndicator[i].sprite = rGreenSprite;
                 }
-                else if (i == 2)
+                else if (i == 3)
                 {
                     temperatureIndicator[i].sprite = lYellowSprite;
                 }
-                else if (i == 3)
+                else if (i == 4)
                 {
                     temperatureIndicator[i].sprite = rYellowSprite;
                 }
-                else if (i % 2 == 0)
+                else if (i % 2 != 0)
                 {
                     temperatureIndicator[i].sprite = lRedSprite;
                 }
@@ -135,7 +209,7 @@ public class UIManager : MonoBehaviour
                 }
             } else
             {
-                if (i % 2 == 0)
+                if (i % 2 != 0)
                 {
                     temperatureIndicator[i].sprite = lBlueSprite;
                 } else
