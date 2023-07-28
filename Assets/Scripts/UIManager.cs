@@ -114,28 +114,102 @@ public class UIManager : MonoBehaviour
         ResetWeaponIndicator();
         if (ammoCounter == 0)
         {
-            //StopCoroutine(_weaponBlinking);
+            if (_weaponBlinking != null)
+            {
+                StopCoroutine(_weaponBlinking);
+                _weaponBlinking = null;
+            }
+
             temperatureIndicator[0].sprite = redIndicator;
         }
         else if (ammoCounter > K.Ammo.Weapon4 + 2)
         {
+            // piata bron
+            if (_weaponBlinking != null)
+            {
+                StopCoroutine(_weaponBlinking);
+                _weaponBlinking = null;
+            }
+
             FillWeaponIndicator(5);
+        }
+        else if (ammoCounter > K.Ammo.Weapon4)
+        {
+            // miganie piatej broni
+            _weaponCounter = 5;
+            FillWeaponIndicator(4);
+            ManageWeaponBlinking();
         }
         else if (ammoCounter > K.Ammo.Weapon3 + 2)
         {
+            // czwarta bron
+            if (_weaponBlinking != null)
+            {
+                StopCoroutine(_weaponBlinking);
+                _weaponBlinking = null;
+            }
+
             FillWeaponIndicator(4);
+        }
+        else if (ammoCounter > K.Ammo.Weapon3)
+        {
+            // miganie czwartej broni
+            _weaponCounter = 4;
+            FillWeaponIndicator(3);
+            ManageWeaponBlinking();
         }
         else if (ammoCounter > K.Ammo.Weapon2 + 2)
         {
+            // trzecia bron
+            if (_weaponBlinking != null)
+            {
+                StopCoroutine(_weaponBlinking);
+                _weaponBlinking = null;
+            }
+
             FillWeaponIndicator(3);
+        }
+        else if (ammoCounter > K.Ammo.Weapon2)
+        {
+            // miganie trzeciej broni
+            _weaponCounter = 3;
+            FillWeaponIndicator(2);
+            ManageWeaponBlinking();
         }
         else if (ammoCounter > K.Ammo.Weapon1 + 2)
         {
+            // druga bron
+            if (_weaponBlinking != null)
+            {
+                StopCoroutine(_weaponBlinking);
+                _weaponBlinking = null;
+            }
+
             FillWeaponIndicator(2);
+        }
+        else if (ammoCounter > K.Ammo.Weapon1)
+        {
+            // miganie drugiej broni
+            _weaponCounter = 2;
+            FillWeaponIndicator(1);
+            ManageWeaponBlinking();
         }
         else if (ammoCounter > 2)
         {
+            // pierwsza bron
+            if (_weaponBlinking != null)
+            {
+                StopCoroutine(_weaponBlinking);
+                _weaponBlinking = null;
+            }
+            
             FillWeaponIndicator(1);
+        }
+        else if (ammoCounter >= 0)
+        {
+            // miganie pierwszej broni
+            _weaponCounter = 1;
+            ManageWeaponBlinking();
         }
     }
 
