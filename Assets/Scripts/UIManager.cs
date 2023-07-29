@@ -30,8 +30,6 @@ public class UIManager : MonoBehaviour
     private Color32 _solidChip = new(255, 255, 255, 255);
     private int _chipCounter = 0;
 
-    private int _weaponCounter = 0;
-
     private Coroutine _weaponBlinking;
 
     void Start()
@@ -40,7 +38,8 @@ public class UIManager : MonoBehaviour
         ResetWeaponIndicator();
     }
 
-    // TODO: separate class ChipIndicatorManager
+    // TODO: separate classes ChipIndicatorManager, WeaponIndicatorManager,
+    // TemperatureIndicatorManager
 
     private void ResetChipIndicator()
     {
@@ -90,131 +89,42 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void IncreaseWeaponIndicator(int weaponCounter)
-    {
-        StopCoroutine(WeaponBlinking());
-
-        temperatureIndicator[0].sprite = greenWeapon;
-        for (int i = 0; i < weaponCounter; i++)
-        {
-            if (i == 0)
-            {
-                weaponIndicator[i].sprite = yellowWeapon;
-            }
-            else
-            {
-                weaponIndicator[i].sprite = greenWeapon;
-            }
-        }
-    }
-
-
     public void UpdateWeaponIndicator(int ammoCounter)
     {
         ResetWeaponIndicator();
         if (ammoCounter == 0)
         {
-            if (_weaponBlinking != null)
-            {
-                StopCoroutine(_weaponBlinking);
-                _weaponBlinking = null;
-            }
-
-            temperatureIndicator[0].sprite = redIndicator;
-        }
-        else if (ammoCounter > K.Ammo.Weapon4 + 2)
-        {
-            // piata bron
-            if (_weaponBlinking != null)
-            {
-                StopCoroutine(_weaponBlinking);
-                _weaponBlinking = null;
-            }
-
-            FillWeaponIndicator(5);
-        }
-        else if (ammoCounter > K.Ammo.Weapon4)
-        {
-            // miganie piatej broni
-            _weaponCounter = 5;
-            FillWeaponIndicator(4);
-            ManageWeaponBlinking();
-        }
-        else if (ammoCounter > K.Ammo.Weapon3 + 2)
-        {
-            // czwarta bron
-            if (_weaponBlinking != null)
-            {
-                StopCoroutine(_weaponBlinking);
-                _weaponBlinking = null;
-            }
-
-            FillWeaponIndicator(4);
-        }
-        else if (ammoCounter > K.Ammo.Weapon3)
-        {
-            // miganie czwartej broni
-            _weaponCounter = 4;
-            FillWeaponIndicator(3);
-            ManageWeaponBlinking();
-        }
-        else if (ammoCounter > K.Ammo.Weapon2 + 2)
-        {
-            // trzecia bron
-            if (_weaponBlinking != null)
-            {
-                StopCoroutine(_weaponBlinking);
-                _weaponBlinking = null;
-            }
-
-            FillWeaponIndicator(3);
-        }
-        else if (ammoCounter > K.Ammo.Weapon2)
-        {
-            // miganie trzeciej broni
-            _weaponCounter = 3;
-            FillWeaponIndicator(2);
-            ManageWeaponBlinking();
-        }
-        else if (ammoCounter > K.Ammo.Weapon1 + 2)
-        {
-            // druga bron
-            if (_weaponBlinking != null)
-            {
-                StopCoroutine(_weaponBlinking);
-                _weaponBlinking = null;
-            }
-
-            FillWeaponIndicator(2);
-        }
-        else if (ammoCounter > K.Ammo.Weapon1)
-        {
-            // miganie drugiej broni
-            _weaponCounter = 2;
-            FillWeaponIndicator(1);
-            ManageWeaponBlinking();
-        }
-        else if (ammoCounter > 2)
-        {
-            // pierwsza bron
-            if (_weaponBlinking != null)
-            {
-                StopCoroutine(_weaponBlinking);
-                _weaponBlinking = null;
-            }
+            if (_weaponBlinking == null) return;
             
-            FillWeaponIndicator(1);
+            StopCoroutine(_weaponBlinking);
+            _weaponBlinking = null;
+            
         }
-        else if (ammoCounter >= 0)
-        {
-            // miganie pierwszej broni
-            _weaponCounter = 1;
-            ManageWeaponBlinking();
-        }
+        else if (ammoCounter > K.Ammo.Weapon4 + 2) FillSolidWeaponIndicator(5);
+        
+        else if (ammoCounter > K.Ammo.Weapon4) FillBlinkingWeaponIndicator(5);
+
+        else if (ammoCounter > K.Ammo.Weapon3 + 2) FillSolidWeaponIndicator(4);
+
+        else if (ammoCounter > K.Ammo.Weapon3) FillBlinkingWeaponIndicator(4);
+
+        else if (ammoCounter > K.Ammo.Weapon2 + 2) FillSolidWeaponIndicator(3);
+
+        else if (ammoCounter > K.Ammo.Weapon2) FillBlinkingWeaponIndicator(3);
+
+        else if (ammoCounter > K.Ammo.Weapon1 + 2) FillSolidWeaponIndicator(2);
+
+        else if (ammoCounter > K.Ammo.Weapon1) FillBlinkingWeaponIndicator(2);
+
+        else if (ammoCounter > 2) FillSolidWeaponIndicator(1);
+
+        else if (ammoCounter >= 0) FillBlinkingWeaponIndicator(1);
     }
 
     private void FillWeaponIndicator(int weapon)
     {
+        if (weapon == 0) return;
+
         weaponIndicator[0].sprite = yellowWeapon;
 
         for (int i = 1; i < weapon; i++)
@@ -223,34 +133,45 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void ManageWeaponBlinking()
+    private void FillBlinkingWeaponIndicator(int weapon)
     {
-        if (_weaponBlinking == null)
-        {
-            _weaponBlinking = StartCoroutine(WeaponBlinking());
-        }
+        FillWeaponIndicator(weapon - 1);
+        _weaponBlinking ??= StartCoroutine(WeaponBlinking(weapon));
     }
 
-    private IEnumerator WeaponBlinking()
+    private void FillSolidWeaponIndicator(int weapon)
+    {
+        if (_weaponBlinking != null)
+        {
+            StopCoroutine(_weaponBlinking);
+            _weaponBlinking = null;
+        }
+
+        FillWeaponIndicator(weapon);
+    }
+
+    private IEnumerator WeaponBlinking(int weapon)
     {
         while (true)
         {
-            weaponIndicator[_weaponCounter - 1].sprite = blueWeapon;
+            weaponIndicator[weapon - 1].sprite = blueWeapon;
             yield return new WaitForSeconds(0.3f);
 
-            if (_weaponCounter == 1)
+            if (weapon == 1)
             {
-                weaponIndicator[_weaponCounter - 1].sprite = yellowWeapon;
+                weaponIndicator[weapon - 1].sprite = yellowWeapon;
             }
             else
             {
-                weaponIndicator[_weaponCounter - 1].sprite = greenWeapon;
+                weaponIndicator[weapon - 1].sprite = greenWeapon;
             }
 
             yield return new WaitForSeconds(0.3f);
         }
     }
 
+    // TODO: refactor it so it looks likein oryginal game (proper colors based
+    // on weapon)
     public void UpdateTemperatureIndicator(int temp)
     {
         for (int i = 1; i < temperatureIndicator.Count; i++)
