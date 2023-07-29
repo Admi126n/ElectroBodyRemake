@@ -32,10 +32,37 @@ public class UIManager : MonoBehaviour
 
     private Coroutine _weaponBlinking;
 
+    private readonly List<List<Sprite>> _tempIndicatorSprites = new();
+
     void Start()
     {
         ResetChipIndicator();
         ResetWeaponIndicator();
+
+        SetTempIndicatorSprites();
+    }
+
+    private void SetTempIndicatorSprites()
+    {
+        _tempIndicatorSprites.Add(new() { lGreenSprite, rGreenSprite, lGreenSprite, rGreenSprite,
+            lGreenSprite, rGreenSprite, lYellowSprite, rYellowSprite,
+            lRedSprite, rRedSprite });
+
+        _tempIndicatorSprites.Add(new() { lGreenSprite, rGreenSprite, lGreenSprite, rGreenSprite,
+            lYellowSprite, rYellowSprite, lRedSprite, rRedSprite,
+            lRedSprite, rRedSprite });
+
+        _tempIndicatorSprites.Add(new() { lGreenSprite, rGreenSprite, lGreenSprite, rGreenSprite,
+            lGreenSprite, rGreenSprite, lYellowSprite, rYellowSprite,
+            lRedSprite, rRedSprite });
+
+        _tempIndicatorSprites.Add(new() { lYellowSprite, rYellowSprite, lRedSprite, rRedSprite,
+            lRedSprite, rRedSprite, lRedSprite, rRedSprite,
+            lRedSprite, rRedSprite });
+
+        _tempIndicatorSprites.Add(new() { lGreenSprite, rGreenSprite, lYellowSprite, rYellowSprite,
+            lRedSprite, rRedSprite, lRedSprite, rRedSprite,
+            lRedSprite, rRedSprite });
     }
 
     // TODO: separate classes ChipIndicatorManager, WeaponIndicatorManager,
@@ -91,6 +118,8 @@ public class UIManager : MonoBehaviour
 
     public void UpdateWeaponIndicator(int ammoCounter)
     {
+        temperatureIndicator[0].sprite = ammoCounter == 0 ? redIndicator : greenWeapon;
+
         ResetWeaponIndicator();
         if (ammoCounter == 0)
         {
@@ -170,38 +199,16 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    // TODO: refactor it so it looks likein oryginal game (proper colors based
-    // on weapon)
-    public void UpdateTemperatureIndicator(int temp)
+    public void UpdateTemperatureIndicator(int temp, int weapon)
     {
+        weapon = Mathf.Clamp(weapon, 1, 5);
+
         for (int i = 1; i < temperatureIndicator.Count; i++)
         {
             if (i < temp)
             {
-                if (i == 1)
-                {
-                    temperatureIndicator[i].sprite = lGreenSprite;
-                }
-                else if (i == 2)
-                {
-                    temperatureIndicator[i].sprite = rGreenSprite;
-                }
-                else if (i == 3)
-                {
-                    temperatureIndicator[i].sprite = lYellowSprite;
-                }
-                else if (i == 4)
-                {
-                    temperatureIndicator[i].sprite = rYellowSprite;
-                }
-                else if (i % 2 != 0)
-                {
-                    temperatureIndicator[i].sprite = lRedSprite;
-                }
-                else
-                {
-                    temperatureIndicator[i].sprite = rRedSprite;
-                }
+                temperatureIndicator[i].sprite =
+                    _tempIndicatorSprites[weapon - 1][i - 1];
             } else
             {
                 if (i % 2 != 0)

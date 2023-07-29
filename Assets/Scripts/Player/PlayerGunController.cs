@@ -24,11 +24,11 @@ public class PlayerGunController : MonoBehaviour
     private int _ammoCounter = 0;
     private int _weaponTemp = 0;
     private const int MaxTemp = 10;
-    private Dictionary<int, int> WeaponTempDict = new() {
+    private readonly Dictionary<int, int> WeaponTempDict = new() {
         {1, 2},
-        {2, 3},
-        {3, 4},
-        {4, 5},
+        {2, 4},
+        {3, 2},
+        {4, 8},
         {5, 6}
     };
 
@@ -51,7 +51,7 @@ public class PlayerGunController : MonoBehaviour
         private set
         {
             _weaponTemp = value;
-            _UIManager.UpdateTemperatureIndicator(_weaponTemp);
+            _UIManager.UpdateTemperatureIndicator(_weaponTemp, _weaponCounter);
         }
     }
 
@@ -187,7 +187,7 @@ public class PlayerGunController : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.3f);
 
             if (WeaponTemp > 0)
             {
