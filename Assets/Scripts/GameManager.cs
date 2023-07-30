@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
     {
         if (_gamePaused)
         {
-            player.SetPlayerInput(false);
+            player.SetPlayerInput(true);
             pauseMenu.SetActive(false);
             Time.timeScale = 1f;
         } else
