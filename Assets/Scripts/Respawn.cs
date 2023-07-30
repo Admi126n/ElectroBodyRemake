@@ -35,6 +35,7 @@ public class Respawn : MonoBehaviour
                 _gameManager.ResetRespawn(ScenePresist.GetRespawnId());
                 _audioPlayer.PlayRespawnSetClip(transform.position);
                 _playerGun.ResetAmmo();
+                FindObjectOfType<UIManager>().ResetWeaponIndicator();
             }
 
             ScenePresist.SetRespawnId(id);

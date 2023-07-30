@@ -15,18 +15,22 @@ public class PlayerGunController : MonoBehaviour
     [Header("Gun")]
     [SerializeField] Transform gun;
 
-    private const int _WeaponAmmo1 = 5;   // 20
-    private const int _WeaponAmmo2 = 10;  // 35
-    private const int _WeaponAmmo3 = 15;  // 60
-    private const int _WeaponAmmo4 = 20;  // 70
-    private const int _WeaponAmmo5 = 25;  // 85
-
     private PlayerController _playerController;
     private PlayerAnimator _playerAnimator;
     private AudioPlayer _audioPlayer;
+    private UIManager _UIManager;
 
     private int _weaponCounter = 0;
     private int _ammoCounter = 0;
+    private int _weaponTemp = 0;
+    private const int MaxTemp = 10;
+    private readonly Dictionary<int, int> WeaponTempDict = new() {
+        {1, 2},
+        {2, 4},
+        {3, 2},
+        {4, 8},
+        {5, 6}
+    };
 
     public int AmmoCounter
     {
@@ -37,6 +41,17 @@ public class PlayerGunController : MonoBehaviour
         private set
         {
             _ammoCounter = value;
+            _UIManager.UpdateWeaponIndicator(_ammoCounter);
+        }
+    }
+
+    public int WeaponTemp
+    {
+        get { return _weaponTemp; }
+        private set
+        {
+            _weaponTemp = value;
+            _UIManager.UpdateTemperatureIndicator(_weaponTemp, _weaponCounter);
         }
     }
 
@@ -45,6 +60,9 @@ public class PlayerGunController : MonoBehaviour
         _playerController = GetComponent<PlayerController>();
         _playerAnimator = GetComponent<PlayerAnimator>();
         _audioPlayer = FindObjectOfType<AudioPlayer>();
+        _UIManager = FindObjectOfType<UIManager>();
+
+        StartCoroutine(WeaponCooling());
     }
 
     private void RefillWeaponMagazine()
@@ -52,38 +70,38 @@ public class PlayerGunController : MonoBehaviour
         switch (_weaponCounter)
         {
             case 1:
-                _ammoCounter = _WeaponAmmo1;
+                AmmoCounter = K.Ammo.Weapon1;
                 break;
             case 2:
-                _ammoCounter = _WeaponAmmo2;
+                AmmoCounter = K.Ammo.Weapon2;
                 break;
             case 3:
-                _ammoCounter = _WeaponAmmo3;
+                AmmoCounter = K.Ammo.Weapon3;
                 break;
             case 4:
-                _ammoCounter = _WeaponAmmo4;
+                AmmoCounter = K.Ammo.Weapon4;
                 break;
             case 5:
-                _ammoCounter = _WeaponAmmo5;
+                AmmoCounter = K.Ammo.Weapon5;
                 break;
         }
     }
 
     private void UpdateWeapon()
     {
-        if (_ammoCounter == 0)
+        if (AmmoCounter == 0)
         {
             _weaponCounter = 0;
-        } else if (_ammoCounter <= _WeaponAmmo1)
+        } else if (AmmoCounter <= K.Ammo.Weapon1)
         {
             _weaponCounter = 1;
-        } else if (_ammoCounter <= _WeaponAmmo2)
+        } else if (AmmoCounter <= K.Ammo.Weapon2)
         {
             _weaponCounter = 2;
-        } else if (_ammoCounter <= _WeaponAmmo3)
+        } else if (AmmoCounter <= K.Ammo.Weapon3)
         {
             _weaponCounter = 3;
-        } else if (_ammoCounter <= _WeaponAmmo4)
+        } else if (AmmoCounter <= K.Ammo.Weapon4)
         {
             _weaponCounter = 4;
         } else
@@ -132,7 +150,7 @@ public class PlayerGunController : MonoBehaviour
     {
         _playerController.HasGun = false;
         _weaponCounter = 0;
-        _ammoCounter = 0;
+        AmmoCounter = 0;
     }
 
     /// <summary>
@@ -140,13 +158,16 @@ public class PlayerGunController : MonoBehaviour
     /// </summary>
     void OnFire()
     {
-        if (_ammoCounter > 0 && _playerController.HasGun)
+        if (AmmoCounter > 0
+            && _playerController.HasGun
+            && WeaponTemp + WeaponTempDict[_weaponCounter] <= MaxTemp)
         {
             Fire();
-            _ammoCounter--;
+            AmmoCounter--;
+            WeaponTemp += WeaponTempDict[_weaponCounter];
             UpdateWeapon();
 
-            if (_ammoCounter == 0)
+            if (AmmoCounter == 0)
             {
                 _playerController.HasGun = false;
             }
@@ -159,6 +180,19 @@ public class PlayerGunController : MonoBehaviour
         {
             Destroy(collision.gameObject);
             PickUpAmmo();
+        }
+    }
+
+    private IEnumerator WeaponCooling()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.3f);
+
+            if (WeaponTemp > 0)
+            {
+                WeaponTemp--;
+            }
         }
     }
 }

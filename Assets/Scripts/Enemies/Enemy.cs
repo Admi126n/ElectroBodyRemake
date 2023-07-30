@@ -22,8 +22,8 @@ public class Enemy : MonoBehaviour
     private Coroutine _fireingCoroutine;
     private Rigidbody2D _enemyRigidbody;
     private bool _canMove = true;
+    private bool _isAlive = true;
 
-    // Start is called before the first frame update
     private void Start()
     {
         _audioPlayer = FindObjectOfType<AudioPlayer>();
@@ -33,14 +33,21 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (_canMove)
+        if (_isAlive)
         {
-            _enemyRigidbody.velocity = new Vector2(movementSpeed, 0);
-        }
+            if (_canMove)
+            {
+                _enemyRigidbody.velocity = new Vector2(movementSpeed, 0);
+            }
 
-        if (_fireingCoroutine == null)
+            if (_fireingCoroutine == null)
+            {
+                _fireingCoroutine = StartCoroutine(FireContinuosly());
+            }
+        } else if (transform.childCount == 0)
         {
-            _fireingCoroutine = StartCoroutine(FireContinuosly());
+            // Destroy enemy if there are no bullets of this enemy
+            Destroy(gameObject);
         }
     }
 
@@ -83,8 +90,13 @@ public class Enemy : MonoBehaviour
     {
         if (collision.collider.CompareTag(K.T.PlayerBullet) || collision.collider.CompareTag(K.T.Player))
         {
+            _isAlive = false;
+
             Instantiate(explosion, transform.position, transform.rotation);
-            Destroy(gameObject);
+
+            GetComponent<BoxCollider2D>().enabled = false;
+            GetComponent<SpriteRenderer>().enabled = false;
+            StopAllCoroutines();
         }
     }
 }

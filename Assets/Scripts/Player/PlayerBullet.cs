@@ -30,7 +30,9 @@ public class PlayerBullet : MonoBehaviour
 
     private bool ShouldNotBeDestroyedOnTrigger(Collider2D collision)
     {
-        return (collision.CompareTag(K.T.EnemyBullet));
+        return collision.CompareTag(K.T.EnemyBullet)
+            || collision.CompareTag(K.T.Room)
+            || collision.CompareTag(K.T.EnemyWall);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -39,6 +41,14 @@ public class PlayerBullet : MonoBehaviour
 
         _bulletHorizontalSpeed = 0f;
         Destroy(gameObject);
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag(K.T.Room))
+        {
+            gameObject.layer = LayerMask.NameToLayer(K.L.IgnoreRaycast);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
