@@ -28,7 +28,6 @@ public class UIManager : MonoBehaviour
 
     private Color32 _emptyChip = new(255, 255, 255, 64);
     private Color32 _solidChip = new(255, 255, 255, 255);
-    private int _chipCounter = 0;
 
     private Coroutine _weaponBlinking;
 
@@ -36,8 +35,8 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        ResetChipIndicator();
         ResetWeaponIndicator();
+        UpdateChipIndicator();
 
         SetTempIndicatorSprites();
     }
@@ -78,7 +77,7 @@ public class UIManager : MonoBehaviour
 
     private void FillChipIndicator()
     {
-        for (int i = 0; i < _chipCounter; i++)
+        for (int i = 0; i < ScenePresist.GetChipCounter(); i++)
         {
             chipIndicator[i].color = _solidChip;
         }
@@ -86,12 +85,9 @@ public class UIManager : MonoBehaviour
 
     public void UpdateChipIndicator()
     {
-        if (_chipCounter >= 3) return;
-
-        _chipCounter++;
         FillChipIndicator();
 
-        if (_chipCounter == 3)
+        if (ScenePresist.GetChipCounter() == 3)
         {
             StartCoroutine(ChipBlinkinking());
         }
@@ -201,14 +197,25 @@ public class UIManager : MonoBehaviour
 
     public void UpdateTemperatureIndicator(int temp, int weapon)
     {
-        weapon = Mathf.Clamp(weapon, 1, 5);
-
         for (int i = 1; i < temperatureIndicator.Count; i++)
         {
             if (i < temp)
             {
-                temperatureIndicator[i].sprite =
+                if (weapon != 0)
+                {
+                    temperatureIndicator[i].sprite =
                     _tempIndicatorSprites[weapon - 1][i - 1];
+                } else
+                {
+                    if (i % 2 != 0)
+                    {
+                        temperatureIndicator[i].sprite = lRedSprite;
+                    }
+                    else
+                    {
+                        temperatureIndicator[i].sprite = rRedSprite;
+                    }
+                }
             } else
             {
                 if (i % 2 != 0)

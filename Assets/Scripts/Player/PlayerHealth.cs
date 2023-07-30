@@ -10,7 +10,7 @@ public class PlayerHealth : MonoBehaviour
     private SpriteRenderer _bodyRenderer;
     private SpriteRenderer _armsRenderer;
     private GameManager _gameManager;
-    private PlayerInput _playerInput;
+    PlayerController _player;
 
     private readonly int _ExplosionsCounter = 7;
 
@@ -19,7 +19,7 @@ public class PlayerHealth : MonoBehaviour
         _bodyRenderer = GetComponent<SpriteRenderer>();
         _armsRenderer = gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
         _gameManager = FindObjectOfType<GameManager>();
-        _playerInput = GetComponent<PlayerInput>();
+        _player = GetComponent<PlayerController>();
 
         SpawnPlayer();
     }
@@ -77,8 +77,8 @@ public class PlayerHealth : MonoBehaviour
         // TODO play death animation (yes, you have to do special anim)
 
         StartCoroutine(SpawnExplosions());
+        _player.SetPlayerInput(false);
 
-        _playerInput.enabled = false;
         StartCoroutine(RespawnPlayer());
     }
 }

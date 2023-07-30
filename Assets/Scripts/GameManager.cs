@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TeleporterData
 {
@@ -19,9 +21,14 @@ public class TeleporterData
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] GameObject pauseMenu;
+
     private readonly Dictionary<int, TeleporterData> _Teleporters = new();
     private List<ExitTeleporter> _exitTeleporters;
     private readonly Dictionary<int, Respawn> _Respawns = new();
+    private PlayerController player;
+
+    private bool _gamePaused = false;
 
     private void Awake()
     {
@@ -35,6 +42,7 @@ public class GameManager : MonoBehaviour
     {
         //Screen.SetResolution(1950, 1200, true);
         // TODO check if exit teleporter destination scene == current scene + 1
+        player = FindObjectOfType<PlayerController>();
     }
 
     public void ResetGameSession()
@@ -109,5 +117,22 @@ public class GameManager : MonoBehaviour
     public Dictionary<int, TeleporterData> GetTeleporters()
     {
         return _Teleporters;
+    }
+
+    public void PauseResumeGame()
+    {
+        if (_gamePaused)
+        {
+            player.SetPlayerInput(false);
+            pauseMenu.SetActive(false);
+            Time.timeScale = 1f;
+        } else
+        {
+            player.SetPlayerInput(false);
+            pauseMenu.SetActive(true);
+            Time.timeScale = 0f;
+        }
+
+        _gamePaused = !_gamePaused;
     }
 }
