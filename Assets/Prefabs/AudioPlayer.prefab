@@ -51,3 +51,4 @@ MonoBehaviour:
   ammoPickedUp: {fileID: 8300000, guid: 08cea4153a8b79a43a20ac703362a8c3, type: 3}
   explosion: {fileID: 8300000, guid: 64aed2dae7933d445b4ccd9439af6500, type: 3}
   chipPickedUp: {fileID: 8300000, guid: f51e181ef63249e4f8fc5459acd229bf, type: 3}
+  respawnSet: {fileID: 8300000, guid: b22764ed175e84c5fa1b6e0186e78eeb, type: 3}

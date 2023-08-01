@@ -30,6 +30,7 @@ public class ScenePresist : MonoBehaviour
 
     public void ResetScenePersist()
     {
+        _chipCounter = 0;
         Destroy(gameObject);
         _respawnId = 0;
     }
