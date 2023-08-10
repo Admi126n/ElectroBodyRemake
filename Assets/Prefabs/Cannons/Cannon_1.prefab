@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5997350640208685346}
   - component: {fileID: 7843289730896968406}
   - component: {fileID: 119170072}
+  - component: {fileID: 5388901097996214162}
   m_Layer: 9
   m_Name: Cannon_1
   m_TagString: Untagged
@@ -130,3 +131,34 @@ MonoBehaviour:
   explosion: {fileID: 8846356661966005616, guid: 3a1020714e5979c4190d305dfc9327fd, type: 3}
   bullet: {fileID: 5531241171500099197, guid: 6aa4e0d22d8f3764f9cc398644c032c4, type: 3}
   cooldown: 2
+--- !u!114 &5388901097996214162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6086724546929535678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 0000000019de0ec889e5a03c1b1264fdf991081f1f73799d4f32ac287311dc333b5de7d20f9ff6d8e70f4994bb6f061c
+  m_ShapePath:
+  - {x: -0.33333334, y: -0.5, z: 0}
+  - {x: -0.33333334, y: 0.3, z: 0}
+  - {x: -0.14, y: 0.3, z: 0}
+  - {x: -0.14, y: -0.08, z: 0}
+  - {x: 0.14, y: -0.08, z: 0}
+  - {x: 0.14, y: 0.3, z: 0}
+  - {x: 0.33333334, y: 0.3, z: 0}
+  - {x: 0.33333334, y: -0.5, z: 0}
+  m_ShapePathHash: 48151885
+  m_Mesh: {fileID: 0}
+  m_InstanceId: 39930
