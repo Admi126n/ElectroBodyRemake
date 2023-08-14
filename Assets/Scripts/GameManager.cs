@@ -29,6 +29,13 @@ public class GameManager : MonoBehaviour
     private PlayerController player;
 
     private bool _gamePaused = false;
+    private bool _lightingEnabled = true;
+
+    public bool LightingEnabled
+    {
+        set { _lightingEnabled = value; }
+        get { return _lightingEnabled; }
+    }
 
     private void Awake()
     {

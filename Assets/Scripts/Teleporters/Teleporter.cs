@@ -62,6 +62,7 @@ public class Teleporter : MonoBehaviour
         _teleporterBaseRenderer.sprite = inactiveBase;
         gameObject.layer = LayerMask.NameToLayer(K.L.InactiveTeleporter);
         _isActive = false;
+        Destroy(GetComponentInChildren<Light2D>().gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
