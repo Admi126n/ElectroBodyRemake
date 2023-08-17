@@ -11,7 +11,7 @@ public class LightingManager : MonoBehaviour
     private Light2D[] _lightSources;
     private ShadowCaster2D[] _shadowCasters;
 
-    private void Start()
+    private void Awake()
     {
         _gameManager = FindObjectOfType<GameManager>();
     }
@@ -51,6 +51,9 @@ public class LightingManager : MonoBehaviour
 
     private void ActivateLighting()
     {
+        _lightSources = FindObjectsOfType<Light2D>();
+        _shadowCasters = FindObjectsOfType<ShadowCaster2D>();
+
         globalLight.SetActive(false);
 
         try

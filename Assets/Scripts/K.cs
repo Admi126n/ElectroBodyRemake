@@ -3,7 +3,7 @@
 /// </summary>
 static class K
 {
-    public static readonly string GameVersion = "Alpha v0.6";
+    public static readonly string GameVersion = "Alpha v0.6.1";
 
     /// <summary>
     /// Class with layers names.

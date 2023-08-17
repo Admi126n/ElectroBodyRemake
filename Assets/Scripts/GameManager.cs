@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     private PlayerController player;
 
     private bool _gamePaused = false;
-    private bool _lightingEnabled = true;
+    private bool _lightingEnabled = false;
 
     public bool LightingEnabled
     {
@@ -50,6 +50,12 @@ public class GameManager : MonoBehaviour
         //Screen.SetResolution(1950, 1200, true);
         // TODO check if exit teleporter destination scene == current scene + 1
         player = FindObjectOfType<PlayerController>();
+
+        try
+        {
+            FindObjectOfType<LightingManager>().ManageLights(false);
+        }
+        catch (UnassignedReferenceException) { }
     }
 
     public void ResetGameSession()
