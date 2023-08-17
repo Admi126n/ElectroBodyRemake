@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 interface IPlayerTeleporting
 {
@@ -26,6 +27,7 @@ public class Teleporter : MonoBehaviour
     private SpriteRenderer _teleporterBaseRenderer;
     private SpriteRenderer _teleporterRenderer;
     private Animator _teleporterAnimator;
+    private Light2D _lightSource;
     private IPlayerTeleporting _player;
 
     private bool _isActive = true;
@@ -37,6 +39,7 @@ public class Teleporter : MonoBehaviour
         _teleporterRenderer = GetComponent<SpriteRenderer>();
         _teleporterAnimator = GetComponent<Animator>();
         _player = FindObjectOfType<PlayerTeleportingController>();
+        _lightSource = gameObject.transform.GetComponentInChildren<Light2D>();
 
         if (destinationId == -1)
         {
@@ -53,11 +56,13 @@ public class Teleporter : MonoBehaviour
 
     private void DeactivateTeleporter()
     {
+        _lightSource.enabled = false;
         _teleporterRenderer.enabled = false;
         _teleporterAnimator.enabled = false;
         _teleporterBaseRenderer.sprite = inactiveBase;
         gameObject.layer = LayerMask.NameToLayer(K.L.InactiveTeleporter);
         _isActive = false;
+        Destroy(GetComponentInChildren<Light2D>().gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Cannon : MonoBehaviour
 {
@@ -16,12 +17,15 @@ public class Cannon : MonoBehaviour
     private Coroutine _fireingCoroutine;
     private SpriteRenderer _spriteRenderer;
     private BoxCollider2D _boxCollider;
+    private ShadowCaster2D _shadow;
+
 
     private void Start()
     {
         _audioPlayer = FindObjectOfType<AudioPlayer>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _boxCollider = GetComponent<BoxCollider2D>();
+        _shadow = GetComponent<ShadowCaster2D>();
     }
 
     private void Update()
@@ -50,14 +54,20 @@ public class Cannon : MonoBehaviour
         }
     }
 
+    private void DestroyCannon()
+    {
+        _boxCollider.enabled = false;
+        _shadow.enabled = false;
+        _spriteRenderer.sprite = destroyedCannon;
+        _isActive = false;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isDestroyable && (collision.CompareTag(K.T.PlayerBullet)))
         {
             Instantiate(explosion, transform.position, transform.rotation);
-            _boxCollider.enabled = false;
-            _spriteRenderer.sprite = destroyedCannon;
-            _isActive = false;
+            DestroyCannon();
         }
     }
 
