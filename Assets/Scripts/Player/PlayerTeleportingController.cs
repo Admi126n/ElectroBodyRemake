@@ -99,7 +99,7 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
 
     public void SetTeleportingDestination(Vector3 destination)
     {
-        _teleportingDestination = new (destination.x, destination.y + 0.5f, destination.y);
+        _teleportingDestination = new (destination.x, destination.y + 0.5f, destination.z);
     }
 
     public void SetDestinationScene(int index)

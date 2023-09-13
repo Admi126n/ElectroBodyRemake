@@ -50,4 +50,12 @@ public class EnemyBullet : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag(K.T.Room))
+        {
+            gameObject.layer = LayerMask.NameToLayer(K.L.IgnoreRaycast);
+        }
+    }
 }
