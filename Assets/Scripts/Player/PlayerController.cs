@@ -165,8 +165,11 @@ public class PlayerController : MonoBehaviour
     {
         float extraHeight = 0.02f;
         RaycastHit2D raycastHit = Physics2D.BoxCast(_bodyCollider.bounds.center, _bodyCollider.bounds.size, 0f, Vector2.down, extraHeight, LayerMask.GetMask(K.L.Ground));
-        
-        return raycastHit.collider != null;
+
+        // I've changes this becasue of one way platforms. Hope it doesn't
+        // destroy something.
+        //return raycastHit.collider != null;
+        return raycastHit.collider != null && Mathf.Abs(_playerRigidbody.velocity.y) <= 0.01;
     }
 
     private bool IsTouchingWall()
