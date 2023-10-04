@@ -58,9 +58,16 @@ public class RoomManager : MonoBehaviour
         if (collision.CompareTag(K.T.Player) && !collision.isTrigger)
         {
             moveEnabled = false;
-            DespawnEnemies();
-            DespawnCannons();
+            StartCoroutine(WaitBeforeDespawning());
         }
+    }
+
+    private IEnumerator WaitBeforeDespawning()
+    {
+        yield return new WaitForSeconds(0.4f);
+
+        DespawnEnemies();
+        DespawnCannons();
     }
 
     private void SpawnEnemies()

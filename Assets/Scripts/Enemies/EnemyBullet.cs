@@ -58,4 +58,9 @@ public class EnemyBullet : MonoBehaviour
             gameObject.layer = LayerMask.NameToLayer(K.L.IgnoreRaycast);
         }
     }
+
+    private void OnBecameInvisible()
+    {
+        Destroy(gameObject);
+    }
 }
