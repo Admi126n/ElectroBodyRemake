@@ -33,22 +33,18 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (_isAlive)
+        if (!_isAlive) return;
+        
+        if (_canMove)
         {
-            if (_canMove)
-            {
-                _enemyRigidbody.velocity = new Vector2(movementSpeed, 0);
-            }
-
-            if (_fireingCoroutine == null)
-            {
-                _fireingCoroutine = StartCoroutine(FireContinuosly());
-            }
-        } else if (transform.childCount == 0)
-        {
-            // Destroy enemy if there are no bullets of this enemy
-            Destroy(gameObject);
+            _enemyRigidbody.velocity = new Vector2(movementSpeed, 0);
         }
+
+        if (_fireingCoroutine == null)
+        {
+            _fireingCoroutine = StartCoroutine(FireContinuosly());
+        }
+        
     }
 
     private IEnumerator FireContinuosly()
@@ -61,7 +57,9 @@ public class Enemy : MonoBehaviour
 
             yield return new WaitForSeconds(warningCooldown);
 
-            Instantiate(bullet, transform.position, transform.rotation, transform);
+            EnemyBullet newBullet = Instantiate(bullet, transform.position, transform.rotation);
+            newBullet.SetBuletDirection(transform.localScale);
+
             _audioPlayer.PlayCannonShootingClip(shootingClip, transform.position);
 
             yield return new WaitForSeconds(0.4f);
@@ -97,6 +95,8 @@ public class Enemy : MonoBehaviour
             GetComponent<BoxCollider2D>().enabled = false;
             GetComponent<SpriteRenderer>().enabled = false;
             StopAllCoroutines();
+
+            Destroy(gameObject);
         }
     }
 }

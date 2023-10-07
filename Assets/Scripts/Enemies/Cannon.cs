@@ -47,7 +47,9 @@ public class Cannon : MonoBehaviour
     {
         while (true)
         {
-            Instantiate(bullet, transform.position, transform.rotation, transform);
+            EnemyBullet newBullet = Instantiate(bullet, transform.position, transform.rotation);
+            newBullet.SetBuletDirection(transform.localScale);
+
             _audioPlayer.PlayCannonShootingClip(shootingClip, transform.position);
 
             yield return new WaitForSeconds(cooldown);
