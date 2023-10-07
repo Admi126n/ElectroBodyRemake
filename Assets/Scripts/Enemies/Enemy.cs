@@ -5,7 +5,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [Header("Enemy movement")]
-    [SerializeField] float movementSpeed = 2;
+    [SerializeField] float movementSpeed = 1.5f;
+    [SerializeField] bool hasRandomSpeed = true;
     
     [Header("Shooting")]
     [SerializeField] AudioClip shootingClip;
@@ -13,6 +14,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] EnemyBullet bullet;
     [SerializeField] float cooldown;
     [SerializeField] float warningCooldown;
+    [SerializeField] bool hasRandomCooldowns = true;
+    [SerializeField] bool canShoot = true;
 
     [Header("Other")]
     [SerializeField] Explosion explosion;
@@ -29,6 +32,11 @@ public class Enemy : MonoBehaviour
         _audioPlayer = FindObjectOfType<AudioPlayer>();
         _enemyRigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+
+        if (hasRandomSpeed)
+        {
+            movementSpeed = Random.Range(movementSpeed - 0.5f, movementSpeed + 0.5f);
+        }
     }
 
     private void Update()
@@ -37,10 +45,10 @@ public class Enemy : MonoBehaviour
         
         if (_canMove)
         {
-            _enemyRigidbody.velocity = new Vector2(movementSpeed, 0);
+            _enemyRigidbody.velocity = new Vector2(movementSpeed * Mathf.Sign(transform.localScale.x), 0);
         }
 
-        if (_fireingCoroutine == null)
+        if (_fireingCoroutine == null && canShoot)
         {
             _fireingCoroutine = StartCoroutine(FireContinuosly());
         }
@@ -49,12 +57,19 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator FireContinuosly()
     {
+        yield return new WaitForSeconds(Random.Range(0.5f, 2f));
+
         while (true)
         {
             _canMove = false;
+            _enemyRigidbody.velocity = new Vector2(0, 0);
             _animator.StartPlayback();
             _audioPlayer.PlayCannonShootingClip(warningClip, transform.position);
 
+            if (hasRandomCooldowns)
+            {
+                warningCooldown = Random.Range(warningCooldown - 0.5f, warningCooldown + 0.5f);
+            }
             yield return new WaitForSeconds(warningCooldown);
 
             EnemyBullet newBullet = Instantiate(bullet, transform.position, transform.rotation);
@@ -66,6 +81,10 @@ public class Enemy : MonoBehaviour
             _canMove = true;
             _animator.StopPlayback();
 
+            if (hasRandomCooldowns)
+            {
+                cooldown = Random.Range(cooldown - 0.5f, cooldown + 0.5f);
+            }
             yield return new WaitForSeconds(cooldown);
         }
     }
@@ -79,7 +98,6 @@ public class Enemy : MonoBehaviour
     {
         if (collision.CompareTag(K.T.EnemyWall))
         {
-            movementSpeed *= -1;
             FlipEnemyFacing();
         }
     }

@@ -11,6 +11,7 @@ public class Cannon : MonoBehaviour
     [SerializeField] Explosion explosion;
     [SerializeField] EnemyBullet bullet;
     [SerializeField] float cooldown;
+    [SerializeField] bool hasRandomCooldown = true;
 
     private AudioPlayer _audioPlayer;
     private bool _isActive = true;
@@ -45,6 +46,8 @@ public class Cannon : MonoBehaviour
 
     private IEnumerator FireContinuosly()
     {
+        yield return new WaitForSeconds(Random.Range(0.1f, 0.5f));
+
         while (true)
         {
             EnemyBullet newBullet = Instantiate(bullet, transform.position, transform.rotation);
@@ -52,6 +55,10 @@ public class Cannon : MonoBehaviour
 
             _audioPlayer.PlayCannonShootingClip(shootingClip, transform.position);
 
+            if (hasRandomCooldown)
+            {
+                cooldown = Random.Range(cooldown - 1, cooldown + 1);
+            }
             yield return new WaitForSeconds(cooldown);
         }
     }

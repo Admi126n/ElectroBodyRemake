@@ -58,7 +58,7 @@ public class EnemyBullet : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void SetBuletDirection(Vector3 value)
+    public void SetBuletDirection(Vector3 value, bool reverse=false)
     {
         if (bulletDirection == BulletDirection.Horizontal)
         {
@@ -67,6 +67,11 @@ public class EnemyBullet : MonoBehaviour
         else
         {
             _direction = Mathf.Sign(value.y);
+        }
+
+        if (reverse)
+        {
+            _direction *= -1;
         }
     }
 }
