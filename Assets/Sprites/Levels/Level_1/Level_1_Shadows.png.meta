@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4e7dde9a856734728a7efe2774e2da60
+guid: 3d4ff210b8ad342f586910fad62dcf34
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -131,8 +131,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c40f93f7566e54a22b834b257f933a27
-      internalID: 1441736220
+      spriteID: 1080727ad6af84c05ab6b611625df504
+      internalID: -1461763161
       vertices: []
       indices: 
       edges: []
@@ -152,8 +152,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 86905f816e6224db0bd6fd7c46c667b6
-      internalID: 816218698
+      spriteID: 7c4986eb30f044705b11708144f07612
+      internalID: 231669869
       vertices: []
       indices: 
       edges: []
@@ -173,8 +173,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d0b70a641afd04b8abd1655d1d92920f
-      internalID: -1172504581
+      spriteID: d322002ce52b74b85a60f4851922cce2
+      internalID: 1014485687
       vertices: []
       indices: 
       edges: []
@@ -194,8 +194,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 45bbb1b6cb17a424dada4bc466d5144a
-      internalID: -23325097
+      spriteID: f612a417519e54ab6acde53a02c83838
+      internalID: -1412975592
       vertices: []
       indices: 
       edges: []
@@ -215,8 +215,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 52d95eabde7bf41498eb0e0fe12fb67b
-      internalID: 1807239439
+      spriteID: 63b8846f8e7f449348d0fb99513b6ab5
+      internalID: -661093881
       vertices: []
       indices: 
       edges: []
@@ -236,56 +236,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 00aed0eb8d22c41358c300e672df97f7
-      internalID: 1800255230
+      spriteID: 4ef786e1299954147962051ba66a7b4a
+      internalID: 834777839
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
       name: Level_1_Shadows_6
-      rect:
-        serializedVersion: 2
-        x: 150
-        y: 25
-        width: 24
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1f60e43484e954ad4bee2a19b32c56e0
-      internalID: 681459514
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Level_1_Shadows_7
-      rect:
-        serializedVersion: 2
-        x: 175
-        y: 25
-        width: 24
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a1e0eb8bec1de4593b409a1f3c49cd22
-      internalID: 1756862352
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Level_1_Shadows_8
       rect:
         serializedVersion: 2
         x: 0
@@ -299,14 +257,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d60b1d2117c204414b1d9d32c5d9d0c4
-      internalID: -518856224
+      spriteID: a4b89eb8ea94b4b13a76791a4832139e
+      internalID: 436552279
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Level_1_Shadows_9
+      name: Level_1_Shadows_7
       rect:
         serializedVersion: 2
         x: 25
@@ -320,14 +278,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6b91d537f732442daaf6e788e960297f
-      internalID: 1147597861
+      spriteID: b6ef60d724741425bbc9caefb0c85152
+      internalID: 2093242177
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Level_1_Shadows_10
+      name: Level_1_Shadows_8
       rect:
         serializedVersion: 2
         x: 50
@@ -341,14 +299,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 53e2017d7c0394ddcbf195de54098daa
-      internalID: 939318943
+      spriteID: b55fa67a2d9e14bfbb79a011fc746925
+      internalID: -1023822363
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Level_1_Shadows_11
+      name: Level_1_Shadows_9
       rect:
         serializedVersion: 2
         x: 75
@@ -362,14 +320,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c4d08ab35d1d84f0c8109a7dfcc85a95
-      internalID: -1398205334
+      spriteID: 10a12c66b24d046209e1c1c91deb9e01
+      internalID: 1715363127
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Level_1_Shadows_12
+      name: Level_1_Shadows_10
       rect:
         serializedVersion: 2
         x: 100
@@ -383,14 +341,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c457ea7507ef14ddead69510036f1c1a
-      internalID: 1233389786
+      spriteID: c0a71a9f2b6ca4925881951d9f2511b7
+      internalID: 65158862
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Level_1_Shadows_13
+      name: Level_1_Shadows_11
       rect:
         serializedVersion: 2
         x: 125
@@ -404,29 +362,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6189b2ccbd7854a799cf7fd189c2bc35
-      internalID: 1091891104
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Level_1_Shadows_14
-      rect:
-        serializedVersion: 2
-        x: 150
-        y: 0
-        width: 24
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ac8e10461aaf74226b7d1973a6033d84
-      internalID: -318141929
+      spriteID: 15098910d12c94a1b8395400dcdb4b09
+      internalID: 1836670658
       vertices: []
       indices: 
       edges: []
@@ -442,21 +379,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Level_1_Shadows_8: -518856224
-      Level_1_Shadows_7: 1756862352
-      Level_1_Shadows_2: -1172504581
-      Level_1_Shadows_9: 1147597861
-      Level_1_Shadows_3: -23325097
-      Level_1_Shadows_12: 1233389786
-      Level_1_Shadows_5: 1800255230
-      Level_1_Shadows_1: 816218698
-      Level_1_Shadows_6: 681459514
-      Level_1_Shadows_4: 1807239439
-      Level_1_Shadows_13: 1091891104
-      Level_1_Shadows_11: -1398205334
-      Level_1_Shadows_10: 939318943
-      Level_1_Shadows_14: -318141929
-      Level_1_Shadows_0: 1441736220
+      Level_1_Shadows_8: -1023822363
+      Level_1_Shadows_7: 2093242177
+      Level_1_Shadows_2: 1014485687
+      Level_1_Shadows_9: 1715363127
+      Level_1_Shadows_3: -1412975592
+      Level_1_Shadows_5: 834777839
+      Level_1_Shadows_1: 231669869
+      Level_1_Shadows_6: 436552279
+      Level_1_Shadows_4: -661093881
+      Level_1_Shadows_11: 1836670658
+      Level_1_Shadows_10: 65158862
+      Level_1_Shadows_0: -1461763161
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

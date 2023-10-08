@@ -12,6 +12,7 @@ public class Cannon : MonoBehaviour
     [SerializeField] EnemyBullet bullet;
     [SerializeField] float cooldown;
     [SerializeField] bool hasRandomCooldown = true;
+    [SerializeField] bool shootDown = true;
 
     private AudioPlayer _audioPlayer;
     private bool _isActive = true;
@@ -51,7 +52,7 @@ public class Cannon : MonoBehaviour
         while (true)
         {
             EnemyBullet newBullet = Instantiate(bullet, transform.position, transform.rotation);
-            newBullet.SetBuletDirection(transform.localScale);
+            newBullet.SetBuletDirection(transform.localScale, shootDown);
 
             _audioPlayer.PlayCannonShootingClip(shootingClip, transform.position);
 
