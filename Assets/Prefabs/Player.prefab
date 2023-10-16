@@ -51,7 +51,6 @@ GameObject:
   - component: {fileID: 1082425762}
   - component: {fileID: 574377395154299987}
   - component: {fileID: 8905633582604617424}
-  - component: {fileID: 6302142196518445893}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -391,46 +390,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6302142196518445893
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7293255137352423862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_ComponentVersion: 1
-  m_HasRenderer: 1
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 0
-  m_ApplyToSortingLayers: 0000000019de0ec889e5a03c1b1264fdf991081f1f73799d4f32ac287311dc333b5de7d20f9ff6d8e70f4994bb6f061c
-  m_ShapePath:
-  - {x: -0.24880359, y: -0.32062203, z: 0}
-  - {x: -0.017939597, y: -0.3276072, z: 0}
-  - {x: 0.21714306, y: -0.37268734, z: 0}
-  - {x: 0.22091174, y: -0.03492585, z: 0}
-  - {x: 0.27126515, y: 0.18379138, z: 0}
-  - {x: 0.18505448, y: 0.19923471, z: 0}
-  - {x: 0.14442599, y: 0.28245568, z: 0}
-  - {x: 0.20412195, y: 0.34071386, z: 0}
-  - {x: 0.20688045, y: 0.6082864, z: 0}
-  - {x: 0.10277891, y: 0.72139364, z: 0}
-  - {x: -0.15794861, y: 0.7241521, z: 0}
-  - {x: -0.26762524, y: 0.5921774, z: 0}
-  - {x: -0.26136637, y: 0.3731189, z: 0}
-  - {x: -0.17374301, y: 0.3637307, z: 0}
-  - {x: -0.16122538, y: 0.23855442, z: 0}
-  - {x: -0.3051781, y: 0.07895467, z: 0}
-  - {x: -0.2470929, y: -0.01316607, z: 0}
-  m_ShapePathHash: -1008162500
-  m_Mesh: {fileID: 0}
-  m_InstanceId: -18092
 --- !u!1 &7293255137369337000
 GameObject:
   m_ObjectHideFlags: 0
