@@ -15,8 +15,13 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene(K.LevelName.mainMenu);
     }
 
-    //public void QuitGame()
-    //{
-    //    Application.Quit();
-    //}
+    public void LoadTestLevel()
+    {
+        SceneManager.LoadScene(K.LevelName.testLevel);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

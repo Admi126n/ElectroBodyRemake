@@ -123,7 +123,7 @@ SpriteRenderer:
   m_SortingLayerID: -756589253
   m_SortingLayer: 8
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1827049276, guid: 9c1599775c72c4e14a7f45d754212802, type: 3}
+  m_Sprite: {fileID: 2145350367, guid: 9c1599775c72c4e14a7f45d754212802, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 869cbf82c5e52464c98bc03d695dd8e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 1.5
+  movementSpeed: 1
   hasRandomSpeed: 1
   shootingClip: {fileID: 8300000, guid: 0421d4ebb05424437ae3f72709ee3e1c, type: 3}
   warningClip: {fileID: 8300000, guid: c0a891e5bf4014cf4a6c0cd06149289d, type: 3}

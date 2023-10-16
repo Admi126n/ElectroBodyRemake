@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ExitTeleporter : MonoBehaviour
 {
-    [SerializeField] private int destinationScene;
+    [SerializeField] private string destinationScene;
 
     private SpriteRenderer _teleporterRenderer;
     private Animator _teleporterAnimator;

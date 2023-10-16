@@ -131,8 +131,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9891ca75058be402a8484c19ba69ea9e
-      internalID: -1827049276
+      spriteID: c069577148487470ba56453b82dea721
+      internalID: 2145350367
       vertices: []
       indices: 
       edges: []
@@ -152,8 +152,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 127be49fdee1e44c6be71baf75db6651
-      internalID: 1885568169
+      spriteID: 6ab5b200022814d9ab597315a3863e29
+      internalID: -1727031066
       vertices: []
       indices: 
       edges: []
@@ -173,8 +173,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 60c40aedf4f354a8580f13edac5aeb25
-      internalID: 2133440162
+      spriteID: 1aeec290d472e410897ea804f2333cf3
+      internalID: -862189641
       vertices: []
       indices: 
       edges: []
@@ -194,8 +194,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0452efb6611b24b509941caa76e70c62
-      internalID: -1932784623
+      spriteID: fc56392f5d6504d57bdbbf3564b70a34
+      internalID: 1465989011
       vertices: []
       indices: 
       edges: []
@@ -215,8 +215,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc82e02060bc24bdfa62b637008ec714
-      internalID: 1406779986
+      spriteID: 1e89afd1be4f2432c82268f339dd236e
+      internalID: -370301367
       vertices: []
       indices: 
       edges: []
@@ -232,11 +232,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Crane_1: 1885568169
-      Crane_4: 1406779986
-      Crane_0: -1827049276
-      Crane_3: -1932784623
-      Crane_2: 2133440162
+      Crane_1: -1727031066
+      Crane_4: -370301367
+      Crane_0: 2145350367
+      Crane_3: 1465989011
+      Crane_2: -862189641
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

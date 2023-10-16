@@ -31,7 +31,7 @@ public class Carne : MonoBehaviour
 
         if (hasRandomSpeed)
         {
-            movementSpeed = Random.Range(movementSpeed - 0.5f, movementSpeed + 0.5f);
+            movementSpeed = Random.Range(movementSpeed - 0.5f, movementSpeed + 0.2f);
         }
     }
 

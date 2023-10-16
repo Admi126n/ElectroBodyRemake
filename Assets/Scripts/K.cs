@@ -83,6 +83,7 @@ static class K
     public static class LevelName
     {
         public static readonly string mainMenu = "MainMenu";
+        public static readonly string testLevel = "TestLevel";
         public static readonly string level1 = "Level_1";
     }
 }

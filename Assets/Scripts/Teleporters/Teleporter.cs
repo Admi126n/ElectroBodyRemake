@@ -6,7 +6,7 @@ using UnityEngine;
 interface IPlayerTeleporting
 {
     void SetTeleportingDestination(Vector3 destination);
-    void SetDestinationScene(int index);
+    void SetDestinationScene(string name);
 }
 
 /// <summary>
