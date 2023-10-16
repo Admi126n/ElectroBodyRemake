@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6739171691303094824}
   - component: {fileID: 4308059614275370294}
   - component: {fileID: 990402456}
-  - component: {fileID: 5136016467614160871}
   m_Layer: 8
   m_Name: Ammo
   m_TagString: Ammo
@@ -133,30 +132,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5136016467614160871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4408929731272782801}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_ComponentVersion: 1
-  m_HasRenderer: 1
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 0
-  m_ApplyToSortingLayers: 0000000019de0ec889e5a03c1b1264fdf991081f1f73799d4f32ac287311dc333b5de7d20f9ff6d8e70f4994bb6f061c
-  m_ShapePath:
-  - {x: -0.2, y: -0.5, z: 0}
-  - {x: -0.2, y: -0.14, z: 0}
-  - {x: 0.2, y: -0.14, z: 0}
-  - {x: 0.19999999, y: -0.5, z: 0}
-  m_ShapePathHash: 1860260480
-  m_Mesh: {fileID: 0}
-  m_InstanceId: -21090

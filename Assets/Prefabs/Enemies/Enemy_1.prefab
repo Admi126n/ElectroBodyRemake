@@ -57,7 +57,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &8473256143967763198
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -168,12 +168,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae9a3fc0543e2b5449ffa51955931a70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 2
+  movementSpeed: 1.5
+  hasRandomSpeed: 1
   shootingClip: {fileID: 8300000, guid: 81911a77ab3bb914ebfb26bd515513c5, type: 3}
   warningClip: {fileID: 8300000, guid: aa2567386da20514ca6d8867463df404, type: 3}
   bullet: {fileID: 5531241171500099197, guid: ffc3bae5f0d996b4397b7ada7744564c, type: 3}
   cooldown: 2
-  warningCooldown: 0
+  warningCooldown: 2
+  hasRandomCooldowns: 1
+  canShoot: 1
   explosion: {fileID: 8846356661966005616, guid: 3a1020714e5979c4190d305dfc9327fd, type: 3}
 --- !u!114 &4943881215091010323
 MonoBehaviour:
@@ -202,4 +205,4 @@ MonoBehaviour:
   - {x: 0.3882141, y: 0.14758515, z: 0}
   m_ShapePathHash: 726613743
   m_Mesh: {fileID: 0}
-  m_InstanceId: -4206
+  m_InstanceId: 224910

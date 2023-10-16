@@ -3,7 +3,7 @@
 /// </summary>
 static class K
 {
-    public static readonly string GameVersion = "Alpha v0.6.1";
+    public static readonly string GameVersion = "Beta v0.7";
 
     /// <summary>
     /// Class with layers names.
@@ -73,11 +73,18 @@ static class K
 
     public static class Ammo
     {
-        public static readonly int Weapon1 = 5;   // 20
-        public static readonly int Weapon2 = 10;  // 35
-        public static readonly int Weapon3 = 15;  // 60
-        public static readonly int Weapon4 = 20;  // 70
-        public static readonly int Weapon5 = 25;  // 85
+        public static readonly int Weapon1 = 20;  // 5  20
+        public static readonly int Weapon2 = 35;  // 10 35
+        public static readonly int Weapon3 = 60;  // 15 60
+        public static readonly int Weapon4 = 70;  // 20 70
+        public static readonly int Weapon5 = 85;  // 25 85
+    }
+
+    public static class LevelName
+    {
+        public static readonly string mainMenu = "MainMenu";
+        public static readonly string testLevel = "TestLevel";
+        public static readonly string level1 = "Level_1";
     }
 }
 

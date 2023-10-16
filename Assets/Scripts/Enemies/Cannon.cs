@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 public class Cannon : MonoBehaviour
 {
@@ -11,13 +10,14 @@ public class Cannon : MonoBehaviour
     [SerializeField] Explosion explosion;
     [SerializeField] EnemyBullet bullet;
     [SerializeField] float cooldown;
+    [SerializeField] bool hasRandomCooldown = true;
+    [SerializeField] bool shootDown = true;
 
     private AudioPlayer _audioPlayer;
     private bool _isActive = true;
     private Coroutine _fireingCoroutine;
     private SpriteRenderer _spriteRenderer;
     private BoxCollider2D _boxCollider;
-    private ShadowCaster2D _shadow;
 
 
     private void Start()
@@ -25,7 +25,6 @@ public class Cannon : MonoBehaviour
         _audioPlayer = FindObjectOfType<AudioPlayer>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _boxCollider = GetComponent<BoxCollider2D>();
-        _shadow = GetComponent<ShadowCaster2D>();
     }
 
     private void Update()
@@ -45,11 +44,19 @@ public class Cannon : MonoBehaviour
 
     private IEnumerator FireContinuosly()
     {
+        yield return new WaitForSeconds(Random.Range(0.1f, 0.5f));
+
         while (true)
         {
-            Instantiate(bullet, transform.position, transform.rotation, transform);
+            EnemyBullet newBullet = Instantiate(bullet, transform.position, transform.rotation);
+            newBullet.SetBuletDirection(transform.localScale, shootDown);
+
             _audioPlayer.PlayCannonShootingClip(shootingClip, transform.position);
 
+            if (hasRandomCooldown)
+            {
+                cooldown = Random.Range(cooldown - 0.5f, cooldown + 1);
+            }
             yield return new WaitForSeconds(cooldown);
         }
     }
@@ -57,7 +64,6 @@ public class Cannon : MonoBehaviour
     private void DestroyCannon()
     {
         _boxCollider.enabled = false;
-        _shadow.enabled = false;
         _spriteRenderer.sprite = destroyedCannon;
         _isActive = false;
     }

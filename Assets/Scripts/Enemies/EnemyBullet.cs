@@ -14,32 +14,26 @@ public class EnemyBullet : MonoBehaviour
     [SerializeField] float bulletBaseSpeed = 2;
 
     private Rigidbody2D _bulletRigidbody;
-    private float _bulletSpeed;
+
+    private float _direction = 0;
 
     private void Start()
     {
         _bulletRigidbody = GetComponent<Rigidbody2D>();
-
-        // set bullet direction
-        if (bulletDirection == BulletDirection.Horizontal)
-        {
-            _bulletSpeed = transform.parent.localScale.x * bulletBaseSpeed;
-        }
-        else
-        {
-            _bulletSpeed = transform.parent.localScale.y * bulletBaseSpeed;
-        }
     }
 
     private void Update()
     {
+        
         if (bulletDirection == BulletDirection.Horizontal)
         {
-            _bulletRigidbody.velocity = new(_bulletSpeed, 0f);
+            transform.localScale = new(_direction, 1);
+            _bulletRigidbody.velocity = new(bulletBaseSpeed * _direction, 0f);
         }
         else
         {
-            _bulletRigidbody.velocity = new(0f, _bulletSpeed);
+            transform.localScale = new(_direction, 1);
+            _bulletRigidbody.velocity = new(0f, bulletBaseSpeed * _direction);
         }
     }
 
@@ -48,6 +42,36 @@ public class EnemyBullet : MonoBehaviour
         if (collision.CompareTag(K.T.Ground) || collision.CompareTag(K.T.Player))
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag(K.T.Room))
+        {
+            gameObject.layer = LayerMask.NameToLayer(K.L.IgnoreRaycast);
+        }
+    }
+
+    private void OnBecameInvisible()
+    {
+        Destroy(gameObject);
+    }
+
+    public void SetBuletDirection(Vector3 value, bool reverse=false)
+    {
+        if (bulletDirection == BulletDirection.Horizontal)
+        {
+            _direction = Mathf.Sign(value.x);
+        }
+        else
+        {
+            _direction = Mathf.Sign(value.y);
+        }
+
+        if (reverse)
+        {
+            _direction *= -1;
         }
     }
 }

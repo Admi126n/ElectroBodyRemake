@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 8697584062222907084}
   m_Layer: 2
   m_Name: Room
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_TagString: Room
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -57,7 +57,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 12.6, y: 6.6}
+  m_Size: {x: 12.65, y: 6.6}
   m_EdgeRadius: 0
 --- !u!114 &8697584062222907084
 MonoBehaviour:
@@ -72,3 +72,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
+  enemies: []
+  cannons: []

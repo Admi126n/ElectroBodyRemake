@@ -5,7 +5,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [Header("Enemy movement")]
-    [SerializeField] float movementSpeed = 2;
+    [SerializeField] float movementSpeed = 1.5f;
+    [SerializeField] bool hasRandomSpeed = true;
     
     [Header("Shooting")]
     [SerializeField] AudioClip shootingClip;
@@ -13,6 +14,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] EnemyBullet bullet;
     [SerializeField] float cooldown;
     [SerializeField] float warningCooldown;
+    [SerializeField] bool hasRandomCooldowns = true;
+    [SerializeField] bool canShoot = true;
 
     [Header("Other")]
     [SerializeField] Explosion explosion;
@@ -29,45 +32,59 @@ public class Enemy : MonoBehaviour
         _audioPlayer = FindObjectOfType<AudioPlayer>();
         _enemyRigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+
+        if (hasRandomSpeed)
+        {
+            movementSpeed = Random.Range(movementSpeed - 0.5f, movementSpeed + 0.5f);
+        }
     }
 
     private void Update()
     {
-        if (_isAlive)
+        if (!_isAlive) return;
+        
+        if (_canMove)
         {
-            if (_canMove)
-            {
-                _enemyRigidbody.velocity = new Vector2(movementSpeed, 0);
-            }
-
-            if (_fireingCoroutine == null)
-            {
-                _fireingCoroutine = StartCoroutine(FireContinuosly());
-            }
-        } else if (transform.childCount == 0)
-        {
-            // Destroy enemy if there are no bullets of this enemy
-            Destroy(gameObject);
+            _enemyRigidbody.velocity = new Vector2(movementSpeed * Mathf.Sign(transform.localScale.x), 0);
         }
+
+        if (_fireingCoroutine == null && canShoot)
+        {
+            _fireingCoroutine = StartCoroutine(FireContinuosly());
+        }
+        
     }
 
     private IEnumerator FireContinuosly()
     {
+        yield return new WaitForSeconds(Random.Range(0.5f, 2f));
+
         while (true)
         {
             _canMove = false;
+            _enemyRigidbody.velocity = new Vector2(0, 0);
             _animator.StartPlayback();
             _audioPlayer.PlayCannonShootingClip(warningClip, transform.position);
 
+            if (hasRandomCooldowns)
+            {
+                warningCooldown = Random.Range(warningCooldown - 0.5f, warningCooldown + 0.5f);
+            }
             yield return new WaitForSeconds(warningCooldown);
 
-            Instantiate(bullet, transform.position, transform.rotation, transform);
+            EnemyBullet newBullet = Instantiate(bullet, transform.position, transform.rotation);
+            newBullet.SetBuletDirection(transform.localScale);
+
             _audioPlayer.PlayCannonShootingClip(shootingClip, transform.position);
 
             yield return new WaitForSeconds(0.4f);
             _canMove = true;
             _animator.StopPlayback();
 
+            if (hasRandomCooldowns)
+            {
+                cooldown = Random.Range(cooldown - 0.5f, cooldown + 0.5f);
+            }
             yield return new WaitForSeconds(cooldown);
         }
     }
@@ -81,7 +98,6 @@ public class Enemy : MonoBehaviour
     {
         if (collision.CompareTag(K.T.EnemyWall))
         {
-            movementSpeed *= -1;
             FlipEnemyFacing();
         }
     }
@@ -97,6 +113,8 @@ public class Enemy : MonoBehaviour
             GetComponent<BoxCollider2D>().enabled = false;
             GetComponent<SpriteRenderer>().enabled = false;
             StopAllCoroutines();
+
+            Destroy(gameObject);
         }
     }
 }

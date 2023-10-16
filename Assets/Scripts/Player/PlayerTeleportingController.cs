@@ -13,7 +13,7 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
 
     private bool _teleportToAnotherScene = false;
     private Vector3 _teleportingDestination;
-    private int _destinationScene;
+    private string _destinationScene;
     private bool _teleportPressed;
     private bool _canTeleport = false;
 
@@ -99,11 +99,11 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
 
     public void SetTeleportingDestination(Vector3 destination)
     {
-        _teleportingDestination = new (destination.x, destination.y + 0.5f, destination.y);
+        _teleportingDestination = new (destination.x, destination.y + 0.5f, destination.z);
     }
 
-    public void SetDestinationScene(int index)
+    public void SetDestinationScene(string name)
     {
-        _destinationScene = index;
+        _destinationScene = name;
     }
 }
