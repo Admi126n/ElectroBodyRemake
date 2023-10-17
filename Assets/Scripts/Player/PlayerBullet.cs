@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 public class PlayerBullet : MonoBehaviour
 {
@@ -18,15 +17,6 @@ public class PlayerBullet : MonoBehaviour
     {
         _bulletRigidbody = GetComponent<Rigidbody2D>();
         _playerController = FindObjectOfType<PlayerController>();
-
-        // deactivate light source if lighting system disabled
-        if (!FindObjectOfType<GameManager>().LightingEnabled)
-        {
-            if (TryGetComponent<Light2D>(out var lightSource))
-            {
-                lightSource.enabled = false;
-            }
-        }
 
         // set bullet direction
         transform.localScale = new(-_playerController.transform.localScale.x, transform.localScale.y, transform.localScale.z);
