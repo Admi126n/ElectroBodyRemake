@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Phone : MonoBehaviour
+public class DestroyableDecoration : MonoBehaviour
 {
-    [SerializeField] Sprite destroyedPhone;
+    [SerializeField] Sprite destroyedSprite;
     [SerializeField] Explosion explosion;
     [SerializeField] bool isDestroyed;
 
@@ -19,7 +19,7 @@ public class Phone : MonoBehaviour
         if (isDestroyed)
         {
             _boxCollider.enabled = false;
-            _spriteRenderer.sprite = destroyedPhone;
+            _spriteRenderer.sprite = destroyedSprite;
         }
     }
 
@@ -29,7 +29,7 @@ public class Phone : MonoBehaviour
         {
             _boxCollider.enabled = false;
             Instantiate(explosion, transform.position, transform.rotation);
-            _spriteRenderer.sprite = destroyedPhone;
+            _spriteRenderer.sprite = destroyedSprite;
         }
     }
 }
