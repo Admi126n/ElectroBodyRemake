@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5188751012826112771}
   - component: {fileID: 5188751012826112780}
   - component: {fileID: 5188751012826112768}
-  m_Layer: 9
+  m_Layer: 14
   m_Name: UpSign
   m_TagString: Untagged
   m_Icon: {fileID: 0}

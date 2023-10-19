@@ -70,6 +70,7 @@ static class K
         public static readonly string WalkSpeed = "WalkSpeed";
         public static readonly string IsTeleporting = "IsTeleporting";
         public static readonly string SensorDestroyed = "SensorDestroyed";
+        public static readonly string ActivateForceShield = "ActivateForceShield";
     }
 
     public static class Ammo

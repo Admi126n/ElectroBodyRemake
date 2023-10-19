@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerBullet : MonoBehaviour
 {
-    [SerializeField] bool isDestroyableByTriggers;
+    [SerializeField] bool isDestroyable;
     [SerializeField] Explosion explosion;
 
     private Rigidbody2D _bulletRigidbody;
@@ -37,7 +37,7 @@ public class PlayerBullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isDestroyableByTriggers || ShouldNotBeDestroyedOnTrigger(collision)) return;
+        if (!isDestroyable || ShouldNotBeDestroyedOnTrigger(collision)) return;
 
         _bulletHorizontalSpeed = 0f;
         Destroy(gameObject);
@@ -58,7 +58,10 @@ public class PlayerBullet : MonoBehaviour
             InstantiateExplosion();
         } else
         {
-            DestroyBullet();
+            if (isDestroyable)
+            {
+                DestroyBullet();
+            }
         }
     }
 

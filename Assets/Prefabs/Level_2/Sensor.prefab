@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2559552046351615226}
   - component: {fileID: 2559552046351615223}
   - component: {fileID: 2559552046351615222}
-  m_Layer: 9
+  m_Layer: 14
   m_Name: Sensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
