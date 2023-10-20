@@ -54,9 +54,9 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         Move();
+        FlipSprite();
         Jump();
         SetJumpAnimAndSound();
-        FlipSprite();
         StopMovingWhileFlipping();
         StopWalkAnimOnWallCollission();
         SetHorizontalVelocityOnFalling();
@@ -221,7 +221,9 @@ public class PlayerController : MonoBehaviour
     {
         _moveInput = value.Get<Vector2>();
 
-        if (_moveInput.x != 0 && Mathf.Sign(_moveInput.x) == Mathf.Sign(transform.localScale.x))
+        if (_moveInput.x != 0
+            && Mathf.Sign(_moveInput.x) == Mathf.Sign(transform.localScale.x)
+            && IsGrounded())
         {
             _playerAnimator.TriggerBodyFlipping();
         }
