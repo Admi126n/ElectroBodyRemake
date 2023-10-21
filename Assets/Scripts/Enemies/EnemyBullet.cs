@@ -47,11 +47,9 @@ public class EnemyBullet : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        //Debug.Log("Hehe " + gameObject.name);
         if (collision.CompareTag(K.T.Room))
         {
             Destroy(gameObject);
-            //gameObject.layer = LayerMask.NameToLayer(K.L.IgnoreRaycast);
         }
     }
 

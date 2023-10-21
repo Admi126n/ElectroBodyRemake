@@ -15,7 +15,7 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
     private Vector3 _teleportingDestination;
     private string _destinationScene;
     private bool _teleportPressed;
-    private bool _canTeleport = false;
+    private bool _canTeleport = true;
 
     private void Start()
     {

@@ -129,6 +129,6 @@ MonoBehaviour:
   destroyedCannon: {fileID: 0}
   explosion: {fileID: 8846356661966005616, guid: 3a1020714e5979c4190d305dfc9327fd, type: 3}
   bullet: {fileID: 5531241171500099197, guid: 70e1fed8348744e3282d23781d7d8f87, type: 3}
-  cooldown: 3
+  cooldown: 4
   hasRandomCooldown: 1
   shootDown: 1
