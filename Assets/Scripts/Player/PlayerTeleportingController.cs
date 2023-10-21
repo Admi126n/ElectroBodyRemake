@@ -72,6 +72,12 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
         if (_teleportToAnotherScene)
         {
             FindObjectOfType<ScenePresist>().ResetScenePersist();
+
+            if (_destinationScene == K.LevelName.level2)
+            {
+                SaveManager.saveManagerInstance.SaveGame();
+            }
+
             SceneManager.LoadScene(_destinationScene);
         } else
         {
