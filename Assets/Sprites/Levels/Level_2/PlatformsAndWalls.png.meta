@@ -225,12 +225,12 @@ TextureImporter:
       name: PlatformsAndWalls_5
       rect:
         serializedVersion: 2
-        x: 136
+        x: 125
         y: 75
-        width: 13
+        width: 24
         height: 24
       alignment: 9
-      pivot: {x: 0, y: 0.5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -246,12 +246,12 @@ TextureImporter:
       name: PlatformsAndWalls_6
       rect:
         serializedVersion: 2
-        x: 11
+        x: 0
         y: 50
-        width: 13
+        width: 24
         height: 24
       alignment: 9
-      pivot: {x: 0, y: 0.5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -288,12 +288,12 @@ TextureImporter:
       name: PlatformsAndWalls_8
       rect:
         serializedVersion: 2
-        x: 61
+        x: 50
         y: 50
-        width: 13
+        width: 24
         height: 24
       alignment: 9
-      pivot: {x: 0, y: 0.5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
