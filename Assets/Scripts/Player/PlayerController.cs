@@ -51,6 +51,11 @@ public class PlayerController : MonoBehaviour
         CanMove = true;
     }
 
+    private void FixedUpdate()
+    {
+        SetVelocityOnFalling();
+    }
+
     private void Update()
     {
         Move();
@@ -59,7 +64,6 @@ public class PlayerController : MonoBehaviour
         SetJumpAnimAndSound();
         StopMovingWhileFlipping();
         StopWalkAnimOnWallCollission();
-        SetVelocityOnFalling();
     }
 
     private void StopWalkAnimOnWallCollission()
@@ -179,7 +183,7 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D bottomRaycastHit;
         Vector2 bodyCenter = _bodyCollider.bounds.center;
         Vector2 bodyTop = new(bodyCenter.x, bodyCenter.y + 0.5f);
-        Vector2 bodyBottom = new(bodyCenter.x, bodyCenter.y - 0.5f);
+        Vector2 bodyBottom = new(bodyCenter.x, bodyCenter.y - 0.7f);
 
         if (transform.localScale.x < 0)
         {
@@ -210,7 +214,7 @@ public class PlayerController : MonoBehaviour
             }
         } else
         {
-            _playerRigidbody.velocity = new(_playerRigidbody.velocity.x * 0.99f, _playerRigidbody.velocity.y);
+            _playerRigidbody.velocity = new(_playerRigidbody.velocity.x * 0.965f, _playerRigidbody.velocity.y);
         }
 
         if (_playerRigidbody.velocity.y < -13)
