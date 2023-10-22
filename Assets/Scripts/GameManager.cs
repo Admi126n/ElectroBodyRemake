@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     {
         //Screen.SetResolution(1950, 1200, true);
         // TODO check if exit teleporter destination scene == current scene + 1
+        Time.timeScale = 1f;
         player = FindObjectOfType<PlayerController>();
     }
 
@@ -134,5 +135,11 @@ public class GameManager : MonoBehaviour
         }
 
         _gamePaused = !_gamePaused;
+    }
+
+    public void LoadMainMenu()
+    {
+        _gamePaused = false;
+        SceneManager.LoadScene(K.LevelName.mainMenu);
     }
 }

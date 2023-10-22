@@ -214,7 +214,7 @@ public class PlayerController : MonoBehaviour
             }
         } else
         {
-            _playerRigidbody.velocity = new(_playerRigidbody.velocity.x * 0.965f, _playerRigidbody.velocity.y);
+            _playerRigidbody.velocity = new(_playerRigidbody.velocity.x * 0.96f, _playerRigidbody.velocity.y);
         }
 
         if (_playerRigidbody.velocity.y < -13)

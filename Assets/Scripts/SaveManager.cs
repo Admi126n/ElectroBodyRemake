@@ -25,6 +25,7 @@ public class SaveManager : MonoBehaviour
             saveManagerInstance = this;
             DontDestroyOnLoad(gameObject);
         }
+        loadButton.interactable = LoadGame();
     }
 
     [SerializeField] Button loadButton;
