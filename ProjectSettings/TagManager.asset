@@ -13,6 +13,7 @@ TagManager:
   - EnemyBullet
   - PlayerBullet
   - Room
+  - Platform
   layers:
   - Default
   - TransparentFX
@@ -29,7 +30,7 @@ TagManager:
   - InactiveTeleporter
   - ImmortalPlayer
   - DestroyableDecoration
-  - 
+  - Platform
   - 
   - 
   - 

@@ -15,6 +15,7 @@ public class RoomManager : MonoBehaviour
 
     private readonly List<GameObject> _clonedEnemies = new();
     private readonly List<GameObject> _clonedCannons = new();
+    private EnemyBullet[] _enemyBullets;
 
     private void Start()
     {
@@ -58,14 +59,17 @@ public class RoomManager : MonoBehaviour
         if (collision.CompareTag(K.T.Player) && !collision.isTrigger)
         {
             moveEnabled = false;
+            _enemyBullets = FindObjectsOfType<EnemyBullet>();
             StartCoroutine(WaitBeforeDespawning());
         }
     }
 
     private IEnumerator WaitBeforeDespawning()
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.2f);
+        DespawnBullets();
 
+        yield return new WaitForSeconds(0.2f);
         DespawnEnemies();
         DespawnCannons();
     }
@@ -140,5 +144,16 @@ public class RoomManager : MonoBehaviour
             }
         }
         _clonedCannons.Clear();
+    }
+
+    private void DespawnBullets()
+    {
+        foreach (EnemyBullet bullet in _enemyBullets)
+        {
+            if (bullet != null)
+            {
+                Destroy(bullet.gameObject);
+            }
+        }
     }
 }

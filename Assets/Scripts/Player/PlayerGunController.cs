@@ -153,6 +153,15 @@ public class PlayerGunController : MonoBehaviour
         _playerController.HasGun = false;
         _weaponCounter = 0;
         AmmoCounter = 0;
+
+        StartCoroutine(HideGunAfterEnteringRespawn());
+    }
+
+    private IEnumerator HideGunAfterEnteringRespawn()
+    {
+        yield return new WaitForSeconds(0.7f);
+
+        _playerController.HasGun = false;
     }
 
     /// <summary>

@@ -56,13 +56,14 @@ public class PlayerBullet : MonoBehaviour
         if (collision.collider.CompareTag(K.T.Ground))
         {
             InstantiateExplosion();
-        } else
-        {
-            if (isDestroyable)
-            {
-                DestroyBullet();
-            }
+            return;
         }
+
+        if (isDestroyable && !collision.collider.CompareTag(K.T.Platform))
+        {
+            DestroyBullet();
+        }
+        
     }
 
     private void DestroyBullet()

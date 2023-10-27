@@ -16,6 +16,7 @@ static class K
         public static readonly string InactiveTeleporter = "InactiveTeleporter";
         public static readonly string ImmortalPlayer = "ImmortalPlayer";
         public static readonly string IgnoreRaycast = "Ignore Raycast";
+        public static readonly string Platform = "Platform";
     }
 
     /// <summary>
@@ -51,6 +52,7 @@ static class K
         public static readonly string EnemyWall = "EnemyWall";
         public static readonly string EnemyBullet = "EnemyBullet";
         public static readonly string Room = "Room";
+        public static readonly string Platform = "Platform";
     }
 
     /// <summary>

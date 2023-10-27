@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd945772c2f344eca8ce12ce1ea088a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyedSprite: {fileID: 0}
+  destroyedSprite: {fileID: -894048402, guid: b06da886e6b33430c9b7982e096db461, type: 3}
   explosion: {fileID: 8846356661966005616, guid: 3a1020714e5979c4190d305dfc9327fd, type: 3}
   isDestroyed: 0
 --- !u!61 &8473135178015960726

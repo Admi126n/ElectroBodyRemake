@@ -168,7 +168,14 @@ public class PlayerController : MonoBehaviour
     private bool IsGrounded()
     {
         float extraHeight = 0.02f;
-        RaycastHit2D raycastHit = Physics2D.BoxCast(_bodyCollider.bounds.center, _bodyCollider.bounds.size, 0f, Vector2.down, extraHeight, LayerMask.GetMask(K.L.Ground));
+        RaycastHit2D raycastHit = Physics2D.BoxCast(
+            _bodyCollider.bounds.center,
+            _bodyCollider.bounds.size,
+            0f,
+            Vector2.down,
+            extraHeight,
+            LayerMask.GetMask(K.L.Ground, K.L.Platform)
+        );
 
         // I've changes this becasue of one way platforms. Hope it doesn't
         // destroy something.
