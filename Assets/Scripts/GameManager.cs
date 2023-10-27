@@ -142,4 +142,9 @@ public class GameManager : MonoBehaviour
         _gamePaused = false;
         SceneManager.LoadScene(K.LevelName.mainMenu);
     }
+
+    void OnPauseResume()
+    {
+        PauseResumeGame();
+    }
 }
