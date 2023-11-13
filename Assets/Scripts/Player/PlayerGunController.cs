@@ -169,6 +169,8 @@ public class PlayerGunController : MonoBehaviour
     /// </summary>
     void OnFire()
     {
+        if (_playerController.GetInputLocked()) { return; }
+
         if (AmmoCounter > 0
             && _playerController.HasGun
             && WeaponTemp + WeaponTempDict[_weaponCounter] <= MaxTemp)

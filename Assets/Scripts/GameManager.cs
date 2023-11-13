@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -124,12 +123,12 @@ public class GameManager : MonoBehaviour
     {
         if (_gamePaused)
         {
-            player.SetPlayerInput(true);
+            player.SetInputLocked(false);
             pauseMenu.SetActive(false);
             Time.timeScale = 1f;
         } else
         {
-            player.SetPlayerInput(false);
+            player.SetInputLocked(true);
             pauseMenu.SetActive(true);
             Time.timeScale = 0f;
         }
@@ -141,10 +140,5 @@ public class GameManager : MonoBehaviour
     {
         _gamePaused = false;
         SceneManager.LoadScene(K.LevelName.mainMenu);
-    }
-
-    void OnPauseResume()
-    {
-        PauseResumeGame();
     }
 }

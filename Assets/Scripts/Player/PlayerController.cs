@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     private float _jumpInput;
     private float _moveSpeed;
     private bool _hasGun = false;
+    private bool _inputLocked = false;
     
     public bool HasGun
     {
@@ -230,9 +231,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void SetPlayerInput(bool value)
+    public void SetInputLocked(bool value)
     {
-        _playerInput.enabled = value;
+        _inputLocked = value;
+    }
+
+    public bool GetInputLocked()
+    {
+        return _inputLocked;
     }
 
     /// <summary>
@@ -241,6 +247,8 @@ public class PlayerController : MonoBehaviour
     /// <param name="value"></param>
     void OnMove(InputValue value)
     {
+        if (_inputLocked) { return; }
+
         _moveInput = value.Get<Vector2>();
 
         if (_moveInput.x != 0
@@ -256,6 +264,8 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void OnManageGun()
     {
+        if (_inputLocked) { return; }
+
         if (HasGun)
         {
             HasGun = false;
@@ -272,6 +282,8 @@ public class PlayerController : MonoBehaviour
     /// <param name="value">InputValue from input system.</param>
     private void OnJump(InputValue value)
     {
+        if (_inputLocked) { return; }
+
         _jumpInput = jumpSpeed * value.Get<Vector2>().y;
     }
 
@@ -281,6 +293,8 @@ public class PlayerController : MonoBehaviour
     /// <param name="value">InputValue from input system.</param>
     private void OnJumpLeft(InputValue value)
     {
+        if (_inputLocked) { return; }
+
         _jumpInput = jumpSpeed * value.Get<Vector2>().y;
         _moveInput = new(-value.Get<Vector2>().y, 0f);
     }
@@ -291,7 +305,15 @@ public class PlayerController : MonoBehaviour
     /// <param name="value">InputValue from input system.</param>
     private void OnJumpRight(InputValue value)
     {
+        if (_inputLocked) { return; }
+
         _jumpInput = jumpSpeed * value.Get<Vector2>().y;
         _moveInput = new(value.Get<Vector2>().y, 0f);
+    }
+
+    private void OnPauseResume()
+    {
+        GameManager gameManager = FindObjectOfType<GameManager>();
+        gameManager.PauseResumeGame();
     }
 }

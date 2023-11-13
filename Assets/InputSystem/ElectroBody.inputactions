@@ -67,6 +67,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "PauseResume",
+                    "type": "Button",
+                    "id": "6339d37a-2799-47df-9d96-3c9614608fb9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -333,6 +342,28 @@
                     "action": "Teleport",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "d525ef85-1c64-4341-83ff-8372d9552bd2",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PauseResume",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3f6a0db7-0c0d-4f6d-add0-20bf0e2b4a47",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PauseResume",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -426,15 +457,6 @@
                     "type": "PassThrough",
                     "id": "7841e173-e8a7-4f24-8b77-f76559c86ae6",
                     "expectedControlType": "Quaternion",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "PauseResume",
-                    "type": "Button",
-                    "id": "01d8507b-5a0f-4855-991c-2a938ff8e54d",
-                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -856,28 +878,6 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b004f61a-48ce-4966-a9b1-32db4342875a",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "PauseResume",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "7dd378dc-cdc0-4abc-b87c-e9cfa7481a41",
-                    "path": "<Gamepad>/start",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "PauseResume",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -80,7 +80,7 @@ public class PlayerHealth : MonoBehaviour
         // TODO play death animation (yes, you have to do special anim)
 
         StartCoroutine(SpawnExplosions());
-        _player.SetPlayerInput(false);
+        _player.SetInputLocked(true);
 
         StartCoroutine(RespawnPlayer());
     }
