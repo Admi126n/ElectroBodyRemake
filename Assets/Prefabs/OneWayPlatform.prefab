@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1251657158252418560}
   - component: {fileID: 1251657158252418623}
   - component: {fileID: 1251657158252418622}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: OneWayPlatform
-  m_TagString: Ground
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

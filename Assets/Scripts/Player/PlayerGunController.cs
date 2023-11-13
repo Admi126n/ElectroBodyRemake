@@ -19,6 +19,7 @@ public class PlayerGunController : MonoBehaviour
     private PlayerAnimator _playerAnimator;
     private AudioPlayer _audioPlayer;
     private UIManager _UIManager;
+    private PlayerHealth _playerHealth;
 
     private int _weaponCounter = 0;
     private int _ammoCounter = 0;
@@ -61,6 +62,7 @@ public class PlayerGunController : MonoBehaviour
         _playerAnimator = GetComponent<PlayerAnimator>();
         _audioPlayer = FindObjectOfType<AudioPlayer>();
         _UIManager = FindObjectOfType<UIManager>();
+        _playerHealth = GetComponent<PlayerHealth>();
 
         StartCoroutine(WeaponCooling());
     }
@@ -151,6 +153,15 @@ public class PlayerGunController : MonoBehaviour
         _playerController.HasGun = false;
         _weaponCounter = 0;
         AmmoCounter = 0;
+
+        StartCoroutine(HideGunAfterEnteringRespawn());
+    }
+
+    private IEnumerator HideGunAfterEnteringRespawn()
+    {
+        yield return new WaitForSeconds(0.7f);
+
+        _playerController.HasGun = false;
     }
 
     /// <summary>
@@ -176,7 +187,7 @@ public class PlayerGunController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(K.T.Ammo))
+        if (collision.CompareTag(K.T.Ammo) && _playerHealth.GetIsAlive())
         {
             Destroy(collision.gameObject);
             PickUpAmmo();

@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 public class PlayerBullet : MonoBehaviour
 {
-    [SerializeField] bool isDestroyableByTriggers;
+    [SerializeField] bool isDestroyable;
     [SerializeField] Explosion explosion;
 
     private Rigidbody2D _bulletRigidbody;
@@ -18,15 +17,6 @@ public class PlayerBullet : MonoBehaviour
     {
         _bulletRigidbody = GetComponent<Rigidbody2D>();
         _playerController = FindObjectOfType<PlayerController>();
-
-        // deactivate light source if lighting system disabled
-        if (!FindObjectOfType<GameManager>().LightingEnabled)
-        {
-            if (TryGetComponent<Light2D>(out var lightSource))
-            {
-                lightSource.enabled = false;
-            }
-        }
 
         // set bullet direction
         transform.localScale = new(-_playerController.transform.localScale.x, transform.localScale.y, transform.localScale.z);
@@ -47,7 +37,7 @@ public class PlayerBullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isDestroyableByTriggers || ShouldNotBeDestroyedOnTrigger(collision)) return;
+        if (!isDestroyable || ShouldNotBeDestroyedOnTrigger(collision)) return;
 
         _bulletHorizontalSpeed = 0f;
         Destroy(gameObject);
@@ -66,10 +56,14 @@ public class PlayerBullet : MonoBehaviour
         if (collision.collider.CompareTag(K.T.Ground))
         {
             InstantiateExplosion();
-        } else
+            return;
+        }
+
+        if (isDestroyable && !collision.collider.CompareTag(K.T.Platform))
         {
             DestroyBullet();
         }
+        
     }
 
     private void DestroyBullet()

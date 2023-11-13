@@ -13,6 +13,7 @@ public class PlayerHealth : MonoBehaviour
     PlayerController _player;
 
     private readonly int _ExplosionsCounter = 7;
+    private bool _isAlive = true;
 
     private void Start()
     {
@@ -26,7 +27,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(K.T.EnemyBullet))
+        if (collision.CompareTag(K.T.EnemyBullet) && _isAlive)
         {
             KillPlayer();
         }
@@ -34,7 +35,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag(K.T.Enemy))
+        if (collision.collider.CompareTag(K.T.Enemy) && _isAlive)
         {
             KillPlayer();
         }
@@ -59,6 +60,7 @@ public class PlayerHealth : MonoBehaviour
     {
         Vector3 respawnPosition = _gameManager.GetRespawnPosition(ScenePresist.GetRespawnId());
         gameObject.transform.position = new(respawnPosition.x, respawnPosition.y + 0.5f, respawnPosition.z);
+        _isAlive = true;
     }
 
     private IEnumerator RespawnPlayer()
@@ -70,6 +72,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void KillPlayer()
     {
+        _isAlive = false;
         _bodyRenderer.enabled = false;
         _armsRenderer.enabled = false;
         gameObject.layer = LayerMask.NameToLayer(K.L.ImmortalPlayer);
@@ -80,5 +83,10 @@ public class PlayerHealth : MonoBehaviour
         _player.SetPlayerInput(false);
 
         StartCoroutine(RespawnPlayer());
+    }
+
+    public bool GetIsAlive()
+    {
+        return _isAlive;
     }
 }

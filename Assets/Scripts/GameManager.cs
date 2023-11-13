@@ -29,13 +29,6 @@ public class GameManager : MonoBehaviour
     private PlayerController player;
 
     private bool _gamePaused = false;
-    private bool _lightingEnabled = false;
-
-    public bool LightingEnabled
-    {
-        set { _lightingEnabled = value; }
-        get { return _lightingEnabled; }
-    }
 
     private void Awake()
     {
@@ -49,13 +42,8 @@ public class GameManager : MonoBehaviour
     {
         //Screen.SetResolution(1950, 1200, true);
         // TODO check if exit teleporter destination scene == current scene + 1
+        Time.timeScale = 1f;
         player = FindObjectOfType<PlayerController>();
-
-        try
-        {
-            FindObjectOfType<LightingManager>().ManageLights(false);
-        }
-        catch (UnassignedReferenceException) { }
     }
 
     public void ResetGameSession()
@@ -147,5 +135,16 @@ public class GameManager : MonoBehaviour
         }
 
         _gamePaused = !_gamePaused;
+    }
+
+    public void LoadMainMenu()
+    {
+        _gamePaused = false;
+        SceneManager.LoadScene(K.LevelName.mainMenu);
+    }
+
+    void OnPauseResume()
+    {
+        PauseResumeGame();
     }
 }

@@ -51,15 +51,19 @@ public class PlayerController : MonoBehaviour
         CanMove = true;
     }
 
+    private void FixedUpdate()
+    {
+        SetVelocityOnFalling();
+    }
+
     private void Update()
     {
         Move();
+        FlipSprite();
         Jump();
         SetJumpAnimAndSound();
-        FlipSprite();
         StopMovingWhileFlipping();
         StopWalkAnimOnWallCollission();
-        SetHorizontalVelocityOnFalling();
     }
 
     private void StopWalkAnimOnWallCollission()
@@ -164,7 +168,14 @@ public class PlayerController : MonoBehaviour
     private bool IsGrounded()
     {
         float extraHeight = 0.02f;
-        RaycastHit2D raycastHit = Physics2D.BoxCast(_bodyCollider.bounds.center, _bodyCollider.bounds.size, 0f, Vector2.down, extraHeight, LayerMask.GetMask(K.L.Ground));
+        RaycastHit2D raycastHit = Physics2D.BoxCast(
+            _bodyCollider.bounds.center,
+            _bodyCollider.bounds.size,
+            0f,
+            Vector2.down,
+            extraHeight,
+            LayerMask.GetMask(K.L.Ground, K.L.Platform)
+        );
 
         // I've changes this becasue of one way platforms. Hope it doesn't
         // destroy something.
@@ -179,7 +190,7 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D bottomRaycastHit;
         Vector2 bodyCenter = _bodyCollider.bounds.center;
         Vector2 bodyTop = new(bodyCenter.x, bodyCenter.y + 0.5f);
-        Vector2 bodyBottom = new(bodyCenter.x, bodyCenter.y - 0.5f);
+        Vector2 bodyBottom = new(bodyCenter.x, bodyCenter.y - 0.7f);
 
         if (transform.localScale.x < 0)
         {
@@ -198,13 +209,24 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Sets player's horizontal velocity when player is falling off the platform's edge.
     /// </summary>
-    private void SetHorizontalVelocityOnFalling()
+    private void SetVelocityOnFalling()
     {
         // And here again, I can't compare value to Mathf.Epsilon because player has some stupid x velocity when moving left.
-        if (Mathf.Abs(_playerRigidbody.velocity.x) > 0.01 && Mathf.Abs(_playerRigidbody.velocity.x) < _moveSpeed && _playerRigidbody.velocity.y != 0)
+        if (_playerRigidbody.velocity.y > -11)
         {
-            float xVelocity = _moveSpeed * -transform.localScale.x;
-            _playerRigidbody.velocity = new(xVelocity, _playerRigidbody.velocity.y);
+            if (Mathf.Abs(_playerRigidbody.velocity.x) > 0.01 && Mathf.Abs(_playerRigidbody.velocity.x) < _moveSpeed && _playerRigidbody.velocity.y != 0)
+            {
+                float xVelocity = _moveSpeed * -transform.localScale.x;
+                _playerRigidbody.velocity = new(xVelocity, _playerRigidbody.velocity.y);
+            }
+        } else
+        {
+            _playerRigidbody.velocity = new(_playerRigidbody.velocity.x * 0.96f, _playerRigidbody.velocity.y);
+        }
+
+        if (_playerRigidbody.velocity.y < -13)
+        {
+            _playerRigidbody.velocity = new(_playerRigidbody.velocity.x, -13f);
         }
     }
 
@@ -221,7 +243,9 @@ public class PlayerController : MonoBehaviour
     {
         _moveInput = value.Get<Vector2>();
 
-        if (_moveInput.x != 0 && Mathf.Sign(_moveInput.x) == Mathf.Sign(transform.localScale.x))
+        if (_moveInput.x != 0
+            && Mathf.Sign(_moveInput.x) == Mathf.Sign(transform.localScale.x)
+            && IsGrounded())
         {
             _playerAnimator.TriggerBodyFlipping();
         }

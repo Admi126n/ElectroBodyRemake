@@ -49,7 +49,7 @@ public class EnemyBullet : MonoBehaviour
     {
         if (collision.CompareTag(K.T.Room))
         {
-            gameObject.layer = LayerMask.NameToLayer(K.L.IgnoreRaycast);
+            Destroy(gameObject);
         }
     }
 

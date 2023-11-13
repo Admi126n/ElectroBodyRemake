@@ -3,7 +3,7 @@
 /// </summary>
 static class K
 {
-    public static readonly string GameVersion = "Beta v0.7";
+    public static readonly string GameVersion = "Beta v1.1";
 
     /// <summary>
     /// Class with layers names.
@@ -16,6 +16,7 @@ static class K
         public static readonly string InactiveTeleporter = "InactiveTeleporter";
         public static readonly string ImmortalPlayer = "ImmortalPlayer";
         public static readonly string IgnoreRaycast = "Ignore Raycast";
+        public static readonly string Platform = "Platform";
     }
 
     /// <summary>
@@ -51,6 +52,7 @@ static class K
         public static readonly string EnemyWall = "EnemyWall";
         public static readonly string EnemyBullet = "EnemyBullet";
         public static readonly string Room = "Room";
+        public static readonly string Platform = "Platform";
     }
 
     /// <summary>
@@ -69,6 +71,8 @@ static class K
         public static readonly string Teleport = "Teleport";
         public static readonly string WalkSpeed = "WalkSpeed";
         public static readonly string IsTeleporting = "IsTeleporting";
+        public static readonly string SensorDestroyed = "SensorDestroyed";
+        public static readonly string ActivateForceShield = "ActivateForceShield";
     }
 
     public static class Ammo
@@ -85,6 +89,7 @@ static class K
         public static readonly string mainMenu = "MainMenu";
         public static readonly string testLevel = "TestLevel";
         public static readonly string level1 = "Level_1";
+        public static readonly string level2 = "Level_2";
     }
 }
 

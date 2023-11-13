@@ -15,7 +15,7 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
     private Vector3 _teleportingDestination;
     private string _destinationScene;
     private bool _teleportPressed;
-    private bool _canTeleport = false;
+    private bool _canTeleport = true;
 
     private void Start()
     {
@@ -72,6 +72,12 @@ public class PlayerTeleportingController : MonoBehaviour, IPlayerTeleporting
         if (_teleportToAnotherScene)
         {
             FindObjectOfType<ScenePresist>().ResetScenePersist();
+
+            if (_destinationScene == K.LevelName.level2)
+            {
+                SaveManager.saveManagerInstance.SaveGame();
+            }
+
             SceneManager.LoadScene(_destinationScene);
         } else
         {
