@@ -25,21 +25,8 @@ public class Cannon : MonoBehaviour
         _audioPlayer = FindObjectOfType<AudioPlayer>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _boxCollider = GetComponent<BoxCollider2D>();
-    }
 
-    private void Update()
-    {
-        if (!_isActive)
-        {
-            StopCoroutine(_fireingCoroutine);
-            return;
-        }
-
-        if (_fireingCoroutine == null)
-        {
-            _fireingCoroutine = StartCoroutine(FireContinuosly());
-        }
-        
+        _fireingCoroutine = StartCoroutine(FireContinuosly());
     }
 
     private IEnumerator FireContinuosly()
@@ -66,6 +53,7 @@ public class Cannon : MonoBehaviour
         _boxCollider.enabled = false;
         _spriteRenderer.sprite = destroyedCannon;
         _isActive = false;
+        StopCoroutine(_fireingCoroutine);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
