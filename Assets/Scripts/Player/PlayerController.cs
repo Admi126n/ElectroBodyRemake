@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour
     private AudioPlayer _audioPlayer;
     private PlayerAnimator _playerAnimator;
     private PlayerGunController _playerGunController;
-    private PlayerInput _playerInput;
 
     private float _jumpInput;
     private float _moveSpeed;
@@ -46,7 +45,6 @@ public class PlayerController : MonoBehaviour
         _bodyCollider = GetComponent<BoxCollider2D>();
         _playerAnimator = GetComponent<PlayerAnimator>();
         _playerGunController = GetComponent<PlayerGunController>();
-        _playerInput = GetComponent<PlayerInput>();
 
         _moveSpeed = runSpeed;
         CanMove = true;
@@ -215,7 +213,7 @@ public class PlayerController : MonoBehaviour
         // And here again, I can't compare value to Mathf.Epsilon because player has some stupid x velocity when moving left.
         if (_playerRigidbody.velocity.y > -11)
         {
-            if (Mathf.Abs(_playerRigidbody.velocity.x) > 0.01 && Mathf.Abs(_playerRigidbody.velocity.x) < _moveSpeed && _playerRigidbody.velocity.y != 0)
+            if (Mathf.Abs(_playerRigidbody.velocity.x) > 0.01 && _playerRigidbody.velocity.y != 0)
             {
                 float xVelocity = _moveSpeed * -transform.localScale.x;
                 _playerRigidbody.velocity = new(xVelocity, _playerRigidbody.velocity.y);

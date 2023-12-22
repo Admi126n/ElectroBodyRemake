@@ -20,7 +20,6 @@ public class Carne : MonoBehaviour
     [SerializeField] Explosion explosion;
 
     private AudioPlayer _audioPlayer;
-    private Coroutine _fireingCoroutine;
     private Rigidbody2D _enemyRigidbody;
     private bool _canMove = true;
 
@@ -31,8 +30,10 @@ public class Carne : MonoBehaviour
 
         if (hasRandomSpeed)
         {
-            movementSpeed = Random.Range(movementSpeed - 0.5f, movementSpeed + 0.2f);
+            movementSpeed = Random.Range(movementSpeed - 0.1f, movementSpeed + 0.2f);
         }
+
+        StartCoroutine(FireContinuosly());
     }
 
     private void Update()
@@ -40,13 +41,7 @@ public class Carne : MonoBehaviour
         if (_canMove)
         {
             _enemyRigidbody.velocity = new Vector2(movementSpeed * Mathf.Sign(transform.localScale.x), 0);
-        }
-
-        if (_fireingCoroutine == null)
-        {
-            _fireingCoroutine = StartCoroutine(FireContinuosly());
-        }
-        
+        }   
     }
 
     private IEnumerator FireContinuosly()
@@ -88,18 +83,4 @@ public class Carne : MonoBehaviour
             movementSpeed *= -1;
         }
     }
-
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.collider.CompareTag(K.T.PlayerBullet) || collision.collider.CompareTag(K.T.Player))
-    //    {
-    //        Instantiate(explosion, transform.position, transform.rotation);
-
-    //        GetComponent<BoxCollider2D>().enabled = false;
-    //        GetComponent<SpriteRenderer>().enabled = false;
-    //        StopAllCoroutines();
-
-    //        Destroy(gameObject);
-    //    }
-    //}
 }

@@ -22,24 +22,30 @@ public class Respawn : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _playerGun = FindObjectOfType<PlayerGunController>();
         _audioPlayer = FindObjectOfType<AudioPlayer>();
+
+        if (id == 0)
+        {
+            SetDefaultRespawn();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(K.T.Player))
+        if (collision.CompareTag(K.T.Player) && id != ScenePresist.GetRespawnId())
         {
             _spriteRenderer.sprite = activeRespawn;
-
-            if (id != ScenePresist.GetRespawnId())
-            {
-                _gameManager.ResetRespawn(ScenePresist.GetRespawnId());
-                _audioPlayer.PlayRespawnSetClip(transform.position);
-                _playerGun.ResetAmmo();
-                FindObjectOfType<UIManager>().ResetWeaponIndicator();
-            }
-
+            _gameManager.ResetRespawn(ScenePresist.GetRespawnId());
+            _audioPlayer.PlayRespawnSetClip(transform.position);
+            _playerGun.ResetAmmo();
+            FindObjectOfType<UIManager>().ResetWeaponIndicator();
             ScenePresist.SetRespawnId(id);
         }
+    }
+
+    private void SetDefaultRespawn()
+    {
+        _spriteRenderer.sprite = activeRespawn;
+        ScenePresist.SetRespawnId(id);
     }
 
     public void RestRespawn()

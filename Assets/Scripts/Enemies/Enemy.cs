@@ -22,10 +22,8 @@ public class Enemy : MonoBehaviour
 
     private Animator _animator;
     private AudioPlayer _audioPlayer;
-    private Coroutine _fireingCoroutine;
     private Rigidbody2D _enemyRigidbody;
     private bool _canMove = true;
-    private bool _isAlive = true;
 
     private void Start()
     {
@@ -37,22 +35,19 @@ public class Enemy : MonoBehaviour
         {
             movementSpeed = Random.Range(movementSpeed - 0.5f, movementSpeed + 0.5f);
         }
+
+        if (canShoot)
+        {
+            StartCoroutine(FireContinuosly());
+        }
     }
 
     private void Update()
     {
-        if (!_isAlive) return;
-        
         if (_canMove)
         {
             _enemyRigidbody.velocity = new Vector2(movementSpeed * Mathf.Sign(transform.localScale.x), 0);
         }
-
-        if (_fireingCoroutine == null && canShoot)
-        {
-            _fireingCoroutine = StartCoroutine(FireContinuosly());
-        }
-        
     }
 
     private IEnumerator FireContinuosly()
@@ -106,13 +101,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.collider.CompareTag(K.T.PlayerBullet) || collision.collider.CompareTag(K.T.Player))
         {
-            _isAlive = false;
-
             Instantiate(explosion, transform.position, transform.rotation);
-
-            GetComponent<BoxCollider2D>().enabled = false;
-            GetComponent<SpriteRenderer>().enabled = false;
-            StopAllCoroutines();
 
             Destroy(gameObject);
         }
