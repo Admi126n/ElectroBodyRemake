@@ -6,6 +6,8 @@
 
 Projekt ma na celu odtworzenie gry Electro Body oraz wprowadzanie nowych mechanik i rozwiązań kosmetycznych.
 
+Grę w akcji mona zobaczyć na [YouTube](https://www.youtube.com/@admi126n/videos).
+
 ## Licencja
 
 ### Projekt jest udostępniony na licencji [**CC BY-SA 4.0 DEED**](https://creativecommons.org/licenses/by-sa/4.0/deed.pl).
